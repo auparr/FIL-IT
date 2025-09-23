@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Pursuit with Enhanced Vision</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="score">Survival Time: 0s</div>
+    <div id="gameArea">
+      <div id="player"></div>
+      <div id="gameOver">
+        <h1>Game Over!</h1>
+        <p id="finalScore">You survived for 0 seconds</p>
+        <button id="restartBtn">Play Again</button>
+      </div>
+    </div>
+    <div id="instructions">
+      Use arrow keys to move. Avoid the monsters and stay out of their sight!
+    </div>
+    <div id="legend">
+      <span class="legend-item"
+        ><span class="legend-color patrol-color"></span>Patrolling</span
+      >
+      <span class="legend-item"
+        ><span class="legend-color chase-color"></span>Chasing You!</span
+      >
+    </div>
+
+    <!-- Mobile Joystick -->
+    <div class="joystick-container" id="joystick">
+      <div class="joystick-knob" id="joystickKnob"></div>
+    </div>
+
+    <script>
+      // Game elements
+      const player = document.getElementById("player");
+      const gameArea = document.getElementById("gameArea");
+      const scoreDisplay = document.getElementById("score");
+      const gameOverScreen = document.getElementById("gameOver");
+      const finalScoreDisplay = document.getElementById("finalScore");
+      const restartBtn = document.getElementById("restartBtn");
+      let viewportWidth = window.innerWidth;
+      let monsterCount = 0;
+
+      // Game state
+      let gameRunning = true;
+
+      let score = 0;
+      let gameStartTime = Date.now();
+
+      if (viewportWidth <= 780) {
+        monsterCount = 5;
+      }
+      if (viewportWidth > 780) {
+        monsterCount = 9;
+      }
+
+      // }
+      // Create monsters
+      const monsterData = [];
+
+      // Create player
+      let posX = 100,
+        posY = 100;
+      const playerSpeed = 4;
+      let keys = {};
+
+      // Mobile Joystick Variables
+      const joystick = document.getElementById("joystick");
+      const joystickKnob = document.getElementById("joystickKnob");
+      let joystickActive = false;
+      let joystickDirection = { x: 0, y: 0 };
+
+      // Mobile Joystick Functions
+      function initJoystick() {
+        let startX, startY;
+        const maxDistance = 40; // Maximum distance from center
+
+        function handleStart(e) {
+          e.preventDefault();
+          joystickActive = true;
+          const rect = joystick.getBoundingClientRect();
+          startX = rect.left + rect.width / 2;
+          startY = rect.top + rect.height / 2;
+        }
+
+        function handleMove(e) {
+          if (!joystickActive) return;
+          e.preventDefault();
+
+          const touch = e.touches ? e.touches[0] : e;
+          const deltaX = touch.clientX - startX;
+          const deltaY = touch.clientY - startY;
+          const distance = Math.min(
+            maxDistance,
+            Math.sqrt(deltaX * deltaX + deltaY * deltaY)
+          );
+          const angle = Math.atan2(deltaY, deltaX);
+
+          const knobX = Math.cos(angle) * distance;
+          const knobY = Math.sin(angle) * distance;
+
+          joystickKnob.style.transform = `translate(calc(-50% + ${knobX}px), calc(-50% + ${knobY}px))`;
+
+          // Calculate movement direction (normalized)
+          joystickDirection.x = distance > 5 ? knobX / maxDistance : 0;
+          joystickDirection.y = distance > 5 ? knobY / maxDistance : 0;
+        }
+
+        function handleEnd(e) {
+          e.preventDefault();
+          joystickActive = false;
+          joystickKnob.style.transform = "translate(-50%, -50%)";
+          joystickDirection.x = 0;
+          joystickDirection.y = 0;
+        }
+
+        // Touch events
+        joystick.addEventListener("touchstart", handleStart, {
+          passive: false,
+        });
+        document.addEventListener("touchmove", handleMove, { passive: false });
+        document.addEventListener("touchend", handleEnd, { passive: false });
+
+        // Mouse events for testing on desktop
+        joystick.addEventListener("mousedown", handleStart);
+        document.addEventListener("mousemove", handleMove);
+        document.addEventListener("mouseup", handleEnd);
+      }
+
+      // Create monsters
+      function createMonsters() {
+        for (let i = 0; i < monsterCount; i++) {
+          const monster = document.createElement("div");
+          monster.classList.add("obstacle");
+
+          // Random position that's not too close to player
+          let x, y;
+          do {
+            x = Math.random() * (gameArea.offsetWidth - 50);
+            y = Math.random() * (gameArea.offsetHeight - 50);
+          } while (Math.abs(x - posX) < 150 && Math.abs(y - posY) < 150);
+
+          monster.style.left = x + "px";
+          monster.style.top = y + "px";
+          gameArea.appendChild(monster);
+
+          const vision = document.createElement("div");
+          vision.classList.add("vision");
+          gameArea.appendChild(vision);
+
+          // Random initial direction
+          let angle = Math.random() * 2 * Math.PI;
+
+          monsterData.push({
+            el: monster,
+            vision: vision,
+            x: x,
+            y: y,
+            dx: Math.cos(angle) * 2,
+            dy: Math.sin(angle) * 2,
+            chaseSpeed: 2.5,
+            visionRange: 150,
+            visionAngle: (60 * Math.PI) / 180,
+            isChasing: false,
+            direction: angle,
+          });
+        }
+      }
+
+      // Initialize game
+      function initGame() {
+        // Reset game state
+        gameRunning = true;
+        score = 0;
+        gameStartTime = Date.now();
+        gameOverScreen.style.display = "none";
+
+        // Reset player position
+        posX = 100;
+        posY = 100;
+        player.style.left = posX + "px";
+        player.style.top = posY + "px";
+
+        // Clear existing monsters
+        monsterData.length = 0;
+        document
+          .querySelectorAll(".obstacle, .vision")
+          .forEach((el) => el.remove());
+
+        // Create new monsters
+        createMonsters();
+
+        // Start game loop
+        update();
+      }
+
+      // Handle keyboard input
+      document.addEventListener("keydown", (e) => {
+        if (
+          ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)
+        ) {
+          keys[e.key] = true;
+          e.preventDefault(); // Prevent scrolling
+        }
+      });
+
+      document.addEventListener("keyup", (e) => {
+        if (
+          ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)
+        ) {
+          keys[e.key] = false;
+        }
+      });
+
+      // Collision detection
+      function checkCollision(player, monster) {
+        const playerRect = player.getBoundingClientRect();
+        const monsterRect = monster.getBoundingClientRect();
+
+        return !(
+          playerRect.right < monsterRect.left ||
+          playerRect.left > monsterRect.right ||
+          playerRect.bottom < monsterRect.top ||
+          playerRect.top > monsterRect.bottom
+        );
+      }
+
+      // Game over
+      function gameOver() {
+        gameRunning = false;
+        finalScoreDisplay.textContent = `You survived for ${score} seconds`;
+        gameOverScreen.style.display = "flex";
+      }
+
+      // Update score
+      function updateScore() {
+        score = Math.floor((Date.now() - gameStartTime) / 1000);
+        scoreDisplay.textContent = `Survival Time: ${score}s`;
+      }
+
+      // Main game loop
+      function update() {
+        if (!gameRunning) return;
+
+        const areaRect = gameArea.getBoundingClientRect();
+
+        // Update score
+        updateScore();
+
+        // Move player (keyboard controls)
+        if (keys["ArrowUp"] && posY > 0) posY -= playerSpeed;
+        if (keys["ArrowDown"] && posY + player.offsetHeight < areaRect.height)
+          posY += playerSpeed;
+        if (keys["ArrowLeft"] && posX > 0) posX -= playerSpeed;
+        if (keys["ArrowRight"] && posX + player.offsetWidth < areaRect.width)
+          posX += playerSpeed;
+
+        // Move player (joystick controls)
+        if (joystickDirection.x !== 0 || joystickDirection.y !== 0) {
+          const newX = posX + joystickDirection.x * playerSpeed;
+          const newY = posY + joystickDirection.y * playerSpeed;
+
+          if (newX >= 0 && newX + player.offsetWidth <= areaRect.width) {
+            posX = newX;
+          }
+          if (newY >= 0 && newY + player.offsetHeight <= areaRect.height) {
+            posY = newY;
+          }
+        }
+
+        player.style.left = posX + "px";
+        player.style.top = posY + "px";
+
+        // Update monsters
+        monsterData.forEach((data) => {
+          const monster = data.el;
+          const vision = data.vision;
+
+          // Calculate distance and angle to player
+          let dx = posX - data.x;
+          let dy = posY - data.y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+
+          // Current direction angle
+          let dirAngle = Math.atan2(data.dy, data.dx);
+          data.direction = dirAngle;
+
+          // Angle to player
+          let playerAngle = Math.atan2(dy, dx);
+
+          // Angle difference
+          let angleDiff = Math.abs(dirAngle - playerAngle);
+          if (angleDiff > Math.PI) angleDiff = 2 * Math.PI - angleDiff;
+
+          // Check if player is in vision cone
+          let canSee =
+            distance < data.visionRange && angleDiff < data.visionAngle / 2;
+
+          // Update chasing state
+          if (canSee !== data.isChasing) {
+            data.isChasing = canSee;
+            vision.classList.toggle("chasing", canSee);
+            monster.classList.toggle("chasing-monster", canSee);
+            monster.style.transform = canSee ? "scale(1.1)" : "scale(1)";
+          }
+
+          if (canSee) {
+            // Chase player
+            let normX = dx / distance;
+            let normY = dy / distance;
+            data.x += normX * data.chaseSpeed;
+            data.y += normY * data.chaseSpeed;
+            data.dx = normX * 2;
+            data.dy = normY * 2;
+          } else {
+            // Random movement with occasional direction changes
+            if (Math.random() < 0.02) {
+              let newAngle = data.direction + (Math.random() - 0.5) * 0.5;
+              data.dx = Math.cos(newAngle) * 2;
+              data.dy = Math.sin(newAngle) * 2;
+            }
+
+            data.x += data.dx;
+            data.y += data.dy;
+
+            // Bounce off walls
+            if (data.x <= 0 || data.x + monster.offsetWidth >= areaRect.width) {
+              data.dx *= -1;
+            }
+            if (
+              data.y <= 0 ||
+              data.y + monster.offsetHeight >= areaRect.height
+            ) {
+              data.dy *= -1;
+            }
+          }
+
+          // Keep monsters within bounds
+          data.x = Math.max(
+            0,
+            Math.min(data.x, areaRect.width - monster.offsetWidth)
+          );
+          data.y = Math.max(
+            0,
+            Math.min(data.y, areaRect.height - monster.offsetHeight)
+          );
+
+          // Update monster position
+          monster.style.left = data.x + "px";
+          monster.style.top = data.y + "px";
+
+          // Update direction indicator
+          let deg = Math.atan2(data.dy, data.dx) * (180 / Math.PI);
+          monster.style.setProperty("--direction", `${deg + 90}deg`);
+          monster.querySelector = null; // Reset for CSS
+
+          // Update vision cone position and rotation
+          // Position cone behind the monster based on its direction
+          let backX =
+            data.x +
+            monster.offsetWidth / 2 -
+            Math.cos(Math.atan2(data.dy, data.dx)) * -75;
+          let backY =
+            data.y +
+            monster.offsetHeight / 2 -
+            Math.sin(Math.atan2(data.dy, data.dx)) * -75;
+
+          vision.style.left = backX - 75 + "px";
+          vision.style.top = backY + "px";
+          let visionDeg = Math.atan2(data.dy, data.dx) * (180 / Math.PI) - 90;
+          vision.style.transform = `rotate(${visionDeg}deg)`;
+
+          // Check collision
+          if (checkCollision(player, monster)) {
+            gameOver();
+          }
+        });
+
+        requestAnimationFrame(update);
+      }
+
+      // Restart game
+      restartBtn.addEventListener("click", initGame);
+
+      // Initialize joystick
+      initJoystick();
+
+      // Start the game
+      initGame();
+    </script>
+  </body>
+</html>
