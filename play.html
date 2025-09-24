@@ -106,6 +106,12 @@
         gameOverScreen.style.display = "none";
         hideMathQuestion();
 
+        if (window.innerWidth <= 1024) {
+          document.getElementById("joystick").style.display = "block";
+        } else {
+          document.getElementById("joystick").style.display = "none";
+        }
+
         // Reset player position
         posX = 100;
         posY = 100;
