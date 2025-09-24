@@ -64,7 +64,9 @@ function checkAnswer() {
   const userAnswer = parseInt(document.getElementById("answerInput").value);
 
   if (userAnswer === currentQuestion.answer) {
-    document.getElementById("joystick").style.display = "block";
+    if (window.innerWidth <= 1024) {
+      document.getElementById("joystick").style.display = "block";
+    }
     // Correct answer - remove the monster and continue game
     if (currentCollidingMonster) {
       // Remove the monster and its vision cone from DOM
