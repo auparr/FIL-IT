@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Pursuit with Enhanced Vision</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="score">Survival Time: 0s</div>
+    <div id="gameArea">
+      <div id="player"></div>
+      <div id="gameOver">
+        <h1>Game Over!</h1>
+        <p id="finalScore">You survived for 0 seconds</p>
+        <button id="restartBtn">Play Again</button>
+        <button id="menuBtn">Back to Menu</button>
+      </div>
+
+      <!-- Math Question Modal -->
+      <div id="mathQuestion">
+        <div class="math-modal">
+          <h2>Quick Math!</h2>
+          <p>Answer correctly to escape the monster!</p>
+          <div id="questionText" class="question"></div>
+          <input type="number" id="answerInput" placeholder="Your answer..." />
+          <div class="math-buttons">
+            <button id="submitAnswer">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="instructions">
+      Use arrow keys to move. Avoid the monsters and answer math questions to
+      escape!
+    </div>
+    <div id="legend">
+      <span class="legend-item"
+        ><span class="legend-color patrol-color"></span>Patrolling</span
+      >
+      <span class="legend-item"
+        ><span class="legend-color chase-color"></span>Chasing You!</span
+      >
+    </div>
+
+    <!-- Mobile Joystick -->
+    <div class="joystick-container" id="joystick">
+      <div class="joystick-knob" id="joystickKnob"></div>
+    </div>
+
+    <script src="collision.js"></script>
+    <script src="gameLoop.js"></script>
+    <script src="gameOver.js"></script>
+    <script src="joyStick.js"></script>
+    <script src="keyMove.js"></script>
+    <script src="math.js"></script>
+    <script src="monster.js"></script>
+    <script src="updateScore.js"></script>
+    <script>
+      // Collision detection
+
+      // Mobile Joystick Variables
+
+      // Handle keyboard input
+
+      // Math question system
+
+      const player = document.getElementById("player");
+      const gameArea = document.getElementById("gameArea");
+      const scoreDisplay = document.getElementById("score");
+      const gameOverScreen = document.getElementById("gameOver");
+      const finalScoreDisplay = document.getElementById("finalScore");
+      const restartBtn = document.getElementById("restartBtn");
+      const menuBtn = document.getElementById("menuBtn");
+      let viewportWidth = window.innerWidth;
+      let monsterCount = 0;
+
+      // Game state
+      let gameRunning = true;
+
+      let score = 0;
+      let gameStartTime = Date.now();
+
+      if (viewportWidth <= 780) {
+        monsterCount = 5;
+      }
+      if (viewportWidth > 780) {
+        monsterCount = 9;
+      }
+
+      const monsterData = [];
+
+      // Create player
+      let posX = 100,
+        posY = 100;
+      const playerSpeed = 4;
+      let keys = {};
+
+      // Initialize game
+      function initGame() {
+        // Reset game state
+        gameRunning = true;
+        mathQuestionActive = false;
+        score = 0;
+        gameStartTime = Date.now();
+        gameOverScreen.style.display = "none";
+        hideMathQuestion();
+
+        // Reset player position
+        posX = 100;
+        posY = 100;
+        player.style.left = posX + "px";
+        player.style.top = posY + "px";
+
+        // Clear existing monsters
+        monsterData.length = 0;
+        document
+          .querySelectorAll(".obstacle, .vision")
+          .forEach((el) => el.remove());
+
+        // Create new monsters
+        createMonsters();
+
+        // Start game loop
+        update();
+      }
+
+      // Restart game
+      restartBtn.addEventListener("pointerdown", initGame);
+      menuBtn.addEventListener("pointerdown", () => {
+        window.location.href = "index.html";
+      });
+
+      // Submit answer button
+      document
+        .getElementById("submitAnswer")
+        .addEventListener("pointerdown", checkAnswer);
+
+      // Initialize joystick
+      initJoystick();
+
+      // Start the game
+      initGame();
+    </script>
+  </body>
+</html>

@@ -50,6 +50,7 @@ function showMathQuestion(monsterData) {
   const mathModal = document.getElementById("mathQuestion");
   const questionText = document.getElementById("questionText");
   const answerInput = document.getElementById("answerInput");
+  document.getElementById("joystick").style.display = "none";
 
   questionText.textContent = currentQuestion.question;
   answerInput.value = "";
@@ -63,6 +64,7 @@ function checkAnswer() {
   const userAnswer = parseInt(document.getElementById("answerInput").value);
 
   if (userAnswer === currentQuestion.answer) {
+    document.getElementById("joystick").style.display = "block";
     // Correct answer - remove the monster and continue game
     if (currentCollidingMonster) {
       // Remove the monster and its vision cone from DOM

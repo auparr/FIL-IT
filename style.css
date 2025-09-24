@@ -141,7 +141,8 @@ body {
   z-index: 10;
   display: none;
 }
-#restartBtn {
+#restartBtn,
+#menuBtn {
   margin-top: 20px;
   padding: 10px 20px;
   background: dodgerblue;
@@ -152,7 +153,8 @@ body {
   cursor: pointer;
   transition: background 0.3s;
 }
-#restartBtn:hover {
+#restartBtn:hover,
+#menuBtn:hover {
   background: deepskyblue;
 }
 
@@ -219,6 +221,9 @@ body {
     display: none;
   }
   #restartBtn {
+    z-index: 100000;
+  }
+  #menuBtn {
     z-index: 100000;
   }
   .math-modal {
