@@ -1,8 +1,12 @@
-// Handle keyboard input
 document.addEventListener("keydown", (e) => {
   if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
     keys[e.key] = true;
     e.preventDefault(); // Prevent scrolling
+  }
+
+  // Handle Enter key for math questions
+  if (e.key === "Enter" && mathQuestionActive) {
+    checkAnswer();
   }
 });
 

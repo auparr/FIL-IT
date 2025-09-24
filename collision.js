@@ -1,4 +1,3 @@
-// Collision detection
 function checkCollision(player, monster) {
   const playerRect = player.getBoundingClientRect();
   const monsterRect = monster.getBoundingClientRect();

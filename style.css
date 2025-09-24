@@ -221,4 +221,121 @@ body {
   #restartBtn {
     z-index: 100000;
   }
+  .math-modal {
+    padding: 20px;
+  }
+  .question {
+    font-size: 28px;
+  }
+  #answerInput {
+    width: 150px;
+    font-size: 20px;
+  }
+}
+
+#mathQuestion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.math-modal {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border: 3px solid #0066cc;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 102, 204, 0.6);
+  max-width: 400px;
+  width: 90%;
+}
+
+.math-modal h2 {
+  color: #ff6b6b;
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.math-modal p {
+  color: #ffd93d;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.question {
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+#answerInput {
+  font-size: 24px;
+  padding: 15px;
+  width: 200px;
+  border: 3px solid #0066cc;
+  border-radius: 8px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  margin: 15px 0;
+}
+
+#answerInput:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+.math-buttons {
+  margin-top: 20px;
+}
+
+#submitAnswer {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#submitAnswer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
 }

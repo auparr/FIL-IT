@@ -1,4 +1,3 @@
-// Mobile Joystick Variables
 const joystick = document.getElementById("joystick");
 const joystickKnob = document.getElementById("joystickKnob");
 let joystickActive = false;
@@ -61,15 +60,42 @@ function initJoystick() {
   document.addEventListener("mouseup", handleEnd);
 }
 
-// Move player (joystick controls)
-if (joystickDirection.x !== 0 || joystickDirection.y !== 0) {
-  const newX = posX + joystickDirection.x * playerSpeed;
-  const newY = posY + joystickDirection.y * playerSpeed;
+// Create monsters
+function createMonsters() {
+  for (let i = 0; i < monsterCount; i++) {
+    const monster = document.createElement("div");
+    monster.classList.add("obstacle");
 
-  if (newX >= 0 && newX + player.offsetWidth <= areaRect.width) {
-    posX = newX;
-  }
-  if (newY >= 0 && newY + player.offsetHeight <= areaRect.height) {
-    posY = newY;
+    // Random position that's not too close to player
+    let x, y;
+    do {
+      x = Math.random() * (gameArea.offsetWidth - 50);
+      y = Math.random() * (gameArea.offsetHeight - 50);
+    } while (Math.abs(x - posX) < 150 && Math.abs(y - posY) < 150);
+
+    monster.style.left = x + "px";
+    monster.style.top = y + "px";
+    gameArea.appendChild(monster);
+
+    const vision = document.createElement("div");
+    vision.classList.add("vision");
+    gameArea.appendChild(vision);
+
+    // Random initial direction
+    let angle = Math.random() * 2 * Math.PI;
+
+    monsterData.push({
+      el: monster,
+      vision: vision,
+      x: x,
+      y: y,
+      dx: Math.cos(angle) * 2,
+      dy: Math.sin(angle) * 2,
+      chaseSpeed: 2.5,
+      visionRange: 150,
+      visionAngle: (60 * Math.PI) / 180,
+      isChasing: false,
+      direction: angle,
+    });
   }
 }

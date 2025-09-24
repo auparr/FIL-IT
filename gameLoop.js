@@ -1,5 +1,5 @@
 function update() {
-  if (!gameRunning) return;
+  if (!gameRunning || mathQuestionActive) return;
 
   const areaRect = gameArea.getBoundingClientRect();
 
@@ -126,9 +126,10 @@ function update() {
     let visionDeg = Math.atan2(data.dy, data.dx) * (180 / Math.PI) - 90;
     vision.style.transform = `rotate(${visionDeg}deg)`;
 
-    // Check collision
+    // Check collision - show math question instead of immediate game over
     if (checkCollision(player, monster)) {
-      gameOver();
+      showMathQuestion(data); // Pass the monster data to the function
+      return; // Stop processing other monsters when question appears
     }
   });
 
