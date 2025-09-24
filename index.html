@@ -41,7 +41,6 @@
     <script src="gameLoop.js"></script>
     <script src="updateScore.js"></script>
     <script>
-      // Game elements
       const player = document.getElementById("player");
       const gameArea = document.getElementById("gameArea");
       const scoreDisplay = document.getElementById("score");
@@ -99,7 +98,7 @@
         update();
       }
       // Restart game
-      restartBtn.addEventListener("click", initGame);
+      restartBtn.addEventListener("pointerdown", initGame);
 
       // Initialize joystick
       initJoystick();
