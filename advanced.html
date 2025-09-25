@@ -371,45 +371,53 @@
         switch (type) {
           case "rational_multiple_derivatives":
             // lim x→a (P(x))/(Q(x)) dengan P(a)=0, Q(a)=0, dan perlu turunan berulang
-            const a1 = getRandomInt(1, 3);
-            const b1 = getRandomInt(1, 3);
-            // Pastikan setelah dua kali turunan hasilnya bulat
-            const k1 = getRandomInt(1, 3); // Faktor pengali untuk memastikan hasil bulat
+            const a1 = getRandomInt(1, 25);
+            const m1 = getRandomInt(1, 25);
+            const n1 = getRandomInt(2, 6); // Pangkat untuk membuat perlu turunan berulang
 
-            // P(x) = k(x-a)²(x-b), Q(x) = (x-a)²
-            // lim x→a [k(x-a)²(x-b)]/[(x-a)²] = lim x→a k(x-b) = k(a-b) -> bulat
-            // Tapi ini tidak perlu L'Hôpital. Jadi kita buat yang lebih kompleks:
-
-            // P(x) = k(x-a)³, Q(x) = (x-a)²
-            // Substitusi: 0/0
-            // L'Hôpital: P'(x)=3k(x-a)², Q'(x)=2(x-a) -> masih 0/0
-            // L'Hôpital lagi: P''(x)=6k(x-a), Q''(x)=2 -> hasil: 6k(a-a)/2 = 0 (selalu 0)
-            // Ini tidak menarik karena selalu 0.
-
-            // Alternatif: P(x) = k(x-a)³ + m(x-a)², Q(x) = (x-a)²
-            // L'Hôpital pertama: P'(x)=3k(x-a)² + 2m(x-a), Q'(x)=2(x-a) -> masih 0/0
-            // L'Hôpital kedua: P''(x)=6k(x-a) + 2m, Q''(x)=2 -> hasil: (6k(a-a)+2m)/2 = m
-            // Jadi kita atur m bilangan bulat.
-
-            const m1 = getRandomInt(1, 5);
-            question = `\\[\\lim_{x \\to ${a1}} \\frac{${k1}(x-${a1})^3 + ${m1}(x-${a1})^2}{(x-${a1})^2}\\]`;
-            answer = m1;
+            // P(x) = m(x-a)^n, Q(x) = (x-a)^(n-1)
+            // Setelah n-1 kali turunan, hasilnya m*n! / (n-1)! = m*n
+            question = `\\[\\lim_{x \\to ${a1}} \\frac{${m1}(x-${a1})^{${n1}}}{(x-${a1})^{${
+              n1 - 1
+            }}}\\]`;
+            answer = m1 * n1;
             steps = `Langkah penyelesaian:
-1. Substitusi x = ${a1} menghasilkan: ${k1}(${a1}-${a1})³ + ${m1}(${a1}-${a1})² / (${a1}-${a1})² = 0/0 (bentuk tak tentu)
+1. Substitusi x = ${a1} menghasilkan: ${m1}(${a1}-${a1})^{${n1}} / (${a1}-${a1})^{${
+              n1 - 1
+            }} = 0/0 (bentuk tak tentu)
 2. Terapkan Aturan L'Hôpital (turunan pembilang dan penyebut):
-   \\[\\lim_{x \\to ${a1}} \\frac{3\\cdot${k1}(x-${a1})^2 + 2\\cdot${m1}(x-${a1})}{2(x-${a1})}\\]
-3. Sederhanakan: \\[\\lim_{x \\to ${a1}} \\frac{3\\cdot${k1}(x-${a1}) + 2\\cdot${m1}}{2}\\]
-4. Masih bentuk 0/0? Periksa: substitusi x=${a1} -> (3⋅${k1}⋅0 + 2⋅${m1})/2 = ${
-              2 * m1
-            }/2 = ${m1} (bukan 0/0)
-5. Sebenarnya setelah penyederhanaan, limit dapat dihitung langsung: \\[\\frac{2\\cdot${m1}}{2} = ${m1}\\]`;
+   \\[\\lim_{x \\to ${a1}} \\frac{${m1 * n1}(x-${a1})^{${n1 - 1}}}{${
+              n1 - 1
+            }(x-${a1})^{${n1 - 2}}}\\]
+3. ${
+              n1 > 2
+                ? "Masih bentuk 0/0. Terapkan L'Hôpital lagi."
+                : "Substitusi x = " +
+                  a1 +
+                  ": " +
+                  m1 * n1 +
+                  "(" +
+                  a1 +
+                  "-" +
+                  a1 +
+                  ")/" +
+                  (n1 - 1) +
+                  " = 0/0? Periksa: sebenarnya setelah penyederhanaan, limit dapat dihitung langsung."
+            }
+4. Setelah ${n1 - 1} kali penerapan L'Hôpital, diperoleh:
+   \\[\\lim_{x \\to ${a1}} \\frac{${m1 * n1}!}{${n1 - 1}!} = ${m1 * n1}\\]
+5. Jadi hasil limitnya adalah ${answer}`;
             qType = "Rasional - Turunan Berganda";
             break;
 
           case "exponential_rational":
             // lim x→0 (e^(ax) - e^(bx))/(cx)
-            const a2 = getRandomInt(1, 3);
-            const b2 = getRandomInt(1, 3);
+            const a2 = getRandomInt(1, 25);
+            const b2 = getRandomInt(1, 25);
+            // Pastikan a2 ≠ b2 agar tidak selalu 0
+            if (a2 === b2) {
+              b2 = a2 + 1;
+            }
             const c2 = a2 - b2; // Agar hasilnya 1
 
             question = `\\[\\lim_{x \\to 0} \\frac{e^{${a2}x} - e^{${b2}x}}{${c2}x}\\]`;
@@ -425,75 +433,95 @@
             break;
 
           case "trigonometric_rational":
-            // lim x→0 (sin(ax) - sin(bx))/(cx³) -> butuh L'Hôpital 3 kali
-            const a3 = getRandomInt(2, 4);
-            const b3 = getRandomInt(1, 3);
-            // Agar hasilnya bulat, atur parameter
-            const c3 = 6; // Pembagi tetap
+            // lim x→0 (sin(ax) - ax)/(cx^3) - Diperbaiki untuk hasil bilangan bulat
+            let a3, c3;
+            let attempts = 0;
 
-            question = `\\[\\lim_{x \\to 0} \\frac{\\sin(${a3}x) - \\sin(${b3}x)}{${c3}x^3}\\]`;
-            answer = (a3 * a3 * a3 - b3 * b3 * b3) / (6 * c3);
-            steps = `Langkah penyelesaian:
-1. Substitusi x = 0 menghasilkan: (sin 0 - sin 0)/0 = 0/0 (bentuk tak tentu)
-2. Terapkan Aturan L'Hôpital pertama:
-   \\[\\lim_{x \\to 0} \\frac{${a3}\\cos(${a3}x) - ${b3}\\cos(${b3}x)}{${
-              3 * c3
-            }x^2}\\]
-3. Masih 0/0? Substitusi x=0: (${a3}⋅1 - ${b3}⋅1)/0 = ${
-              a3 - b3
-            }/0 ≠ 0/0 jika ${a3}≠${b3}
-4. Perbaiki: Kita butuh a3 = b3 untuk mendapatkan 0/0, atau gunakan bentuk lain.
-   
-   Mari gunakan bentuk yang tepat: lim x→0 (sin(ax) - ax)/(cx³)
-   
-   Ubah soal:`;
+            // Cari kombinasi a dan c yang menghasilkan bilangan bulat
+            do {
+              a3 = getRandomInt(2, 25);
+              c3 = getRandomInt(1, 25);
+              // Hitung jawaban: -a^3/(6c)
+              answer = -(a3 * a3 * a3) / (6 * c3);
+              attempts++;
 
-            // Ganti dengan bentuk yang lebih tepat
-            const a3b = getRandomInt(2, 4);
-            question = `\\[\\lim_{x \\to 0} \\frac{\\sin(${a3b}x) - ${a3b}x}{${c3}x^3}\\]`;
-            answer = -(a3b * a3b * a3b) / (6 * c3);
+              // Batasi percobaan
+              if (attempts > 20) {
+                // Gunakan kombinasi yang dijamin menghasilkan bilangan bulat
+                a3 = 6;
+                c3 = 1;
+                answer = -(a3 * a3 * a3) / (6 * c3); // -216/6 = -36
+                break;
+              }
+            } while (!Number.isInteger(answer));
+
+            question = `\\[\\lim_{x \\to 0} \\frac{\\sin(${a3}x) - ${a3}x}{${c3}x^3}\\]`;
             steps = `Langkah penyelesaian:
 1. Substitusi x = 0 menghasilkan: (sin 0 - 0)/0 = 0/0 (bentuk tak tentu)
 2. Terapkan Aturan L'Hôpital pertama:
-   \\[\\lim_{x \\to 0} \\frac{${a3b}\\cos(${a3b}x) - ${a3b}}{${
+   \\[\\lim_{x \\to 0} \\frac{${a3}\\cos(${a3}x) - ${a3}}{${
               3 * c3
-            }x^2} = \\lim_{x \\to 0} \\frac{${a3b}(\\cos(${a3b}x) - 1)}{${
+            }x^2} = \\lim_{x \\to 0} \\frac{${a3}(\\cos(${a3}x) - 1)}{${
               3 * c3
             }x^2}\\]
 3. Masih bentuk 0/0. Terapkan L'Hôpital kedua:
-   \\[\\lim_{x \\to 0} \\frac{${a3b}(-${a3b}\\sin(${a3b}x))}{${
+   \\[\\lim_{x \\to 0} \\frac{${a3}(-${a3}\\sin(${a3}x))}{${
               6 * c3
-            }x} = \\lim_{x \\to 0} \\frac{-${a3b * a3b}\\sin(${a3b}x)}{${
+            }x} = \\lim_{x \\to 0} \\frac{-${a3 * a3}\\sin(${a3}x)}{${
               6 * c3
             }x}\\]
 4. Gunakan limit trigonometri dasar: lim x→0 sin(kx)/x = k
-5. Hasil: \\[\\frac{-${a3b * a3b} \\cdot ${a3b}}{${6 * c3}} = \\frac{-${
-              a3b * a3b * a3b
+5. Hasil: \\[\\frac{-${a3 * a3} \\cdot ${a3}}{${6 * c3}} = \\frac{-${
+              a3 * a3 * a3
             }}{${6 * c3}} = ${answer}\\]`;
             qType = "Trigonometri-Rasional";
             break;
 
           case "logarithmic_indeterminate":
             // lim x→1 (ln(x))/(x-1)
-            const a4 = 1; // Titik limit
+            // pilih pangkat p untuk mempengaruhi integer hasil
+            const p = getRandomInt(1, 15); // pangkat ln(x^p)
+            // pilih titik limit a sebagai pembagi p agar p/a bulat
+            const divisors = [];
+            for (let i = 1; i <= p; i++) if (p % i === 0) divisors.push(i);
+            const a = getRandomElement(divisors);
 
-            question = `\\[\\lim_{x \\to ${a4}} \\frac{\\ln(x)}{x-${a4}}\\]`;
-            answer = 1;
+            question = `\\[\\lim_{x \\to ${a}} \\frac{\\ln(x^{${p}})}{x - ${a}}\\]`;
+            answer = p / a;
             steps = `Langkah penyelesaian:
-1. Substitusi x = ${a4} menghasilkan: ln(${a4})/(${a4}-${a4}) = 0/0 (bentuk tak tentu)
-2. Terapkan Aturan L'Hôpital (turunan pembilang dan penyebut):
-   \\[\\lim_{x \\to ${a4}} \\frac{\\frac{1}{x}}{1} = \\lim_{x \\to ${a4}} \\frac{1}{x}\\]
-3. Substitusi x = ${a4}: \\[\\frac{1}{${a4}} = 1\\]`;
+1. Substitusi x = ${a}: ln(${a}^${p})/(${a}-${a}) = 0/0 (bentuk tak tentu)
+2. Terapkan Aturan L'Hôpital:
+   Turunan pembilang = \\(\\frac{${p}}{x}\\), turunan penyebut = 1
+3. Evaluasi di x=${a}:
+   \\[\\frac{${p}}{${a}} = ${p / a}\\]`;
+
             qType = "Logaritma";
             break;
 
           case "mixed_functions":
-            // lim x→0 (e^(ax) - 1 - ax)/(bx²)
-            const a5 = getRandomInt(1, 3);
-            const b5 = 2; // Agar hasilnya bulat
+            // lim x→0 (e^(ax) - 1 - ax)/(bx²) - Diperbaiki untuk hasil bilangan bulat
+            let a5, b5;
+            let attempts2 = 0;
+
+            // Cari kombinasi a dan b yang menghasilkan bilangan bulat
+            do {
+              a5 = getRandomInt(1, 25);
+              b5 = getRandomInt(1, 25);
+              // Hitung jawaban: a^2/(2b)
+              answer = (a5 * a5) / (2 * b5);
+              attempts2++;
+
+              // Batasi percobaan
+              if (attempts2 > 20) {
+                // Gunakan kombinasi yang dijamin menghasilkan bilangan bulat
+                a5 = 2;
+                b5 = 1;
+                answer = (a5 * a5) / (2 * b5); // 4/2 = 2
+                break;
+              }
+            } while (!Number.isInteger(answer));
 
             question = `\\[\\lim_{x \\to 0} \\frac{e^{${a5}x} - 1 - ${a5}x}{${b5}x^2}\\]`;
-            answer = (a5 * a5) / (2 * b5);
             steps = `Langkah penyelesaian:
 1. Substitusi x = 0 menghasilkan: (e⁰ - 1 - 0)/0 = (1-1-0)/0 = 0/0 (bentuk tak tentu)
 2. Terapkan Aturan L'Hôpital pertama:
