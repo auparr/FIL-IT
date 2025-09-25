@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator Soal Limit Bentuk Tak Tentu</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        color: #333;
+        line-height: 1.6;
+      }
+      .container {
+        background-color: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        text-align: center;
+        color: #7f8c8d;
+        margin-bottom: 30px;
+      }
+      .question-box {
+        background-color: #f8f9fa;
+        border: 2px solid #e9ecef;
+        padding: 25px;
+        margin: 25px 0;
+        border-radius: 10px;
+        text-align: center;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #questionText {
+        font-size: 24px;
+        color: #2c3e50;
+      }
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        margin: 25px 0;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      button {
+        background: linear-gradient(to right, #3498db, #2980b9);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s;
+        flex: 1;
+        min-width: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+      button:active {
+        transform: translateY(0);
+      }
+      .input-group {
+        margin: 20px 0;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+      input {
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+      }
+      input:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+      }
+      .result {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 10px;
+        display: none;
+        animation: fadeIn 0.5s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .correct {
+        background-color: #d4edda;
+        color: #155724;
+        border: 2px solid #c3e6cb;
+      }
+      .incorrect {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 2px solid #f5c6cb;
+      }
+      .explanation {
+        margin-top: 15px;
+        font-style: italic;
+        color: #555;
+        line-height: 1.5;
+      }
+      .solution {
+        margin-top: 15px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        border-left: 4px solid #3498db;
+        display: none;
+      }
+      .difficulty-info {
+        background-color: #e8f4fc;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        border-left: 5px solid #3498db;
+      }
+      .difficulty-info h3 {
+        margin-top: 0;
+        color: #2c3e50;
+      }
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+      }
+      .stat-item {
+        flex: 1;
+      }
+      .stat-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #3498db;
+      }
+      .stat-label {
+        font-size: 14px;
+        color: #7f8c8d;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #7f8c8d;
+        font-size: 14px;
+      }
+      .hint {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #856404;
+      }
+      .integer-only {
+        background-color: #d1ecf1;
+        border: 1px solid #bee5eb;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #0c5460;
+      }
+      .method-info {
+        background-color: #e8f4fc;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+      .method-info h4 {
+        margin-top: 0;
+        color: #2c3e50;
+      }
+      #solutionSteps {
+        white-space: pre-line;
+        line-height: 1.5;
+      }
+      #showSolutionBtn {
+        background: linear-gradient(to right, #27ae60, #219653);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generator Soal Limit Bentuk Tak Tentu</h1>
+      <p class="subtitle">
+        Tingkat Kesulitan: Menengah • Bentuk 0/0 • Jawaban Bilangan Bulat
+      </p>
+
+      <div class="difficulty-info">
+        <h3>Tingkat Kesulitan: Menengah</h3>
+        <p>
+          Soal pada tingkat ini menghasilkan bentuk tak tentu
+          <strong>0/0</strong> saat disubstitusi langsung, dan harus
+          diselesaikan dengan:
+        </p>
+        <div class="method-info">
+          <h4>Metode Penyelesaian:</h4>
+          <ul>
+            <li>
+              <strong>Faktorisasi</strong> - Memfaktorkan pembilang dan penyebut
+              lalu mencoret faktor yang sama
+            </li>
+            <li>
+              <strong>Rasionalisasi</strong> - Mengalikan dengan bentuk sekawan
+              untuk menghilangkan akar
+            </li>
+          </ul>
+        </div>
+        <div class="integer-only">
+          <strong>Fitur Khusus:</strong> Semua soal dijamin memiliki jawaban
+          <strong>bilangan bulat</strong>.
+        </div>
+        <div class="hint">
+          <strong>Tips:</strong> Substitusikan nilai x yang didekati terlebih
+          dahulu. Jika hasilnya 0/0, gunakan metode faktorisasi atau
+          rasionalisasi.
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-value" id="totalQuestions">0</div>
+          <div class="stat-label">Total Soal</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="correctAnswers">0</div>
+          <div class="stat-label">Jawaban Benar</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="successRate">0%</div>
+          <div class="stat-label">Tingkat Keberhasilan</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="generateBtn">Generate Soal Baru</button>
+        <button id="checkBtn">Cek Jawaban</button>
+        <button id="showSolutionBtn">Tampilkan Penyelesaian</button>
+      </div>
+
+      <div class="question-box">
+        <div id="questionText">Klik "Generate Soal Baru" untuk memulai</div>
+      </div>
+
+      <div class="input-group">
+        <label for="answerInput">Jawaban Anda:</label>
+        <input
+          type="text"
+          id="answerInput"
+          placeholder="Masukkan jawaban Anda di sini (bilangan bulat)"
+        />
+      </div>
+
+      <div class="result" id="result"></div>
+
+      <div class="solution" id="solution">
+        <h4>Langkah Penyelesaian:</h4>
+        <div id="solutionSteps"></div>
+      </div>
+
+      <div class="footer">
+        <p>Generator Soal Limit Bentuk Tak Tentu &copy; 2023</p>
+      </div>
+    </div>
+
+    <script>
+      // Variabel untuk menyimpan soal, jawaban, dan statistik
+      let currentQuestion = null;
+      let currentAnswer = null;
+      let solutionSteps = "";
+      let totalQuestions = 0;
+      let correctAnswers = 0;
+
+      // Elemen DOM
+      const questionText = document.getElementById("questionText");
+      const answerInput = document.getElementById("answerInput");
+      const resultDiv = document.getElementById("result");
+      const solutionDiv = document.getElementById("solution");
+      const solutionStepsDiv = document.getElementById("solutionSteps");
+      const generateBtn = document.getElementById("generateBtn");
+      const checkBtn = document.getElementById("checkBtn");
+      const showSolutionBtn = document.getElementById("showSolutionBtn");
+      const totalQuestionsEl = document.getElementById("totalQuestions");
+      const correctAnswersEl = document.getElementById("correctAnswers");
+      const successRateEl = document.getElementById("successRate");
+
+      // Fungsi untuk menghasilkan bilangan acak dalam rentang tertentu
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      // Fungsi untuk menghasilkan soal limit bentuk tak tentu dengan jawaban bilangan bulat
+      function generateIndeterminateFormQuestion() {
+        // Pilih jenis soal acak (0: faktorisasi, 1: rasionalisasi)
+        const questionType = getRandomInt(0, 1);
+
+        // Nilai x yang didekati (bilangan bulat kecil)
+        const xValue = getRandomInt(1, 15);
+
+        let question, answer, steps;
+
+        if (questionType === 0) {
+          // Soal faktorisasi: (x² - a²)/(x - a) atau variasi lainnya
+          // Pastikan menghasilkan bentuk 0/0 saat x = xValue
+          const a = xValue;
+          const b = getRandomInt(1, 15) * (Math.random() > 0.5 ? 1 : -1);
+
+          // Bentuk: (x² - a²)/(x - a) = x + a -> jawaban: 2a
+          // Atau: (x² - (a+b)x + ab)/(x - a) = x - b -> jawaban: a - b
+          const useSimpleForm = Math.random() > 0.5;
+
+          if (useSimpleForm) {
+            question = `\\[\\lim_{x \\to ${a}} \\frac{x^2 - ${
+              a * a
+            }}{x - ${a}}\\]`;
+            answer = 2 * a;
+            steps = `Langkah penyelesaian:
+1. Substitusi x = ${a} menghasilkan: (${a}² - ${a * a})/(${a} - ${a}) = (${
+              a * a
+            } - ${a * a})/0 = 0/0 (bentuk tak tentu)
+2. Faktorkan pembilang: x² - ${a * a} = (x - ${a})(x + ${a})
+3. Sederhanakan: ((x - ${a})(x + ${a}))/(x - ${a}) = x + ${a}
+4. Substitusi x = ${a}: ${a} + ${a} = ${2 * a}`;
+          } else {
+            const c = a + b;
+            question = `\\[\\lim_{x \\to ${a}} \\frac{x^2 - ${a + c}x + ${
+              a * c
+            }}{x - ${a}}\\]`;
+            answer = a - c;
+            steps = `Langkah penyelesaian:
+1. Substitusi x = ${a} menghasilkan: (${a}² - ${a + c}·${a} + ${
+              a * c
+            })/(${a} - ${a}) = (${a * a} - ${a * (a + c)} + ${
+              a * c
+            })/0 = 0/0 (bentuk tak tentu)
+2. Faktorkan pembilang: x² - ${a + c}x + ${a * c} = (x - ${a})(x - ${c})
+3. Sederhanakan: ((x - ${a})(x - ${c}))/(x - ${a}) = x - ${c}
+4. Substitusi x = ${a}: ${a} - ${c} = ${a - c}`;
+          }
+        } else {
+          // Soal rasionalisasi: (√(x+a) - √(a+b))/(x - b) atau variasi
+          // Pastikan menghasilkan bentuk 0/0 saat x = xValue
+          const a = getRandomInt(1, 15);
+          const b = xValue;
+
+          // Pastikan a + b adalah kuadrat sempurna agar hasilnya bilangan bulat
+          const sqrtValue = getRandomInt(2, 16);
+          const c = sqrtValue * sqrtValue - a;
+
+          question = `\\[\\lim_{x \\to ${b}} \\frac{\\sqrt{x + ${a}} - \\sqrt{${
+            b + a
+          }}}{x - ${b}}\\]`;
+          answer = 1 / (2 * Math.sqrt(b + a));
+
+          // Untuk memastikan jawaban bilangan bulat, kita atur agar penyebut 1
+          // Dengan membuat 2√(b+a) = 1 -> √(b+a) = 1/2 -> b+a = 1/4 (bukan bilangan bulat)
+          // Jadi kita buat soal yang setelah dirasionalisasi menjadi bentuk lain
+
+          // Ubah pendekatan: buat soal yang setelah dirasionalisasi menjadi bilangan bulat
+          const numerator = getRandomInt(1, 15);
+          const denominator = 1;
+
+          // Bentuk: (√(x+a) - √(b+a))/(x-b) -> rasionalisasi
+          // Kalikan dengan sekawan: (√(x+a) + √(b+a))
+          // Hasil: (x+a - (b+a))/((x-b)(√(x+a) + √(b+a))) = (x-b)/((x-b)(√(x+a) + √(b+a))) = 1/(√(x+a) + √(b+a))
+          // Limit saat x->b: 1/(2√(b+a))
+          // Agar hasilnya bilangan bulat, kita butuh 2√(b+a) = 1 -> tidak mungkin bilangan bulat
+
+          // Alternatif: buat soal dengan bentuk lain
+          // (√(x+a) - k)/(x-b) dengan k dipilih agar saat x=b menghasilkan 0
+          // Jadi k = √(b+a)
+          // Rasionalisasi: kalikan dengan (√(x+a) + k)
+          // Hasil: (x+a - k²)/((x-b)(√(x+a) + k))
+          // Karena k² = b+a, maka x+a - k² = x-b
+          // Sederhanakan: (x-b)/((x-b)(√(x+a) + k)) = 1/(√(x+a) + k)
+          // Limit: 1/(2k) = 1/(2√(b+a)) -> sama dengan sebelumnya
+
+          // Karena sulit mendapatkan hasil bilangan bulat dengan bentuk standar,
+          // kita buat variasi dimana pembilang dan penyebut memiliki hubungan khusus
+          const k = getRandomInt(1, 15);
+          const m = k * k; // agar √m adalah bilangan bulat
+
+          question = `\\[\\lim_{x \\to ${m}} \\frac{x - ${m}}{\\sqrt{x} - ${k}}\\]`;
+          answer = 2 * k;
+
+          steps = `Langkah penyelesaian:
+1. Substitusi x = ${m} menghasilkan: (${m} - ${m})/(√${m} - ${k}) = 0/0 (bentuk tak tentu)
+2. Rasionalisasi: kalikan pembilang dan penyebut dengan sekawan penyebut (√x + ${k})
+3. Hasil: ((x - ${m})(√x + ${k}))/((√x - ${k})(√x + ${k})) = ((x - ${m})(√x + ${k}))/(x - ${m})
+4. Sederhanakan: √x + ${k}
+5. Substitusi x = ${m}: √${m} + ${k} = ${k} + ${k} = ${2 * k}`;
+        }
+
+        return { question, answer, steps };
+      }
+
+      // Fungsi untuk menampilkan soal baru
+      function displayNewQuestion() {
+        currentQuestion = generateIndeterminateFormQuestion();
+        questionText.innerHTML = currentQuestion.question;
+        answerInput.value = "";
+        resultDiv.style.display = "none";
+        solutionDiv.style.display = "none";
+        solutionSteps = currentQuestion.steps;
+
+        // Render ulang MathJax
+        if (MathJax.typeset) {
+          MathJax.typeset([questionText]);
+        }
+
+        // Update statistik
+        totalQuestions++;
+        updateStats();
+      }
+
+      // Fungsi untuk memeriksa jawaban
+      function checkAnswer() {
+        if (!currentQuestion) {
+          alert("Silakan generate soal terlebih dahulu!");
+          return;
+        }
+
+        const userAnswer = parseFloat(answerInput.value);
+
+        if (isNaN(userAnswer)) {
+          alert("Masukkan jawaban yang valid (bilangan bulat)!");
+          return;
+        }
+
+        // Periksa apakah jawaban user adalah bilangan bulat
+        if (!Number.isInteger(userAnswer)) {
+          alert("Jawaban harus bilangan bulat!");
+          return;
+        }
+
+        // Periksa kebenaran jawaban
+        const isCorrect = Math.abs(userAnswer - currentQuestion.answer) < 0.001;
+
+        if (isCorrect) {
+          correctAnswers++;
+        }
+
+        resultDiv.innerHTML = `
+                <strong>${isCorrect ? "Benar! 🎉" : "Salah! ❌"}</strong>
+                <div class="explanation">
+                    Jawaban yang benar adalah: <strong>${
+                      currentQuestion.answer
+                    }</strong><br>
+                    ${
+                      isCorrect
+                        ? "Bagus! Anda telah menguasai penyelesaian limit bentuk tak tentu."
+                        : "Coba lagi! Periksa langkah faktorisasi atau rasionalisasi yang Anda gunakan."
+                    }
+                </div>
+            `;
+
+        resultDiv.className = `result ${isCorrect ? "correct" : "incorrect"}`;
+        resultDiv.style.display = "block";
+
+        updateStats();
+      }
+
+      // Fungsi untuk menampilkan penyelesaian
+      function showSolution() {
+        if (!currentQuestion) {
+          alert("Silakan generate soal terlebih dahulu!");
+          return;
+        }
+
+        solutionStepsDiv.textContent = solutionSteps;
+        solutionDiv.style.display = "block";
+      }
+
+      // Fungsi untuk memperbarui statistik
+      function updateStats() {
+        totalQuestionsEl.textContent = totalQuestions;
+        correctAnswersEl.textContent = correctAnswers;
+
+        const successRate =
+          totalQuestions > 0
+            ? ((correctAnswers / totalQuestions) * 100).toFixed(1)
+            : 0;
+        successRateEl.textContent = `${successRate}%`;
+      }
+
+      // Event listeners
+      generateBtn.addEventListener("click", displayNewQuestion);
+      checkBtn.addEventListener("click", checkAnswer);
+      showSolutionBtn.addEventListener("click", showSolution);
+
+      // Memungkinkan pengguna menekan Enter untuk memeriksa jawaban
+      answerInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          checkAnswer();
+        }
+      });
+
+      // Validasi input: hanya memperbolehkan bilangan bulat
+      answerInput.addEventListener("input", function () {
+        // Hapus karakter non-digit dan tanda minus (kecuali minus di awal)
+        this.value = this.value.replace(/[^\d-]/g, "").replace(/(?!^)-/g, "");
+      });
+
+      // Generate soal pertama saat halaman dimuat
+      displayNewQuestion();
+    </script>
+  </body>
+</html>
