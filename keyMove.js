@@ -1,5 +1,20 @@
 document.addEventListener("keydown", (e) => {
-  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+  if (
+    [
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "W",
+      "A",
+      "S",
+      "D",
+      "w",
+      "a",
+      "s",
+      "d",
+    ].includes(e.key)
+  ) {
     keys[e.key] = true;
     e.preventDefault(); // Prevent scrolling
   }
@@ -11,7 +26,22 @@ document.addEventListener("keydown", (e) => {
 });
 
 document.addEventListener("keyup", (e) => {
-  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+  if (
+    [
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "W",
+      "A",
+      "S",
+      "D",
+      "w",
+      "a",
+      "s",
+      "d",
+    ].includes(e.key)
+  ) {
     keys[e.key] = false;
   }
 });

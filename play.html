@@ -81,10 +81,10 @@
       let score = 0;
       let gameStartTime = Date.now();
 
-      if (viewportWidth <= 780) {
+      if (viewportWidth <= 1024) {
         monsterCount = 5;
       }
-      if (viewportWidth > 780) {
+      if (viewportWidth > 1024) {
         monsterCount = 9;
       }
 
@@ -106,7 +106,7 @@
         gameOverScreen.style.display = "none";
         hideMathQuestion();
 
-        if (window.innerWidth <= 1024) {
+        if (window.innerWidth <= 1280) {
           document.getElementById("joystick").style.display = "block";
         } else {
           document.getElementById("joystick").style.display = "none";

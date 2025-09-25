@@ -7,11 +7,19 @@ function update() {
   updateScore();
 
   // Move player (keyboard controls)
-  if (keys["ArrowUp"] && posY > 0) posY -= playerSpeed;
-  if (keys["ArrowDown"] && posY + player.offsetHeight < areaRect.height)
+  if ((keys["ArrowUp"] || keys["W"] || keys["w"]) && posY > 0)
+    posY -= playerSpeed;
+  if (
+    (keys["ArrowDown"] || keys["s"] || keys["S"]) &&
+    posY + player.offsetHeight < areaRect.height
+  )
     posY += playerSpeed;
-  if (keys["ArrowLeft"] && posX > 0) posX -= playerSpeed;
-  if (keys["ArrowRight"] && posX + player.offsetWidth < areaRect.width)
+  if ((keys["ArrowLeft"] || keys["a"] || keys["A"]) && posX > 0)
+    posX -= playerSpeed;
+  if (
+    (keys["ArrowRight"] || keys["D"] || keys["d"]) &&
+    posX + player.offsetWidth < areaRect.width
+  )
     posX += playerSpeed;
 
   // Move player (joystick controls)
