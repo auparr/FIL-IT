@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="score">Survival Time: 0s</div>
+    <!-- <div id="score">Survival Time: 0s</div> -->
+    <div id="hpDisplay">HP: 3/3</div>
     <div id="gameArea">
       <div id="player"></div>
       <div id="gameOver">
         <h1>Game Over!</h1>
-        <p id="finalScore">You survived for 0 seconds</p>
+        <!-- <p id="finalScore">You survived for 0 seconds</p> -->
         <button id="restartBtn">Play Again</button>
         <button id="menuBtn">Back to Menu</button>
       </div>
@@ -55,7 +56,7 @@
     <script src="keyMove.js"></script>
     <script src="math.js"></script>
     <script src="monster.js"></script>
-    <script src="updateScore.js"></script>
+    <!-- <script src="updateScore.js"></script> -->
     <script>
       // Collision detection
 
@@ -105,6 +106,9 @@
         gameStartTime = Date.now();
         gameOverScreen.style.display = "none";
         hideMathQuestion();
+
+        // Reset HP system
+        resetHP();
 
         if (window.innerWidth <= 1300) {
           document.getElementById("joystick").style.display = "block";

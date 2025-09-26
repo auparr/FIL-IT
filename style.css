@@ -121,6 +121,60 @@ body {
   margin-bottom: 10px;
   color: white;
 }
+
+/* HP Display Styles */
+#hpDisplay {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 2px solid;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hp-healthy {
+  color: #4caf50;
+  border-color: #4caf50;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
+.hp-warning {
+  color: #ff9800;
+  border-color: #ff9800;
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+  animation: hpWarning 1s ease-in-out infinite alternate;
+}
+
+.hp-critical {
+  color: #f44336;
+  border-color: #f44336;
+  box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
+  animation: hpCritical 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes hpWarning {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes hpCritical {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
+  }
+  to {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(244, 67, 54, 0.8);
+  }
+}
+
 #instructions {
   margin-top: 10px;
   text-align: center;
@@ -342,5 +396,20 @@ body {
   100% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.5);
+  }
+}
+
+@keyframes feedbackPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }

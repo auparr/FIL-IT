@@ -1,6 +1,7 @@
 let currentQuestion = {};
 let mathQuestionActive = false;
 let currentCollidingMonster = null; // Track which monster triggered the question
+let playerHP = 3; // Health Point system - starts with 3 HP
 
 function generateMathQuestion() {
   const operations = ["+", "-", "*", "/"];
@@ -117,13 +118,88 @@ function checkAnswer() {
       showFeedback("Amazing! You defeated all monsters!", "victory");
     }
   } else {
-    // Wrong answer - game over
-    gameOver();
+    // Wrong answer - decrease HP but keep the question open
+    playerHP--;
+    updateHPDisplay();
+
+    if (playerHP <= 0) {
+      // Game over when HP reaches 0
+      gameOver();
+    } else {
+      // Still have HP left - show feedback but keep question open
+      const answerInput = document.getElementById("answerInput");
+      answerInput.value = ""; // Clear the wrong answer
+      answerInput.focus(); // Refocus for next attempt
+
+      // Show feedback about remaining HP with a temporary overlay
+      showQuestionFeedback(
+        `Wrong! HP: ${playerHP}/3 remaining. Try again!`,
+        "damage"
+      );
+    }
   }
 }
 
 function hideMathQuestion() {
   document.getElementById("mathQuestion").style.display = "none";
+}
+
+function updateHPDisplay() {
+  const hpDisplay = document.getElementById("hpDisplay");
+  if (hpDisplay) {
+    hpDisplay.textContent = `HP: ${playerHP}/3`;
+
+    // Add visual feedback based on HP level
+    hpDisplay.className = "hp-display";
+    if (playerHP === 1) {
+      hpDisplay.classList.add("hp-critical");
+    } else if (playerHP === 2) {
+      hpDisplay.classList.add("hp-warning");
+    } else {
+      hpDisplay.classList.add("hp-healthy");
+    }
+  }
+}
+
+function resetHP() {
+  playerHP = 3;
+  updateHPDisplay();
+}
+
+function showQuestionFeedback(message, type) {
+  // Show feedback inside the math question modal
+  const mathModal = document.getElementById("mathQuestion");
+  const existingFeedback = mathModal.querySelector(".question-feedback");
+
+  // Remove existing feedback if any
+  if (existingFeedback) {
+    existingFeedback.remove();
+  }
+
+  const feedback = document.createElement("div");
+  feedback.className = "question-feedback";
+  feedback.textContent = message;
+  feedback.style.cssText = `
+    background: ${type === "damage" ? "#f44336" : "#FF9800"};
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 10px 0;
+    animation: feedbackPulse 0.5s ease-in-out;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  `;
+
+  // Insert feedback after the question text
+  const questionText = document.getElementById("questionText");
+  questionText.insertAdjacentElement("afterend", feedback);
+
+  // Remove feedback after 3 seconds
+  setTimeout(() => {
+    if (feedback && feedback.parentNode) {
+      feedback.remove();
+    }
+  }, 3000);
 }
 
 function showFeedback(message, type) {
@@ -140,6 +216,8 @@ function showFeedback(message, type) {
               ? "#4CAF50"
               : type === "victory"
               ? "#FF6B35"
+              : type === "damage"
+              ? "#FF9800"
               : "#f44336"
           };
           color: white;

@@ -1,10 +1,10 @@
 function update() {
-  if (!gameRunning || mathQuestionActive) return;
-
+  if (mathQuestionActive || !gameRunning) {
+    return;
+  }
   const areaRect = gameArea.getBoundingClientRect();
 
-  // Update score
-  updateScore();
+  //   updateScore();
 
   // Move player (keyboard controls)
   if ((keys["ArrowUp"] || keys["W"] || keys["w"]) && posY > 0)
