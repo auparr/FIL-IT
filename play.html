@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Monster Pursuit with Enhanced Vision</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="CSS/game.css" />
   </head>
   <body>
     <!-- <div id="score">Survival Time: 0s</div> -->
@@ -49,23 +49,16 @@
       <div class="joystick-knob" id="joystickKnob"></div>
     </div>
 
-    <script src="collision.js"></script>
-    <script src="gameLoop.js"></script>
-    <script src="gameOver.js"></script>
-    <script src="joyStick.js"></script>
-    <script src="keyMove.js"></script>
-    <script src="math.js"></script>
-    <script src="monster.js"></script>
-    <!-- <script src="updateScore.js"></script> -->
+    <script src="/JS/controls/joyStick.js"></script>
+    <script src="/JS/controls/keyMove.js"></script>
+    <script src="/JS/core/gameLoop.js"></script>
+    <script src="/JS/core/gameOver.js"></script>
+    <!-- <script src="/JS/core/updateScore.js"></script> -->
+    <script src="/JS/entities/monster.js"></script>
+    <script src="/JS/mechanics/collision.js"></script>
+    <script src="/JS/math/math.js"></script>
+
     <script>
-      // Collision detection
-
-      // Mobile Joystick Variables
-
-      // Handle keyboard input
-
-      // Math question system
-
       const player = document.getElementById("player");
       const gameArea = document.getElementById("gameArea");
       const scoreDisplay = document.getElementById("score");

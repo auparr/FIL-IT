@@ -1,9 +1,9 @@
 function update() {
-  if (mathQuestionActive || !gameRunning) {
-    return;
-  }
+  if (!gameRunning || mathQuestionActive) return;
+
   const areaRect = gameArea.getBoundingClientRect();
 
+  // Update score
   //   updateScore();
 
   // Move player (keyboard controls)
@@ -123,11 +123,11 @@ function update() {
     let backX =
       data.x +
       monster.offsetWidth / 2 -
-      Math.cos(Math.atan2(data.dy, data.dx)) * -75;
+      Math.cos(Math.atan2(data.dy, data.dx)) * -60;
     let backY =
       data.y +
       monster.offsetHeight / 2 -
-      Math.sin(Math.atan2(data.dy, data.dx)) * -75;
+      Math.sin(Math.atan2(data.dy, data.dx)) * -60;
 
     vision.style.left = backX - 75 + "px";
     vision.style.top = backY + "px";
