@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Topics - FIL IT!</title>
+    <link rel="stylesheet" href="CSS/index.css" />
+    <link rel="stylesheet" href="CSS/learn.css" />
+  </head>
+  <body>
+    <!-- Mobile menu toggle (hidden on desktop) -->
+    <div class="mobile-menu-toggle" id="mobileMenuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Floating math symbols -->
+    <div class="floating-math">lim</div>
+    <div class="floating-math">f(x)</div>
+    <div class="floating-math">∫</div>
+    <div class="floating-math">dy/dx</div>
+    <div class="floating-math">∑</div>
+
+    <!-- Glowing orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <!-- Fun monsters -->
+    <div class="monster-emoji monster1">👾</div>
+    <div class="monster-emoji monster2">👹</div>
+    <div class="monster-emoji monster3">🎯</div>
+
+    <div class="scroll-container">
+      <div class="main-content">
+        <h1 class="page-title">Learning Topics</h1>
+        <p class="page-subtitle">Pilih topik untuk belajar</p>
+
+        <div class="topics-container">
+          <!-- Limit Topic Card -->
+          <div class="topic-card limit">
+            <span class="topic-icon">⎰</span>
+            <h2 class="topic-title">Limit</h2>
+            <p class="topic-description">
+              Jelajahi konsep limit dalam kalkulus. Pahami bagaimana fungsi
+              berperilaku ketika mendekati nilai tertentu dan kuasai
+              teknik-teknik untuk mengevaluasi limit.
+            </p>
+            <a href="limit.html" class="topic-btn limit">Start Learning</a>
+          </div>
+
+          <!-- Fungsi Topic Card -->
+          <div class="topic-card fungsi">
+            <span class="topic-icon">ƒ(x)</span>
+            <h2 class="topic-title">Fungsi</h2>
+            <p class="topic-description">
+              Menyelami dunia fungsi. Pelajari berbagai jenis fungsi,
+              sifat-sifatnya, serta cara menganalisis dan menggambarnya secara
+              efektif.
+            </p>
+            <a href="fungsi.html" class="topic-btn fungsi">Start Learning</a>
+          </div>
+
+          <!-- Integral Topic Card -->
+          <div class="topic-card integral">
+            <span class="topic-icon">∫</span>
+            <h2 class="topic-title">Integral</h2>
+            <p class="topic-description">
+              Kuasai integral. Dari anti-turunan dasar hingga teknik lanjutan,
+              pelajari cara menghitung luas, volume, dan menyelesaikan berbagai
+              masalah nyata.
+            </p>
+            <a href="#" onclick="showComingSoon()" class="topic-btn integral"
+              >Start Learning</a
+            >
+          </div>
+        </div>
+      </div>
+      <a href="index.html" class="back-btn">← Back to Home</a>
+
+      <div class="footer">
+        <p>Presented by <span class="team-name">Kelompok 1</span> 🚀</p>
+      </div>
+    </div>
+
+    <script src="/JS/core/underDevelopment.js"></script>
+    <script>
+      // Add random floating numbers occasionally (same as index.html)
+      setInterval(() => {
+        if (Math.random() < 0.3) {
+          const numbers = ["∞", "∑", "∆", "∏", "∫", "√", "π", "φ", "∂", "∇"];
+          const number = document.createElement("div");
+          number.textContent =
+            numbers[Math.floor(Math.random() * numbers.length)];
+          number.style.cssText = `
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            top: 100vh;
+            left: ${
+              Math.random() * 80 + 10
+            }%; /* Keep within 10%-90% to prevent overflow */
+            animation: floatUp 4s linear forwards;
+            z-index: 0;
+          `;
+          document.body.appendChild(number);
+
+          setTimeout(() => number.remove(), 4000);
+        }
+      }, 2000);
+
+      // Add floatUp animation if not already present
+      if (!document.querySelector("style[data-float-animation]")) {
+        const style = document.createElement("style");
+        style.setAttribute("data-float-animation", "true");
+        style.textContent = `
+          @keyframes floatUp {
+            to {
+              transform: translateY(-120vh) rotate(360deg);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+
+      // Mobile menu functionality (if needed in the future)
+      document
+        .getElementById("mobileMenuToggle")
+        .addEventListener("click", function () {
+          this.classList.toggle("active");
+          // Add mobile menu functionality here if needed
+        });
+    </script>
+  </body>
+</html>
