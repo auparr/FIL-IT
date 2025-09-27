@@ -1,3 +1,12 @@
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Fungsi untuk memilih elemen acak dari array
+function getRandomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
 // Fungsi untuk menghasilkan soal limit trigonometri dengan jawaban bilangan bulat
 function generateTrigonometricLimit() {
   const types = [
@@ -223,7 +232,7 @@ function generateInfinityLimit() {
 }
 
 // Fungsi untuk menghasilkan soal limit tingkat hard
-function generateHardLimitQuestion() {
+export function generateHardLimitQuestion() {
   // Pilih jenis soal: trigonometri atau tak hingga
   const questionCategory = Math.random() > 0.5 ? "trigonometric" : "infinity";
 

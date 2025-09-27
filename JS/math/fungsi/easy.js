@@ -1,4 +1,4 @@
-function generateEasyFunctionQuestion() {
+export function generateEasyFunctionQuestion() {
   const types = [
     "function_evaluation_linear", // Evaluasi fungsi linear
     "function_evaluation_quadratic", // Evaluasi fungsi kuadrat

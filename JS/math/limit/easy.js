@@ -1,4 +1,8 @@
-function generateEasyLimitQuestion() {
+export function generateEasyLimitQuestion() {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   // Pilih jenis fungsi acak (0: polinomial, 1: rasional sederhana)
   const questionType = getRandomInt(0, 1);
 

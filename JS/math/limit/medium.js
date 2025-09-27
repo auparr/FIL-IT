@@ -1,4 +1,8 @@
-function generateIndeterminateFormQuestion() {
+export function generateIndeterminateFormQuestion() {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   // Pilih jenis soal acak (0: faktorisasi, 1: rasionalisasi)
   const questionType = getRandomInt(0, 1);
 

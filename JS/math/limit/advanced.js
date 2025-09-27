@@ -1,4 +1,12 @@
-function generateAdvancedLimitQuestion() {
+export function generateAdvancedLimitQuestion() {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Fungsi untuk memilih elemen acak dari array
+  function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
   const types = [
     "rational_multiple_derivatives", // Bentuk rasional yang memerlukan turunan berulang
     "exponential_rational", // Gabungan eksponensial dan rasional
