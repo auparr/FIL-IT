@@ -257,3 +257,84 @@ input:focus {
 .function-composition {
   background: #f39c12;
 }
+.exponential {
+  background: #3498db;
+}
+.logarithmic {
+  background: #2ecc71;
+}
+.trigonometric {
+  background: #e74c3c;
+}
+.functional-properties {
+  background: #f39c12;
+}
+.transformations {
+  background: #9b59b6;
+}
+.functional-equations {
+  background: #1abc9c;
+}
+.lhopital {
+  background: #9b59b6;
+}
+.advanced {
+  background: #e67e22;
+}
+.complex {
+  background: #16a085;
+}
+.trigonometric {
+  background: #e74c3c;
+}
+.infinity {
+  background: #f39c12;
+}
+.function-composition {
+  background: #9b59b6;
+}
+.function-inverse {
+  background: #e67e22;
+}
+.domain-range {
+  background: #2ecc71;
+}
+.function-operations {
+  background: #e74c3c;
+}
+.graph-analysis {
+  background: #16a085;
+}
+.function-eval {
+  background: #3498db;
+}
+.multi-layer-composition {
+  background: #9b59b6;
+}
+.complex-inverse {
+  background: #e67e22;
+}
+.graph-transformations {
+  background: #16a085;
+}
+.piecewise-limit {
+  background: #e74c3c;
+}
+.parametric-conditions {
+  background: #f39c12;
+}
+.functional-equations {
+  background: #3498db;
+}
+.mixed-applications {
+  background: #2ecc71;
+}
+.double-graph {
+  background: #9b59b6;
+}
+.functional-equations {
+  background: #e67e22;
+}
+.mixed-applications {
+  background: #16a085;
+}
