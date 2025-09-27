@@ -57,9 +57,12 @@ function displayNewQuestion() {
       solutionDiv.style.display = "none";
       solutionSteps = currentQuestion.steps;
 
+      solutionDiv.innerHTML = solutionSteps;
+
       // Render ulang MathJax
-      if (MathJax.typeset) {
+      if (MathJax.typeset && window.MathJax) {
         MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
       }
 
       // Update statistik
@@ -74,9 +77,12 @@ function displayNewQuestion() {
       solutionDiv.style.display = "none";
       solutionSteps = currentQuestion.steps;
 
+      solutionDiv.innerHTML = solutionSteps;
+
       // Render ulang MathJax
       if (MathJax.typeset) {
         MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
       }
 
       // Update statistik
@@ -100,9 +106,12 @@ function displayNewQuestion() {
       solutionDiv.style.display = "none";
       solutionSteps = currentQuestion.steps;
 
+      solutionDiv.innerHTML = solutionSteps;
+
       // Render ulang MathJax
       if (MathJax.typeset) {
         MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
       }
 
       // Update statistik
@@ -123,9 +132,12 @@ function displayNewQuestion() {
       solutionDiv.style.display = "none";
       solutionSteps = currentQuestion.steps;
 
+      solutionDiv.innerHTML = solutionSteps;
+
       // Render ulang MathJax
-      if (MathJax.typeset) {
+      if (MathJax.typeset && window.MathJax) {
         MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
       }
 
       // Update statistik

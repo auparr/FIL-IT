@@ -26,8 +26,10 @@ export function generateEasyLimitQuestion() {
       answer = a * xValue + b;
       steps = `Langkah penyelesaian:
 1. Karena ini adalah fungsi polinomial sederhana, kita dapat menggunakan substitusi langsung.
-2. Ganti nilai x dengan ${xValue}: ${a}(${xValue}) ${b >= 0 ? "+" : ""} ${b}
-3. Hitung: ${a * xValue} ${b >= 0 ? "+" : ""} ${b} = ${answer}`;
+2. Substitusi \\(x = ${xValue}\\):
+   \\[${a}(${xValue}) ${b >= 0 ? "+" : ""} ${b}\\]
+3. Hitung:
+   \\[${a * xValue} ${b >= 0 ? "+" : ""} ${b} = ${answer}\\]`;
       type = "Polinomial Linear";
     } else {
       // Fungsi kuadrat: ax^2 + bx + c
@@ -41,15 +43,18 @@ export function generateEasyLimitQuestion() {
       answer = a * xValue * xValue + b * xValue + c;
       steps = `Langkah penyelesaian:
 1. Karena ini adalah fungsi polinomial sederhana, kita dapat menggunakan substitusi langsung.
-2. Ganti nilai x dengan ${xValue}: ${a}(${xValue})² ${
-        b >= 0 ? "+" : ""
-      } ${b}(${xValue}) ${c >= 0 ? "+" : ""} ${c}
-3. Hitung: ${a}(${xValue * xValue}) ${b >= 0 ? "+" : ""} ${b * xValue} ${
+2. Substitusi \\(x = ${xValue}\\):
+   \\[${a}(${xValue})^2 ${b >= 0 ? "+" : ""} ${b}(${xValue}) ${
         c >= 0 ? "+" : ""
-      } ${c}
-4. Hitung: ${a * xValue * xValue} ${b >= 0 ? "+" : ""} ${b * xValue} ${
+      } ${c}\\]
+3. Hitung:
+   \\[${a}(${xValue * xValue}) ${b >= 0 ? "+" : ""} ${b * xValue} ${
         c >= 0 ? "+" : ""
-      } ${c} = ${answer}`;
+      } ${c}\\]
+4. Hitung:
+   \\[${a * xValue * xValue} ${b >= 0 ? "+" : ""} ${b * xValue} ${
+        c >= 0 ? "+" : ""
+      } ${c} = ${answer}\\]`;
       type = "Polinomial Kuadrat";
     }
   } else {
@@ -64,33 +69,32 @@ export function generateEasyLimitQuestion() {
       d = getRandomInt(-10, 10);
       attempts++;
 
-      // Batasi percobaan untuk menghindari infinite loop
       if (attempts > 10) {
-        // Paksa nilai d agar penyebut tidak nol
         d = -c * xValue + 1;
       }
-    } while (c * xValue + d === 0); // Pastikan penyebut tidak nol
+    } while (c * xValue + d === 0);
 
     question = `\\[\\lim_{x \\to ${xValue}} \\frac{${a}x ${
       b >= 0 ? "+" : ""
     } ${b}}{${c}x ${d >= 0 ? "+" : ""} ${d}}\\]`;
     answer = (a * xValue + b) / (c * xValue + d);
 
-    // Pastikan jawaban bilangan bulat
-    // Jika tidak bulat, buat ulang soal
     if (!Number.isInteger(answer)) {
       return generateEasyLimitQuestion();
     }
 
     steps = `Langkah penyelesaian:
-1. Karena ini adalah fungsi rasional dan penyebut tidak nol saat x = ${xValue}, kita dapat menggunakan substitusi langsung.
-2. Ganti nilai x dengan ${xValue} pada pembilang: ${a}(${xValue}) ${
+1. Karena ini adalah fungsi rasional dan penyebut tidak nol saat \\(x = ${xValue}\\), kita dapat menggunakan substitusi langsung.
+2. Pembilang:
+   \\[${a}(${xValue}) ${b >= 0 ? "+" : ""} ${b} = ${a * xValue} ${
       b >= 0 ? "+" : ""
-    } ${b} = ${a * xValue} ${b >= 0 ? "+" : ""} ${b} = ${a * xValue + b}
-3. Ganti nilai x dengan ${xValue} pada penyebut: ${c}(${xValue}) ${
+    } ${b} = ${a * xValue + b}\\]
+3. Penyebut:
+   \\[${c}(${xValue}) ${d >= 0 ? "+" : ""} ${d} = ${c * xValue} ${
       d >= 0 ? "+" : ""
-    } ${d} = ${c * xValue} ${d >= 0 ? "+" : ""} ${d} = ${c * xValue + d}
-4. Hitung hasil bagi: ${a * xValue + b} / ${c * xValue + d} = ${answer}`;
+    } ${d} = ${c * xValue + d}\\]
+4. Hasil bagi:
+   \\[\\frac{${a * xValue + b}}{${c * xValue + d}} = ${answer}\\]`;
     type = "Rasional Sederhana";
   }
 
