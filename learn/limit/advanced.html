@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Generator Soal Fungsi Matematika Tingkat Lanjut</title>
+    <title>Generator Soal Limit Tingkat Advanced</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script
       id="MathJax-script"
@@ -14,41 +14,37 @@
   </head>
   <body>
     <div class="container">
-      <h1>Generator Soal Fungsi Matematika</h1>
+      <h1>Generator Soal Limit Tingkat Advanced</h1>
       <p class="subtitle">
-        Tingkat Lanjut • Transformasi Grafik Ganda, Persamaan Fungsional, dan
-        Aplikasi Campuran
+        Bentuk Tak Tentu Kompleks & Aturan L'Hôpital • Jawaban Bilangan Bulat
       </p>
 
       <div class="difficulty-info">
-        <h3>Tingkat Kesulitan: Lanjut</h3>
-        <p>Soal pada tingkat ini meliputi konsep lanjutan fungsi matematika.</p>
+        <h3>Tingkat Kesulitan: Advanced</h3>
+        <p>
+          Soal pada tingkat ini melibatkan bentuk tak tentu kompleks yang
+          memerlukan penerapan <strong>Aturan L'Hôpital</strong>.
+        </p>
         <div class="method-info">
           <h4>Jenis Soal:</h4>
           <ul>
             <li>
-              <strong>Transformasi Grafik Ganda</strong> - Kombinasi
-              transformasi pada fungsi trigonometri, eksponensial, atau
-              logaritma
+              <strong>Bentuk Tak Tentu Kompleks</strong> - 0/0 atau ∞/∞ yang
+              memerlukan turunan berulang
             </li>
             <li>
-              <strong>Persamaan Fungsional Lanjut</strong> - Penyelesaian
-              persamaan yang melibatkan komposisi fungsi atau pencarian
-              parameter
-            </li>
-            <li>
-              <strong>Aplikasi Campuran</strong> - Kombinasi fungsi
-              trigonometri, logaritma, dan eksponensial dalam satu soal
+              <strong>Penerapan L'Hôpital</strong> - Menggunakan turunan untuk
+              menyelesaikan bentuk tak tentu
             </li>
           </ul>
         </div>
         <div class="integer-only">
           <strong>Fitur Khusus:</strong> Semua soal dijamin memiliki jawaban
-          <strong>bilangan bulat</strong> dengan menggunakan parameter khusus.
+          <strong>bilangan bulat</strong>.
         </div>
         <div class="hint">
-          <strong>Tips:</strong> Gunakan identitas trigonometri, sifat
-          logaritma, dan aturan eksponensial untuk menyederhanakan masalah.
+          <strong>Tips:</strong> Gunakan Aturan L'Hôpital ketika substitusi
+          langsung menghasilkan bentuk tak tentu 0/0 atau ∞/∞.
         </div>
       </div>
 
@@ -95,7 +91,7 @@
       </div>
 
       <div class="footer">
-        <p>Generator Soal Fungsi Matematika Tingkat Lanjut &copy; 2023</p>
+        <p>Generator Soal Limit Tingkat Advanced &copy; 2023</p>
       </div>
     </div>
 
@@ -134,38 +130,17 @@
         return array[Math.floor(Math.random() * array.length)];
       }
 
-      // Fungsi untuk memastikan jawaban adalah bilangan bulat
-      function ensureIntegerAnswer(expression, maxAttempts = 10) {
-        let attempts = 0;
-        while (attempts < maxAttempts) {
-          const result = expression();
-          if (Number.isInteger(result)) {
-            return result;
-          }
-          attempts++;
-        }
-        // Jika setelah beberapa percobaan masih tidak bulat, gunakan nilai default
-        return Math.round(expression());
-      }
+      // Fungsi untuk menghasilkan soal limit tingkat advanced dengan Aturan L'Hôpital
 
-      // Fungsi untuk menghasilkan soal fungsi tingkat lanjut
       // Fungsi untuk menampilkan soal baru
       function displayNewQuestion() {
-        currentQuestion = generateAdvancedFunctionQuestion();
+        currentQuestion = generateAdvancedLimitQuestion();
         questionText.innerHTML = currentQuestion.question;
         currentQuestionType = currentQuestion.type;
 
         // Update tampilan jenis soal
         questionTypeEl.textContent = currentQuestionType;
-
-        // Beri warna berbeda berdasarkan jenis soal
-        if (currentQuestionType.includes("Transformasi")) {
-          questionTypeEl.className = "question-type double-graph";
-        } else if (currentQuestionType.includes("Persamaan")) {
-          questionTypeEl.className = "question-type functional-equations";
-        } else {
-          questionTypeEl.className = "question-type mixed-applications";
-        }
+        questionTypeEl.className = "question-type advanced";
 
         answerInput.value = "";
         resultDiv.style.display = "none";
@@ -217,8 +192,8 @@
                     }</strong><br>
                     ${
                       isCorrect
-                        ? "Bagus! Anda telah menguasai konsep lanjutan fungsi."
-                        : "Coba lagi! Periksa langkah-langkah penyelesaian Anda."
+                        ? "Luar biasa! Anda telah menguasai Aturan L'Hôpital."
+                        : "Coba lagi! Periksa penerapan Aturan L'Hôpital dan jumlah turunan yang diperlukan."
                     }
                 </div>
             `;
