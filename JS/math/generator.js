@@ -2,6 +2,12 @@ import { generateEasyLimitQuestion } from "./limit/easy.js";
 import { generateIndeterminateFormQuestion } from "./limit/medium.js";
 import { generateHardLimitQuestion } from "./limit/hard.js";
 import { generateAdvancedLimitQuestion } from "./limit/advanced.js";
+
+import { generateEasyFunctionQuestion } from "./fungsi/easy.js";
+import { generateMediumFunctionQuestion } from "./fungsi/medium.js";
+import { generateHardFunctionQuestion } from "./fungsi/hard.js";
+import { generateAdvancedFunctionQuestion } from "./fungsi/advanced.js";
+
 // Variabel untuk menyimpan soal, jawaban dan statistik
 let currentQuestion = null;
 let currentAnswer = null;
@@ -32,14 +38,6 @@ const showSolutionBtn = document.getElementById("showSolutionBtn");
 const totalQuestionsEl = document.getElementById("totalQuestions");
 const correctAnswersEl = document.getElementById("correctAnswers");
 const successRateEl = document.getElementById("successRate");
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function getRandomElement(array) {
-  return array[Math.floor(Math.random() * array.length)];
-}
 
 function displayNewQuestion() {
   switch (key) {
@@ -146,15 +144,161 @@ function displayNewQuestion() {
       break;
     case "fungsi/easy.html":
       currentQuestion = generateEasyFunctionQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      // Update tampilan jenis soal
+      questionTypeEl.textContent = currentQuestionType;
+
+      // Beri warna berbeda berdasarkan jenis soal
+      if (currentQuestionType.includes("Evaluasi")) {
+        questionTypeEl.className = "question-type function-eval";
+      } else if (currentQuestionType.includes("Domain")) {
+        questionTypeEl.className = "question-type domain-range";
+      } else if (currentQuestionType.includes("Operasi")) {
+        questionTypeEl.className = "question-type function-operations";
+      } else {
+        questionTypeEl.className = "question-type function-composition";
+      }
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+      solutionDiv.innerHTML = solutionSteps;
+
+      // Render ulang MathJax
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      // Update statistik
+      totalQuestions++;
+      updateStats();
+
       break;
     case "fungsi/medium.html":
       currentQuestion = generateMediumFunctionQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      // Update tampilan jenis soal
+      questionTypeEl.textContent = currentQuestionType;
+
+      // Beri warna berbeda berdasarkan jenis soal
+      if (currentQuestionType.includes("Komposisi")) {
+        questionTypeEl.className = "question-type function-composition";
+      } else if (currentQuestionType.includes("Invers")) {
+        questionTypeEl.className = "question-type function-inverse";
+      } else if (
+        currentQuestionType.includes("Domain") ||
+        currentQuestionType.includes("Range")
+      ) {
+        questionTypeEl.className = "question-type domain-range";
+      } else if (currentQuestionType.includes("Operasi")) {
+        questionTypeEl.className = "question-type function-operations";
+      } else {
+        questionTypeEl.className = "question-type graph-analysis";
+      }
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+
+      solutionDiv.innerHTML = solutionSteps;
+
+      // Render ulang MathJax
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      // Update statistik
+      totalQuestions++;
+      updateStats();
       break;
     case "fungsi/hard.html":
       currentQuestion = generateHardFunctionQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      // Update tampilan jenis soal
+      questionTypeEl.textContent = currentQuestionType;
+
+      // Beri warna berbeda berdasarkan jenis soal
+      if (currentQuestionType.includes("Eksponen")) {
+        questionTypeEl.className = "question-type exponential";
+      } else if (currentQuestionType.includes("Logaritma")) {
+        questionTypeEl.className = "question-type logarithmic";
+      } else if (currentQuestionType.includes("Trigonometri")) {
+        questionTypeEl.className = "question-type trigonometric";
+      } else if (currentQuestionType.includes("Sifat")) {
+        questionTypeEl.className = "question-type functional-properties";
+      } else if (currentQuestionType.includes("Transformasi")) {
+        questionTypeEl.className = "question-type transformations";
+      } else {
+        questionTypeEl.className = "question-type functional-equations";
+      }
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+      solutionDiv.innerHTML = solutionSteps;
+
+      // Render ulang MathJax
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      // Update statistik
+      totalQuestions++;
+      updateStats();
       break;
     case "fungsi/advanced.html":
       currentQuestion = generateAdvancedFunctionQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      // Update tampilan jenis soal
+      questionTypeEl.textContent = currentQuestionType;
+
+      // Beri warna berbeda berdasarkan jenis soal
+      if (currentQuestionType.includes("Komposisi Multi-Lapis")) {
+        questionTypeEl.className = "question-type multi-layer-composition";
+      } else if (currentQuestionType.includes("Fungsi Invers")) {
+        questionTypeEl.className = "question-type complex-inverse";
+      } else if (currentQuestionType.includes("Transformasi Grafis")) {
+        questionTypeEl.className = "question-type graph-transformations";
+      } else if (currentQuestionType.includes("Limit Fungsi")) {
+        questionTypeEl.className = "question-type piecewise-limit";
+      } else if (currentQuestionType.includes("Penentuan Parameter")) {
+        questionTypeEl.className = "question-type parametric-conditions";
+      } else if (currentQuestionType.includes("Persamaan Fungsional")) {
+        questionTypeEl.className = "question-type functional-equations";
+      } else {
+        questionTypeEl.className = "question-type mixed-applications";
+      }
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+
+      solutionDiv.innerHTML = solutionSteps;
+
+      // Render ulang MathJax
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      // Update statistik
+      totalQuestions++;
+      updateStats();
       break;
     default:
       alert(`there is no ${key}.`);

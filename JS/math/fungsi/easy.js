@@ -1,4 +1,11 @@
 export function generateEasyFunctionQuestion() {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
   const types = [
     "function_evaluation_linear",
     "function_evaluation_quadratic",

@@ -1,4 +1,12 @@
-function generateAdvancedFunctionQuestion() {
+export function generateAdvancedFunctionQuestion() {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Fungsi untuk memilih elemen acak dari array
+  function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
   const types = [
     "double_graph_transformations",
     "advanced_functional_equations",
@@ -66,17 +74,37 @@ function generateAdvancedFunctionQuestion() {
         }
 
         steps = `Langkah penyelesaian:
-1. Fungsi: \\(f(x) = ${a}${trigFunc}(${b}(x ${h >= 0 ? "+" : ""}${h})) ${
+1. Fungsi: 
+\\[
+f(x) = ${a} ${trigFunc}(${b}(x ${h >= 0 ? "+" : ""} ${h})) ${
           k >= 0 ? "+" : ""
-        }${k}\\)
-2. Substitusi x = ${angle}: \\(f(${angle}) = ${a}${trigFunc}(${b}(${angle} ${
-          h >= 0 ? "+" : ""
-        }${h})) ${k >= 0 ? "+" : ""}${k}\\)
-3. Hitung: \\(f(${angle}) = ${a}${trigFunc}(${b * (angle + h)}^\\circ) ${
+        } ${k}
+\\]
+
+2. Substitusi \\(x = ${angle}\\): 
+\\[
+f(${angle}) = ${a} ${trigFunc}(${b}(${angle} ${h >= 0 ? "+" : ""} ${h})) ${
           k >= 0 ? "+" : ""
-        }${k}\\)
-4. Nilai ${trigFunc}(${b * (angle + h)}^\\circ) = ${trigText}
-5. Hasil: ${a} × ${trigText} ${k >= 0 ? "+" : ""}${k} = ${answer}`;
+        } ${k}
+\\]
+
+3. Hitung sudut: 
+\\[
+f(${angle}) = ${a} ${trigFunc}(${b * (angle + h)}^\\circ) ${
+          k >= 0 ? "+" : ""
+        } ${k}
+\\]
+
+4. Nilai fungsi trigonometri: 
+\\[
+${trigFunc}(${b * (angle + h)}^\\circ) = ${trigText}
+\\]
+
+5. Hasil akhir: 
+\\[
+${a} \\times ${trigText} ${k >= 0 ? "+" : ""} ${k} = ${answer}
+\\]`;
+
         qType = "Transformasi Grafik Ganda (Trigonometri)";
         break;
       } else if (transformType === "exponential") {
@@ -94,17 +122,36 @@ function generateAdvancedFunctionQuestion() {
         }${h}} ${k >= 0 ? "+" : ""}${k}\\). Tentukan nilai \\(f(${x})\\).`;
 
         answer = a * Math.pow(base, x + h) + k;
-
         steps = `Langkah penyelesaian:
-1. Fungsi: \\(f(x) = ${a} \\cdot ${base}^{x ${h >= 0 ? "+" : ""}${h}} ${
+1. Fungsi: 
+\\[
+f(x) = ${a} \\cdot ${base}^{x ${h >= 0 ? "+" : ""} ${h}} ${
           k >= 0 ? "+" : ""
-        }${k}\\)
-2. Substitusi x = ${x}: \\(f(${x}) = ${a} \\cdot ${base}^{${x} ${
-          h >= 0 ? "+" : ""
-        }${h}} ${k >= 0 ? "+" : ""}${k}\\)
-3. Hitung eksponen: ${x} ${h >= 0 ? "+" : ""}${h} = ${x + h}
-4. Hitung: ${base}^{${x + h}} = ${Math.pow(base, x + h)}
-5. Hasil: ${a} × ${Math.pow(base, x + h)} ${k >= 0 ? "+" : ""}${k} = ${answer}`;
+        } ${k}
+\\]
+
+2. Substitusi \\(x = ${x}\\): 
+\\[
+f(${x}) = ${a} \\cdot ${base}^{${x} ${h >= 0 ? "+" : ""} ${h}} ${
+          k >= 0 ? "+" : ""
+        } ${k}
+\\]
+
+3. Hitung eksponen: 
+\\[
+${x} ${h >= 0 ? "+" : ""} ${h} = ${x + h}
+\\]
+
+4. Hitung pangkat: 
+\\[
+${base}^{${x + h}} = ${Math.pow(base, x + h)}
+\\]
+
+5. Hasil akhir: 
+\\[
+${a} \\times ${Math.pow(base, x + h)} ${k >= 0 ? "+" : ""} ${k} = ${answer}
+\\]`;
+
         qType = "Transformasi Grafik Ganda (Eksponensial)";
         break;
       } else {
@@ -142,21 +189,36 @@ function generateAdvancedFunctionQuestion() {
         }${k}\\). Tentukan nilai \\(f(${x})\\).`;
 
         steps = `Langkah penyelesaian:
-1. Fungsi: \\(f(x) = ${a} \\log_{${base}}(${argumentDisplay}) ${
-          k >= 0 ? "+" : ""
-        }${k}\\)
-2. Substitusi x = ${x}: \\(f(${x}) = ${a} \\log_{${base}}(${argumentDisplay}) ${
-          k >= 0 ? "+" : ""
-        }${k}\\)
-3. Hitung argumen: ${argumentDisplay} = ${argValue}
-4. Cari n dimana ${base}^n = ${argValue} → n = ${logValue}
-5. Hasil: ${a} × ${logValue} ${k >= 0 ? "+" : ""}${k} = ${answer}`;
+1. Fungsi: 
+\\[
+f(x) = ${a} \\log_{${base}}(${argumentDisplay}) ${k >= 0 ? "+" : ""} ${k}
+\\]
+
+2. Substitusi \\(x = ${x}\\): 
+\\[
+f(${x}) = ${a} \\log_{${base}}(${argumentDisplay}) ${k >= 0 ? "+" : ""} ${k}
+\\]
+
+3. Hitung argumen logaritma: 
+\\[
+${argumentDisplay} = ${argValue}
+\\]
+
+4. Cari nilai n dimana \\(${base}^n = ${argValue}\\): 
+\\[
+n = ${logValue}
+\\]
+
+5. Hasil akhir: 
+\\[
+${a} \\times ${logValue} ${k >= 0 ? "+" : ""} ${k} = ${answer}
+\\]`;
 
         qType = "Transformasi Grafik Ganda (Logaritma)";
         break;
       }
     case "advanced_functional_equations":
-      const equationType = getRandomElement(["composition", "parameter"]);
+      const equationType = getRandomElement(["parameter", "composition"]);
 
       if (equationType === "composition") {
         // Persamaan komposisi yang dijamin menghasilkan integer
@@ -171,31 +233,64 @@ function generateAdvancedFunctionQuestion() {
         answer = a * (c * x + d) + b;
 
         steps = `Langkah penyelesaian:
-1. Hitung \\(g(${x}) = ${c}(${x}) + ${d} = ${c * x + d}\\)
-2. Hitung \\(f(g(${x})) = f(${c * x + d}) = ${a}(${c * x + d}) + ${b}\\)
-3. Hitung: ${a} × ${c * x + d} + ${b} = ${a * (c * x + d)} + ${b} = ${answer}`;
+1. Hitung \\(g(${x})\\): 
+\\[
+g(${x}) = ${c}(${x}) + ${d} = ${c * x + d}
+\\]
+
+2. Hitung \\(f(g(${x}))\\): 
+\\[
+f(g(${x})) = f(${c * x + d}) = ${a}(${c * x + d}) + ${b}
+\\]
+
+3. Hitung nilai akhir: 
+\\[
+${a} \\times (${c * x + d}) + ${b} = ${a * (c * x + d)} + ${b} = ${answer}
+\\]`;
+
         qType = "Persamaan Fungsional (Komposisi)";
       } else {
-        // parameter - Pastikan k integer
-        const p = getRandomInt(1, 3);
-        const q = p * (2 * p + getRandomInt(1, 3)) + getRandomInt(1, 5); // Pastikan k integer
+        const p = getRandomInt(1, 3); // Koefisien x (1, 2, atau 3)
+        const k_integer = getRandomInt(-5, 5); // Tentukan k sebagai bilangan bulat acak (-5 sampai 5)
+
+        // Gunakan rumus balik untuk q: q = 2p² + k(p + 1)
+        // Ini menjamin bahwa (q - 2p²) akan habis dibagi (p + 1), sehingga k_integer adalah jawaban bulat.
+        const q = 2 * p * p + k_integer * (p + 1);
 
         question = `Diketahui \\(f(x) = ${p}x + k\\) dan \\(f(f(2)) = ${q}\\). Tentukan nilai \\(k\\).`;
 
-        // f(2) = 2p + k
-        // f(f(2)) = p(2p + k) + k = 2p² + pk + k = 2p² + k(p + 1)
-        // 2p² + k(p + 1) = q
+        // Jawaban:
+        // f(f(2)) = 2p² + k(p + 1)
+        // q = 2p² + k(p + 1)
         // k = (q - 2p²) / (p + 1)
-        answer = (q - 2 * p * p) / (p + 1);
+        answer = k_integer;
 
         steps = `Langkah penyelesaian:
-1. Hitung \\(f(2) = ${p} × 2 + k = ${2 * p} + k\\)
-2. Hitung \\(f(f(2)) = f(${2 * p} + k) = ${p}(${2 * p} + k) + k = ${
-          2 * p * p
-        } + ${p}k + k\\)
-3. Persamaan: ${2 * p * p} + ${p + 1}k = ${q}
-4. Selesaikan: ${p + 1}k = ${q} - ${2 * p * p} = ${q - 2 * p * p}
-5. \\(k = \\frac{${q - 2 * p * p}}{${p + 1}} = ${answer}\\)`;
+1. Hitung \\(f(2)\\): 
+\\[
+f(2) = ${p} \\times 2 + k = ${2 * p} + k
+\\]
+
+2. Hitung \\(f(f(2))\\): 
+\\[
+f(f(2)) = f(${2 * p} + k) = ${p}(${2 * p} + k) + k = ${2 * p * p} + ${p}k + k
+\\]
+
+3. Bentuk persamaan: 
+\\[
+${2 * p * p} + ${p + 1}k = ${q}
+\\]
+
+4. Selesaikan untuk \\(k\\): 
+\\[
+${p + 1}k = ${q} - ${2 * p * p} = ${q - 2 * p * p}
+\\]
+
+5. Nilai akhir: 
+\\[
+k = \\frac{${q - 2 * p * p}}{${p + 1}} = ${answer}
+\\]`;
+
         qType = "Persamaan Fungsional (Parameter)";
       }
       break;

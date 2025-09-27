@@ -1,9 +1,16 @@
-function generateMediumFunctionQuestion() {
+export function generateMediumFunctionQuestion() {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
   const types = [
-    "complex_composition", // Komposisi tiga fungsi atau dengan fungsi kuadrat
-    "function_inverse", // Invers fungsi linear atau kuadrat
-    "complex_domain_range", // Domain dan range fungsi dengan pecahan atau akar
-    "advanced_operations", // Operasi dengan fungsi kuadrat dan rasional
+    // "complex_composition", // Komposisi tiga fungsi atau dengan fungsi kuadrat
+    // "function_inverse", // Invers fungsi linear atau kuadrat
+    // "complex_domain_range", // Domain dan range fungsi dengan pecahan atau akar
+    // "advanced_operations", // Operasi dengan fungsi kuadrat dan rasional
     "graph_analysis", // Analisis grafik fungsi kuadrat dan rasional
   ];
 
@@ -41,23 +48,48 @@ function generateMediumFunctionQuestion() {
         const ghx = c1 * hx + d1;
         answer = a1 * ghx + b1;
 
-        steps = `Langkah penyelesaian:
-1. Fungsi h: \\(h(x) = ${e1}x ${f1 >= 0 ? "+" : ""} ${f1}\\)
-   - \\(h(${x1}) = ${e1}(${x1}) ${f1 >= 0 ? "+" : ""} ${f1} = ${e1 * x1} ${
-          f1 >= 0 ? "+" : ""
-        } ${f1} = ${hx}\\)
-   
-2. Fungsi g: \\(g(x) = ${c1}x ${d1 >= 0 ? "+" : ""} ${d1}\\)
-   - \\(g(h(${x1})) = g(${hx}) = ${c1}(${hx}) ${d1 >= 0 ? "+" : ""} ${d1} = ${
-          c1 * hx
-        } ${d1 >= 0 ? "+" : ""} ${d1} = ${ghx}\\)
-   
-3. Fungsi f: \\(f(x) = ${a1}x ${b1 >= 0 ? "+" : ""} ${b1}\\)
-   - \\(f(g(h(${x1}))) = f(${ghx}) = ${a1}(${ghx}) ${
-          b1 >= 0 ? "+" : ""
-        } ${b1} = ${a1 * ghx} ${b1 >= 0 ? "+" : ""} ${b1} = ${answer}\\)
-   
-4. Jadi, \\((f \\circ g \\circ h)(${x1}) = ${answer}\\)`;
+        steps = `
+Langkah penyelesaian:
+
+1. Fungsi \\(h\\):  
+   \\[
+   h(x) = ${e1}x ${f1 >= 0 ? "+" : ""} ${f1}
+   \\]  
+   Substitusi \\(x = ${x1}\\):  
+   \\[
+   h(${x1}) = ${e1}(${x1}) ${f1 >= 0 ? "+" : ""} ${f1} 
+   = ${e1 * x1} ${f1 >= 0 ? "+" : ""} ${f1} 
+   = ${hx}
+   \\]
+
+2. Fungsi \\(g\\):  
+   \\[
+   g(x) = ${c1}x ${d1 >= 0 ? "+" : ""} ${d1}
+   \\]  
+   Substitusi \\(x = h(${x1}) = ${hx}\\):  
+   \\[
+   g(h(${x1})) = g(${hx}) = ${c1}(${hx}) ${d1 >= 0 ? "+" : ""} ${d1} 
+   = ${c1 * hx} ${d1 >= 0 ? "+" : ""} ${d1} 
+   = ${ghx}
+   \\]
+
+3. Fungsi \\(f\\):  
+   \\[
+   f(x) = ${a1}x ${b1 >= 0 ? "+" : ""} ${b1}
+   \\]  
+   Substitusi \\(x = g(h(${x1})) = ${ghx}\\):  
+   \\[
+   f(g(h(${x1}))) = f(${ghx}) = ${a1}(${ghx}) ${b1 >= 0 ? "+" : ""} ${b1} 
+   = ${a1 * ghx} ${b1 >= 0 ? "+" : ""} ${b1} 
+   = ${answer}
+   \\]
+
+4. Jadi:  
+   \\[
+   (f \\circ g \\circ h)(${x1}) = ${answer}
+   \\]
+`;
+
         qType = "Komposisi Tiga Fungsi";
       } else {
         // Komposisi dengan fungsi kuadrat: f(g(x)) dengan g(x) kuadrat
@@ -78,26 +110,47 @@ function generateMediumFunctionQuestion() {
         const gx = c2 * x2 * x2 + d2 * x2 + e2;
         answer = a2 * gx + b2;
 
-        steps = `Langkah penyelesaian:
-1. Fungsi g: \\(g(x) = ${c2}x^2 ${d2 >= 0 ? "+" : ""} ${d2}x ${
+        steps = `
+Langkah penyelesaian:
+
+1. Fungsi \\(g\\):  
+   \\[
+   g(x) = ${c2}x^2 ${d2 >= 0 ? "+" : ""} ${d2}x ${e2 >= 0 ? "+" : ""} ${e2}
+   \\]  
+   Substitusi \\(x = ${x2}\\):  
+   \\[
+   g(${x2}) = ${c2}(${x2})^2 ${d2 >= 0 ? "+" : ""} ${d2}(${x2}) ${
           e2 >= 0 ? "+" : ""
-        } ${e2}\\)
-   - \\(g(${x2}) = ${c2}(${x2})^2 ${d2 >= 0 ? "+" : ""} ${d2}(${x2}) ${
+        } ${e2}
+   \\]  
+   \\[
+   g(${x2}) = ${c2}(${x2 * x2}) ${d2 >= 0 ? "+" : ""} ${d2 * x2} ${
           e2 >= 0 ? "+" : ""
-        } ${e2}\\)
-   - \\(g(${x2}) = ${c2}(${x2 * x2}) ${d2 >= 0 ? "+" : ""} ${d2 * x2} ${
+        } ${e2}
+   \\]  
+   \\[
+   g(${x2}) = ${c2 * x2 * x2} ${d2 >= 0 ? "+" : ""} ${d2 * x2} ${
           e2 >= 0 ? "+" : ""
-        } ${e2}\\)
-   - \\(g(${x2}) = ${c2 * x2 * x2} ${d2 >= 0 ? "+" : ""} ${d2 * x2} ${
-          e2 >= 0 ? "+" : ""
-        } ${e2} = ${gx}\\)
-   
-2. Fungsi f: \\(f(x) = ${a2}x ${b2 >= 0 ? "+" : ""} ${b2}\\)
-   - \\(f(g(${x2})) = f(${gx}) = ${a2}(${gx}) ${b2 >= 0 ? "+" : ""} ${b2} = ${
-          a2 * gx
-        } ${b2 >= 0 ? "+" : ""} ${b2} = ${answer}\\)
-   
-3. Jadi, \\((f \\circ g)(${x2}) = ${answer}\\)`;
+        } ${e2} = ${gx}
+   \\]
+
+2. Fungsi \\(f\\):  
+   \\[
+   f(x) = ${a2}x ${b2 >= 0 ? "+" : ""} ${b2}
+   \\]  
+   Substitusi \\(x = g(${x2}) = ${gx}\\):  
+   \\[
+   f(g(${x2})) = f(${gx}) = ${a2}(${gx}) ${b2 >= 0 ? "+" : ""} ${b2} 
+   = ${a2 * gx} ${b2 >= 0 ? "+" : ""} ${b2} 
+   = ${answer}
+   \\]
+
+3. Jadi:  
+   \\[
+   (f \\circ g)(${x2}) = ${answer}
+   \\]
+`;
+
         qType = "Komposisi dengan Fungsi Kuadrat";
       }
       break;
@@ -125,20 +178,37 @@ function generateMediumFunctionQuestion() {
           return generateMediumFunctionQuestion();
         }
 
-        steps = `Langkah penyelesaian:
-1. Fungsi asli: \\(f(x) = ${a3}x ${b3 >= 0 ? "+" : ""} ${b3}\\)
-2. Untuk mencari invers, kita selesaikan \\(y = ${a3}x ${
+        steps = `
+Langkah penyelesaian:
+
+1. Fungsi asli:  
+   \\[
+   f(x) = ${a3}x ${b3 >= 0 ? "+" : ""} ${b3}
+   \\]
+
+2. Untuk mencari invers, selesaikan persamaan \\(y = ${a3}x ${
           b3 >= 0 ? "+" : ""
-        } ${b3}\\) untuk x:
-   - \\(y ${b3 >= 0 ? "-" : "+"} ${Math.abs(b3)} = ${a3}x\\)
-   - \\(x = \\frac{y ${b3 >= 0 ? "-" : "+"} ${Math.abs(b3)}}{${a3}}\\)
-3. Jadi, \\(f^{-1}(y) = \\frac{y ${b3 >= 0 ? "-" : "+"} ${Math.abs(
-          b3
-        )}}{${a3}}\\)
-4. Untuk \\(y = ${c3}\\):
-   - \\(f^{-1}(${c3}) = \\frac{${c3} ${b3 >= 0 ? "-" : "+"} ${Math.abs(
-          b3
-        )}}{${a3}} = \\frac{${c3 - b3}}{${a3}} = ${answer}\\)`;
+        } ${b3}\\) untuk \\(x\\):  
+   \\[
+   y ${b3 >= 0 ? "-" : "+"} ${Math.abs(b3)} = ${a3}x
+   \\]  
+   \\[
+   x = \\frac{y ${b3 >= 0 ? "-" : "+"} ${Math.abs(b3)}}{${a3}}
+   \\]
+
+3. Jadi:  
+   \\[
+   f^{-1}(y) = \\frac{y ${b3 >= 0 ? "-" : "+"} ${Math.abs(b3)}}{${a3}}
+   \\]
+
+4. Untuk \\(y = ${c3}\\):  
+   \\[
+   f^{-1}(${c3}) = \\frac{${c3} ${b3 >= 0 ? "-" : "+"} ${Math.abs(b3)}}{${a3}} 
+   = \\frac{${c3 - b3}}{${a3}} 
+   = ${answer}
+   \\]
+`;
+
         qType = "Invers Fungsi Linear";
       } else {
         // Invers fungsi kuadrat dengan domain terbatas
@@ -157,18 +227,39 @@ function generateMediumFunctionQuestion() {
 
         answer = xVal;
 
-        steps = `Langkah penyelesaian:
-1. Fungsi asli: \\(f(x) = ${a4}x^2 ${b4 >= 0 ? "+" : ""} ${b4}x ${
-          c4 >= 0 ? "+" : ""
-        } ${c4}\\), dengan domain \\(x \\geq 0\\).
-2. Invers artinya mencari x ketika \\(f(x) = y\\).
-   - \\(y = ${a4}x^2 ${b4 >= 0 ? "+" : ""} ${b4}x ${c4 >= 0 ? "+" : ""} ${c4}\\)
-   - \\(${a4}x^2 ${b4 >= 0 ? "+" : ""} ${b4}x + (${c4} - y) = 0\\)
-3. Gunakan rumus kuadrat:
-   - \\(x = \\frac{-(${b4}) \\pm \\sqrt{(${b4})^2 - 4(${a4})(${c4} - y)}}{2(${a4})}\\)
-4. Substitusi \\(y = ${yVal}\\):
-   - \\(x = ${xVal}\\) (dipilih akar yang \\(x \\geq 0\\))
-5. Jadi, \\(f^{-1}(${yVal}) = ${answer}\\).`;
+        steps = `
+Langkah penyelesaian:
+
+1. Fungsi asli:  
+   \\[
+   f(x) = ${a4}x^2 ${b4 >= 0 ? "+" : ""} ${b4}x ${c4 >= 0 ? "+" : ""} ${c4}, 
+   \\quad x \\geq 0
+   \\]
+
+2. Invers artinya mencari \\(x\\) ketika \\(f(x) = y\\):  
+   \\[
+   y = ${a4}x^2 ${b4 >= 0 ? "+" : ""} ${b4}x ${c4 >= 0 ? "+" : ""} ${c4}
+   \\]  
+   \\[
+   ${a4}x^2 ${b4 >= 0 ? "+" : ""} ${b4}x + (${c4} - y) = 0
+   \\]
+
+3. Gunakan rumus kuadrat:  
+   \\[
+   x = \\frac{-(${b4}) \\pm \\sqrt{(${b4})^2 - 4(${a4})(${c4} - y)}}{2(${a4})}
+   \\]
+
+4. Substitusi \\(y = ${yVal}\\):  
+   \\[
+   x = ${xVal}
+   \\]
+   (dipilih akar dengan syarat \\(x \\geq 0\\))
+
+5. Jadi:  
+   \\[
+   f^{-1}(${yVal}) = ${answer}
+   \\]
+`;
 
         qType = "Invers Fungsi Kuadrat";
       }
@@ -200,13 +291,35 @@ function generateMediumFunctionQuestion() {
           return generateMediumFunctionQuestion();
         }
 
-        steps = `Langkah penyelesaian:
-1. Fungsi: \\(f(x) = \\frac{1}{${a5}x ${b5 >= 0 ? "+" : ""} ${b5}}\\)
-2. Domain fungsi rasional adalah semua nilai x yang tidak membuat penyebut nol.
-3. Penyebut nol ketika: \\(${a5}x ${b5 >= 0 ? "+" : ""} ${b5} = 0\\)
-4. Selesaikan: \\(${a5}x = ${-b5}\\)
-5. \\(x = \\frac{${-b5}}{${a5}} = ${excludedValue}\\)
-6. Jadi, domainnya adalah semua bilangan real kecuali \\(x = ${excludedValue}\\)`;
+        steps = `
+Langkah penyelesaian:
+
+1. Fungsi:  
+   \\[
+   f(x) = \\frac{1}{${a5}x ${b5 >= 0 ? "+" : ""} ${b5}}
+   \\]
+
+2. Domain fungsi rasional adalah semua nilai \\(x\\) yang tidak membuat penyebut nol.
+
+3. Penyebut nol ketika:  
+   \\[
+   ${a5}x ${b5 >= 0 ? "+" : ""} ${b5} = 0
+   \\]
+
+4. Selesaikan:  
+   \\[
+   ${a5}x = ${-b5}
+   \\]  
+   \\[
+   x = \\frac{${-b5}}{${a5}} = ${excludedValue}
+   \\]
+
+5. Jadi, domainnya adalah semua bilangan real kecuali:  
+   \\[
+   x = ${excludedValue}
+   \\]
+`;
+
         qType = "Domain Fungsi Rasional";
       } else {
         // Range fungsi akar: f(x) = √(ax + b) + c
@@ -233,33 +346,65 @@ function generateMediumFunctionQuestion() {
             c6 >= 0 ? "+" : ""
           } ${c6}\\) untuk \\(x \\geq ${domainMin}\\). Tentukan nilai minimum dari fungsi tersebut.`;
 
-          steps = `Langkah penyelesaian:
-1. Fungsi: \\(f(x) = \\sqrt{${a6}x + ${newB6}} ${
+          steps = `
+Langkah penyelesaian:
+
+1. Fungsi:  
+   \\[
+   f(x) = \\sqrt{${a6}x + ${newB6}} ${c6 >= 0 ? "+" : ""} ${c6}, 
+   \\quad x \\geq ${domainMin}
+   \\]
+
+2. Fungsi akar kuadrat selalu naik, sehingga nilai minimum terjadi pada \\(x\\) minimum.
+
+3. Untuk \\(x = ${domainMin}\\):  
+   \\[
+   f(${domainMin}) = \\sqrt{${a6}(${domainMin}) + ${newB6}} ${
             c6 >= 0 ? "+" : ""
-          } ${c6}\\) untuk \\(x \\geq ${domainMin}\\)
-2. Fungsi akar kuadrat selalu naik, jadi nilai minimum terjadi di x minimum.
-3. Untuk \\(x = ${domainMin}\\):
-   - \\(f(${domainMin}) = \\sqrt{${a6}(${domainMin}) + ${newB6}} ${
-            c6 >= 0 ? "+" : ""
-          } ${c6}\\)
-   - \\(f(${domainMin}) = \\sqrt{${newB6}} ${c6 >= 0 ? "+" : ""} ${c6}\\)
-   - \\(f(${domainMin}) = ${sqrtVal} ${c6 >= 0 ? "+" : ""} ${c6} = ${answer}\\)
-4. Jadi, nilai minimum fungsi adalah ${answer}`;
+          } ${c6}
+   \\]  
+   \\[
+   f(${domainMin}) = \\sqrt{${newB6}} ${c6 >= 0 ? "+" : ""} ${c6}
+   \\]  
+   \\[
+   f(${domainMin}) = ${sqrtVal} ${c6 >= 0 ? "+" : ""} ${c6} = ${answer}
+   \\]
+
+4. Jadi, nilai minimum fungsi adalah:  
+   \\[
+   ${answer}
+   \\]
+`;
         } else {
-          steps = `Langkah penyelesaian:
-1. Fungsi: \\(f(x) = \\sqrt{${a6}x + ${b6}} ${
+          steps = `
+Langkah penyelesaian:
+
+1. Fungsi:  
+   \\[
+   f(x) = \\sqrt{${a6}x + ${b6}} ${c6 >= 0 ? "+" : ""} ${c6}, 
+   \\quad x \\geq ${domainMin}
+   \\]
+
+2. Fungsi akar kuadrat selalu naik, sehingga nilai minimum terjadi pada \\(x\\) minimum.
+
+3. Untuk \\(x = ${domainMin}\\):  
+   \\[
+   f(${domainMin}) = \\sqrt{${a6}(${domainMin}) + ${b6}} ${
             c6 >= 0 ? "+" : ""
-          } ${c6}\\) untuk \\(x \\geq ${domainMin}\\)
-2. Fungsi akar kuadrat selalu naik, jadi nilai minimum terjadi di x minimum.
-3. Untuk \\(x = ${domainMin}\\):
-   - \\(f(${domainMin}) = \\sqrt{${a6}(${domainMin}) + ${b6}} ${
-            c6 >= 0 ? "+" : ""
-          } ${c6}\\)
-   - \\(f(${domainMin}) = \\sqrt{${b6}} ${c6 >= 0 ? "+" : ""} ${c6}\\)
-   - \\(f(${domainMin}) = ${Math.sqrt(b6)} ${
-            c6 >= 0 ? "+" : ""
-          } ${c6} = ${answer}\\)
-4. Jadi, nilai minimum fungsi adalah ${answer}`;
+          } ${c6}
+   \\]  
+   \\[
+   f(${domainMin}) = \\sqrt{${b6}} ${c6 >= 0 ? "+" : ""} ${c6}
+   \\]  
+   \\[
+   f(${domainMin}) = ${Math.sqrt(b6)} ${c6 >= 0 ? "+" : ""} ${c6} = ${answer}
+   \\]
+
+4. Jadi, nilai minimum fungsi adalah:  
+   \\[
+   ${answer}
+   \\]
+`;
         }
         qType = "Range Fungsi Akar";
       }
@@ -311,37 +456,65 @@ function generateMediumFunctionQuestion() {
           f7 >= 0 ? "+" : ""
         } ${f7}\\). Tentukan nilai \\((f ${opSymbol} g)(${x7})\\).`;
 
-        steps = `Langkah penyelesaian:
-1. Fungsi f: \\(f(x) = ${a7}x^2 ${b7 >= 0 ? "+" : ""} ${b7}x ${
+        steps = `
+Langkah penyelesaian:
+
+1. Fungsi \\(f\\):  
+   \\[
+   f(x) = ${a7}x^2 ${b7 >= 0 ? "+" : ""} ${b7}x ${c7 >= 0 ? "+" : ""} ${c7}
+   \\]  
+   Substitusi \\(x = ${x7}\\):  
+   \\[
+   f(${x7}) = ${a7}(${x7})^2 ${b7 >= 0 ? "+" : ""} ${b7}(${x7}) ${
           c7 >= 0 ? "+" : ""
-        } ${c7}\\)
-   - \\(f(${x7}) = ${a7}(${x7})^2 ${b7 >= 0 ? "+" : ""} ${b7}(${x7}) ${
+        } ${c7}
+   \\]  
+   \\[
+   f(${x7}) = ${a7}(${x7 * x7}) ${b7 >= 0 ? "+" : ""} ${b7 * x7} ${
           c7 >= 0 ? "+" : ""
-        } ${c7}\\)
-   - \\(f(${x7}) = ${a7}(${x7 * x7}) ${b7 >= 0 ? "+" : ""} ${b7 * x7} ${
+        } ${c7}
+   \\]  
+   \\[
+   f(${x7}) = ${a7 * x7 * x7} ${b7 >= 0 ? "+" : ""} ${b7 * x7} ${
           c7 >= 0 ? "+" : ""
-        } ${c7}\\)
-   - \\(f(${x7}) = ${a7 * x7 * x7} ${b7 >= 0 ? "+" : ""} ${b7 * x7} ${
-          c7 >= 0 ? "+" : ""
-        } ${c7} = ${a7 * x7 * x7 + b7 * x7 + c7}\\)
-   
-2. Fungsi g: \\(g(x) = ${d7}x^2 ${e7 >= 0 ? "+" : ""} ${e7}x ${
+        } ${c7} 
+   = ${a7 * x7 * x7 + b7 * x7 + c7}
+   \\]
+
+2. Fungsi \\(g\\):  
+   \\[
+   g(x) = ${d7}x^2 ${e7 >= 0 ? "+" : ""} ${e7}x ${f7 >= 0 ? "+" : ""} ${f7}
+   \\]  
+   Substitusi \\(x = ${x7}\\):  
+   \\[
+   g(${x7}) = ${d7}(${x7})^2 ${e7 >= 0 ? "+" : ""} ${e7}(${x7}) ${
           f7 >= 0 ? "+" : ""
-        } ${f7}\\)
-   - \\(g(${x7}) = ${d7}(${x7})^2 ${e7 >= 0 ? "+" : ""} ${e7}(${x7}) ${
+        } ${f7}
+   \\]  
+   \\[
+   g(${x7}) = ${d7}(${x7 * x7}) ${e7 >= 0 ? "+" : ""} ${e7 * x7} ${
           f7 >= 0 ? "+" : ""
-        } ${f7}\\)
-   - \\(g(${x7}) = ${d7}(${x7 * x7}) ${e7 >= 0 ? "+" : ""} ${e7 * x7} ${
+        } ${f7}
+   \\]  
+   \\[
+   g(${x7}) = ${d7 * x7 * x7} ${e7 >= 0 ? "+" : ""} ${e7 * x7} ${
           f7 >= 0 ? "+" : ""
-        } ${f7}\\)
-   - \\(g(${x7}) = ${d7 * x7 * x7} ${e7 >= 0 ? "+" : ""} ${e7 * x7} ${
-          f7 >= 0 ? "+" : ""
-        } ${f7} = ${d7 * x7 * x7 + e7 * x7 + f7}\\)
-   
-3. Operasi ${opName}: \\((f ${opSymbol} g)(${x7}) = f(${x7}) ${opSymbol} g(${x7})\\)
-4. Hasil: \\(${a7 * x7 * x7 + b7 * x7 + c7} ${opSymbol} ${
-          d7 * x7 * x7 + e7 * x7 + f7
-        } = ${answer}\\)`;
+        } ${f7} 
+   = ${d7 * x7 * x7 + e7 * x7 + f7}
+   \\]
+
+3. Operasi ${opName}:  
+   \\[
+   (f ${opSymbol} g)(${x7}) = f(${x7}) ${opSymbol} g(${x7})
+   \\]
+
+4. Hasil:  
+   \\[
+   ${a7 * x7 * x7 + b7 * x7 + c7} ${opSymbol} ${d7 * x7 * x7 + e7 * x7 + f7} 
+   = ${answer}
+   \\]
+`;
+
         qType = "Operasi Fungsi Kuadrat";
       } else {
         // Operasi dengan fungsi rasional
@@ -365,28 +538,58 @@ function generateMediumFunctionQuestion() {
         // (f × g)(x) = f(x) × g(x) = (ax+b)/(cx+d) × (cx+d) = ax+b
         answer = a8 * x8 + b8;
 
-        steps = `Langkah penyelesaian:
-1. Fungsi f: \\(f(x) = \\frac{${a8}x ${b8 >= 0 ? "+" : ""} ${b8}}{${c8}x ${
+        steps = `
+Langkah penyelesaian:
+
+1. Fungsi \\(f\\):  
+   \\[
+   f(x) = \\frac{${a8}x ${b8 >= 0 ? "+" : ""} ${b8}}{${c8}x ${
           d8 >= 0 ? "+" : ""
-        } ${d8}}\\)
-   - \\(f(${x8}) = \\frac{${a8}(${x8}) ${
-          b8 >= 0 ? "+" : ""
-        } ${b8}}{${c8}(${x8}) ${d8 >= 0 ? "+" : ""} ${d8}} = \\frac{${
-          a8 * x8
-        } ${b8 >= 0 ? "+" : ""} ${b8}}{${c8 * x8} ${
+        } ${d8}}
+   \\]  
+   Substitusi \\(x = ${x8}\\):  
+   \\[
+   f(${x8}) = \\frac{${a8}(${x8}) ${b8 >= 0 ? "+" : ""} ${b8}}{${c8}(${x8}) ${
           d8 >= 0 ? "+" : ""
-        } ${d8}} = \\frac{${a8 * x8 + b8}}{${c8 * x8 + d8}}\\)
-   
-2. Fungsi g: \\(g(x) = ${c8}x ${d8 >= 0 ? "+" : ""} ${d8}\\)
-   - \\(g(${x8}) = ${c8}(${x8}) ${d8 >= 0 ? "+" : ""} ${d8} = ${c8 * x8} ${
+        } ${d8}}
+   \\]  
+   \\[
+   f(${x8}) = \\frac{${a8 * x8} ${b8 >= 0 ? "+" : ""} ${b8}}{${c8 * x8} ${
           d8 >= 0 ? "+" : ""
-        } ${d8} = ${c8 * x8 + d8}\\)
-   
-3. Operasi perkalian: \\((f \\times g)(${x8}) = f(${x8}) \\times g(${x8})\\)
-4. Hasil: \\(\\frac{${a8 * x8 + b8}}{${c8 * x8 + d8}} \\times ${
-          c8 * x8 + d8
-        } = ${a8 * x8 + b8}\\)
-5. Jadi, \\((f \\times g)(${x8}) = ${answer}\\)`;
+        } ${d8}}
+   \\]  
+   \\[
+   f(${x8}) = \\frac{${a8 * x8 + b8}}{${c8 * x8 + d8}}
+   \\]
+
+2. Fungsi \\(g\\):  
+   \\[
+   g(x) = ${c8}x ${d8 >= 0 ? "+" : ""} ${d8}
+   \\]  
+   Substitusi \\(x = ${x8}\\):  
+   \\[
+   g(${x8}) = ${c8}(${x8}) ${d8 >= 0 ? "+" : ""} ${d8} 
+   = ${c8 * x8} ${d8 >= 0 ? "+" : ""} ${d8} 
+   = ${c8 * x8 + d8}
+   \\]
+
+3. Operasi perkalian:  
+   \\[
+   (f \\times g)(${x8}) = f(${x8}) \\times g(${x8})
+   \\]
+
+4. Hasil:  
+   \\[
+   \\frac{${a8 * x8 + b8}}{${c8 * x8 + d8}} \\times (${c8 * x8 + d8}) 
+   = ${a8 * x8 + b8}
+   \\]
+
+5. Jadi:  
+   \\[
+   (f \\times g)(${x8}) = ${answer}
+   \\]
+`;
+
         qType = "Operasi Fungsi Rasional";
       }
       break;
@@ -408,7 +611,7 @@ function generateMediumFunctionQuestion() {
           b9 >= 0 ? "+" : ""
         } ${b9}x ${
           c9 >= 0 ? "+" : ""
-        } ${c9}\\). Tentukan nilai x dari titik puncak parabola.`;
+        } ${c9}\\). Tentukan nilai \\(x\\) dari titik puncak parabola.`;
 
         // x vertex = -b/(2a)
         answer = -b9 / (2 * a9);
@@ -420,15 +623,20 @@ function generateMediumFunctionQuestion() {
         }
 
         steps = `Langkah penyelesaian:
-1. Fungsi kuadrat: \\(f(x) = ${a9}x^2 ${b9 >= 0 ? "+" : ""} ${b9}x ${
+1. Fungsi kuadrat: \\[f(x) = ${a9}x^2 ${b9 >= 0 ? "+" : ""} ${b9}x ${
           c9 >= 0 ? "+" : ""
-        } ${c9}\\)
-2. Titik puncak parabola memiliki koordinat x = \\(-\\frac{b}{2a}\\)
-3. Dengan a = ${a9}, b = ${b9}:
-   - \\(x = -\\frac{${b9}}{2 \\times ${a9}} = -\\frac{${b9}}{${
+        } ${c9}\\]
+
+2. Rumus titik puncak parabola:
+   \\[x = -\\dfrac{b}{2a}\\]
+
+3. Dengan \\(a = ${a9}\\), \\(b = ${b9}\\):
+   - \\[x = -\\dfrac{${b9}}{2 \\times ${a9}} = -\\dfrac{${b9}}{${
           2 * a9
-        }} = ${answer}\\)
-4. Jadi, nilai x dari titik puncak adalah ${answer}`;
+        }} = ${answer}\\]
+
+4. Jadi, nilai \\(x\\) dari titik puncak adalah ${answer}`;
+
         qType = "Analisis Grafik Kuadrat";
       } else {
         // Titik potong sumbu x fungsi rasional
@@ -459,18 +667,38 @@ function generateMediumFunctionQuestion() {
         }
 
         steps = `Langkah penyelesaian:
-1. Fungsi rasional: \\(f(x) = \\frac{${a10}x ${
-          b10 >= 0 ? "+" : ""
-        } ${b10}}{${c10}x ${d10 >= 0 ? "+" : ""} ${d10}}\\)
-2. Titik potong dengan sumbu x terjadi ketika f(x) = 0
-3. Fungsi rasional bernilai 0 ketika pembilang = 0 (dan penyebut ≠ 0)
-4. Selesaikan: \\(${a10}x ${b10 >= 0 ? "+" : ""} ${b10} = 0\\)
-5. \\(${a10}x = ${-b10}\\)
-6. \\(x = \\frac{${-b10}}{${a10}} = ${answer}\\)
-7. Periksa penyebut tidak nol: \\(${c10}(${answer}) ${
+1. Fungsi rasional: \\[
+f(x) = \\frac{${a10}x ${b10 >= 0 ? "+" : ""} ${b10}}{${c10}x ${
           d10 >= 0 ? "+" : ""
-        } ${d10} = ${c10 * answer + d10} ≠ 0\\)
-8. Jadi, titik potong dengan sumbu x adalah di \\(x = ${answer}\\)`;
+        } ${d10}}
+\\]
+
+2. Titik potong dengan sumbu x terjadi ketika \\[
+f(x) = 0
+\\]
+
+3. Fungsi rasional bernilai 0 ketika pembilang = 0 (dan penyebut ≠ 0)
+
+4. Selesaikan: \\[
+${a10}x ${b10 >= 0 ? "+" : ""} ${b10} = 0
+\\]
+
+5. \\[
+${a10}x = ${-b10}
+\\]
+
+6. \\[
+x = \\frac{${-b10}}{${a10}} = ${answer}
+\\]
+
+7. Periksa penyebut tidak nol: \\[
+${c10}(${answer}) ${d10 >= 0 ? "+" : ""} ${d10} = ${c10 * answer + d10} \\neq 0
+\\]
+
+8. Jadi, titik potong dengan sumbu x adalah di \\[
+x = ${answer}
+\\]`;
+
         qType = "Analisis Grafik Rasional";
       }
       break;

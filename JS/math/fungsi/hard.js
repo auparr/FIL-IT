@@ -1,4 +1,12 @@
-function generateHardFunctionQuestion() {
+export function generateHardFunctionQuestion() {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Fungsi untuk memilih elemen acak dari array
+  function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
   const types = [
     "exponential", // Fungsi eksponen
     "logarithmic", // Fungsi logaritma
@@ -55,23 +63,44 @@ function generateHardFunctionQuestion() {
       answer = multiplier * Math.pow(base, exponent) + addConst;
 
       steps = `Langkah penyelesaian:
-1. Fungsi yang diberikan: \\(f(x) = ${multiplier} \\cdot ${base}^{${expCoeff}x ${
+1. Fungsi yang diberikan: 
+\\[
+f(x) = ${multiplier} \\cdot ${base}^{${expCoeff}x ${
         expConst >= 0 ? "+" : ""
-      }${expConst}} ${addConst >= 0 ? "+" : ""}${addConst}\\)
-2. Substitusi \\(x = ${xVal}\\): \\(f(${xVal}) = ${multiplier} \\cdot ${base}^{${expCoeff}(${xVal}) ${
+      } ${expConst}} ${addConst >= 0 ? "+" : ""} ${addConst}
+\\]
+
+2. Substitusi \\(x = ${xVal}\\): 
+\\[
+f(${xVal}) = ${multiplier} \\cdot ${base}^{${expCoeff}(${xVal}) ${
         expConst >= 0 ? "+" : ""
-      }${expConst}} ${addConst >= 0 ? "+" : ""}${addConst}\\)
-3. Hitung eksponen: \\(${expCoeff}(${xVal}) ${
-        expConst >= 0 ? "+" : ""
-      }${expConst} = ${exponent}\\)
-4. Hitung pangkat: \\(${base}^{${exponent}} = ${Math.pow(base, exponent)}\\)
-5. Kalikan dengan ${multiplier}: \\(${multiplier} \\cdot ${Math.pow(
-        base,
-        exponent
-      )} = ${multiplier * Math.pow(base, exponent)}\\)
-6. Tambahkan ${addConst}: \\(${multiplier * Math.pow(base, exponent)} ${
+      } ${expConst}} ${addConst >= 0 ? "+" : ""} ${addConst}
+\\]
+
+3. Hitung eksponen: 
+\\[
+${expCoeff}(${xVal}) ${expConst >= 0 ? "+" : ""} ${expConst} = ${exponent}
+\\]
+
+4. Hitung pangkat: 
+\\[
+${base}^{${exponent}} = ${Math.pow(base, exponent)}
+\\]
+
+5. Kalikan dengan ${multiplier}: 
+\\[
+${multiplier} \\cdot ${Math.pow(base, exponent)} = ${
+        multiplier * Math.pow(base, exponent)
+      }
+\\]
+
+6. Tambahkan ${addConst}: 
+\\[
+${multiplier * Math.pow(base, exponent)} ${
         addConst >= 0 ? "+" : ""
-      }${addConst} = ${answer}\\)`;
+      } ${addConst} = ${answer}
+\\]`;
+
       qType = "Fungsi Eksponen";
       break;
 
@@ -93,16 +122,44 @@ function generateHardFunctionQuestion() {
             }${logAddConst}\\). Tentukan nilai \\(f(${logXVal})\\).`,
             answer: logMultiplier * power + logAddConst,
             steps: `Langkah penyelesaian:
-1. Fungsi: \\(f(x) = ${logMultiplier}\\cdot\\log_{${logBase}}(${argCoeff}x + ${argConst}) ${
+1. Fungsi: 
+\\[
+f(x) = ${logMultiplier} \\cdot \\log_{${logBase}}(${argCoeff}x + ${argConst}) ${
               logAddConst >= 0 ? "+" : ""
-            }${logAddConst}\\)
-2. Substitusi \\(x=${logXVal}\\)
-3. Argumen log = ${Math.pow(logBase, power)} = ${logBase}^{${power}}
-4. \\(\\log_{${logBase}}(${logBase}^{${power}}) = ${power}\\)
-5. Kalikan: ${logMultiplier}×${power} = ${logMultiplier * power}
-6. Tambah konstanta: ${logMultiplier * power} ${
+            } ${logAddConst}
+\\]
+
+2. Substitusi \\(x = ${logXVal}\\): 
+\\[
+f(${logXVal}) = ${logMultiplier} \\cdot \\log_{${logBase}}(${argCoeff}(${logXVal}) + ${argConst}) ${
               logAddConst >= 0 ? "+" : ""
-            }${logAddConst} = ${logMultiplier * power + logAddConst}`,
+            } ${logAddConst}
+\\]
+
+3. Hitung argumen logaritma: 
+\\[
+${argCoeff}(${logXVal}) + ${argConst} = ${Math.pow(
+              logBase,
+              power
+            )} = ${logBase}^{${power}}
+\\]
+
+4. Sifat logaritma: 
+\\[
+\\log_{${logBase}}(${logBase}^{${power}}) = ${power}
+\\]
+
+5. Kalikan dengan koefisien: 
+\\[
+${logMultiplier} \\times ${power} = ${logMultiplier * power}
+\\]
+
+6. Tambah konstanta: 
+\\[
+${logMultiplier * power} ${logAddConst >= 0 ? "+" : ""} ${logAddConst} = ${
+              logMultiplier * power + logAddConst
+            }
+\\]`,
           };
         }
 
@@ -115,16 +172,39 @@ function generateHardFunctionQuestion() {
             }${logAddConst}\\). Tentukan nilai \\(f(${logXVal})\\).`,
             answer: logAddConst,
             steps: `Langkah penyelesaian:
-1. Fungsi: \\(f(x) = ${logMultiplier}\\cdot\\log_{${logBase}}(${argCoeff}x + ${argConst}) ${
+1. Fungsi: 
+\\[
+f(x) = ${logMultiplier} \\cdot \\log_{${logBase}}(${argCoeff}x + ${argConst}) ${
               logAddConst >= 0 ? "+" : ""
-            }${logAddConst}\\)
-2. Substitusi \\(x=${logXVal}\\)
-3. Argumen log = 1
-4. \\(\\log_{${logBase}}(1) = 0\\)
-5. Kalikan: ${logMultiplier}×0 = 0
-6. Tambah konstanta: 0 ${
+            } ${logAddConst}
+\\]
+
+2. Substitusi \\(x = ${logXVal}\\): 
+\\[
+f(${logXVal}) = ${logMultiplier} \\cdot \\log_{${logBase}}(${argCoeff}(${logXVal}) + ${argConst}) ${
               logAddConst >= 0 ? "+" : ""
-            }${logAddConst} = ${logAddConst}`,
+            } ${logAddConst}
+\\]
+
+3. Hitung argumen logaritma: 
+\\[
+${argCoeff}(${logXVal}) + ${argConst} = 1
+\\]
+
+4. Sifat logaritma: 
+\\[
+\\log_{${logBase}}(1) = 0
+\\]
+
+5. Kalikan dengan koefisien: 
+\\[
+${logMultiplier} \\times 0 = 0
+\\]
+
+6. Tambah konstanta: 
+\\[
+0 ${logAddConst >= 0 ? "+" : ""} ${logAddConst} = ${logAddConst}
+\\]`,
           };
         }
 
@@ -379,20 +459,41 @@ function generateHardFunctionQuestion() {
 
       // Steps penyelesaian
       steps = `Langkah penyelesaian:
-1. Fungsi yang diberikan: \\(f(x) = ${trigMultiplier} \\cdot ${trigFunc}(${trigCoeff}x^\\circ) ${
+1. Fungsi yang diberikan: 
+\\[
+f(x) = ${trigMultiplier} \\cdot ${trigFunc}(${trigCoeff}x^\\circ) ${
         trigAddConst >= 0 ? "+" : ""
-      }${trigAddConst}\\)
-2. Substitusi \\(x = ${x}\\): \\(f(${x}) = ${trigMultiplier} \\cdot ${trigFunc}(${trigCoeff} \\cdot ${x}^\\circ) ${
+      } ${trigAddConst}
+\\]
+
+2. Substitusi \\(x = ${x}\\): 
+\\[
+f(${x}) = ${trigMultiplier} \\cdot ${trigFunc}(${trigCoeff} \\cdot ${x}^\\circ) ${
         trigAddConst >= 0 ? "+" : ""
-      }${trigAddConst}\\)
-3. Hitung sudut: \\(${trigCoeff} \\cdot ${x}^\\circ = ${angle}^\\circ\\)
-4. Nilai ${trigFunc}(${angle}^\\circ) = ${trigValue}\\)
-5. Kalikan dengan ${trigMultiplier}: \\(${trigMultiplier} \\cdot ${trigValue} = ${
-        trigMultiplier * trigValue
-      }\\)
-6. Tambahkan ${trigAddConst}: \\(${trigMultiplier * trigValue} ${
+      } ${trigAddConst}
+\\]
+
+3. Hitung sudut: 
+\\[
+${trigCoeff} \\cdot ${x}^\\circ = ${angle}^\\circ
+\\]
+
+4. Nilai fungsi trigonometri: 
+\\[
+${trigFunc}(${angle}^\\circ) = ${trigValue}
+\\]
+
+5. Kalikan dengan konstanta: 
+\\[
+${trigMultiplier} \\cdot ${trigValue} = ${trigMultiplier * trigValue}
+\\]
+
+6. Tambahkan konstanta: 
+\\[
+${trigMultiplier * trigValue} ${
         trigAddConst >= 0 ? "+" : ""
-      }${trigAddConst} = ${answer}\\)`;
+      } ${trigAddConst} = ${answer}
+\\]`;
 
       qType = "Fungsi Trigonometri";
       break;
@@ -422,10 +523,26 @@ function generateHardFunctionQuestion() {
           answer = 0;
 
           steps = `Langkah penyelesaian:
-1. Fungsi yang diberikan: \\(f(x) = ${oddFunction}\\) adalah fungsi ganjil
-2. Sifat fungsi ganjil: \\(f(-x) = -f(x)\\)
-3. Hitung \\(f(-${oddXVal}) + f(${oddXVal}) = -f(${oddXVal}) + f(${oddXVal})\\)
-4. Hasil: \\(0\\)`;
+1. Fungsi yang diberikan: 
+\\[
+f(x) = ${oddFunction} \\quad \\text{(fungsi ganjil)}
+\\]
+
+2. Sifat fungsi ganjil: 
+\\[
+f(-x) = -f(x)
+\\]
+
+3. Hitung: 
+\\[
+f(-${oddXVal}) + f(${oddXVal}) = -f(${oddXVal}) + f(${oddXVal})
+\\]
+
+4. Hasil: 
+\\[
+0
+\\]`;
+
           break;
 
         case "even":
@@ -455,10 +572,26 @@ function generateHardFunctionQuestion() {
           answer = 0;
 
           steps = `Langkah penyelesaian:
-1. Fungsi yang diberikan: \\(f(x) = ${evenFunction}\\) adalah fungsi genap
-2. Sifat fungsi genap: \\(f(-x) = f(x)\\)
-3. Hitung \\(f(-${evenXVal}) - f(${evenXVal}) = f(${evenXVal}) - f(${evenXVal})\\)
-4. Hasil: \\(0\\)`;
+1. Fungsi yang diberikan: 
+\\[
+f(x) = ${evenFunction} \\quad \\text{(fungsi genap)}
+\\]
+
+2. Sifat fungsi genap: 
+\\[
+f(-x) = f(x)
+\\]
+
+3. Hitung: 
+\\[
+f(-${evenXVal}) - f(${evenXVal}) = f(${evenXVal}) - f(${evenXVal})
+\\]
+
+4. Hasil: 
+\\[
+0
+\\]`;
+
           break;
 
         case "periodic":
@@ -512,25 +645,45 @@ function generateHardFunctionQuestion() {
           answer = selectedOp.result;
 
           steps = `Langkah penyelesaian:
-1. Fungsi yang diberikan: \\(f(x) = ${periodicCoeff} \\cdot ${
-            selectedType.func
-          }(x) ${
+1. Fungsi yang diberikan: 
+\\[
+f(x) = ${periodicCoeff} \\cdot ${selectedType.func}(x) ${
             periodicConst >= 0 ? "+" : ""
-          }${periodicConst}\\) dengan periode \\(${selectedType.period}\\)
-2. Sifat fungsi periodik: \\(f(x + T) = f(x)\\) dimana T adalah periode
-3. Hitung \\(f(${selectedPoint}) ${selectedOp.symbol} f(${selectedPoint} + ${
+          } ${periodicConst}, 
+\\quad \\text{dengan periode } ${selectedType.period}
+\\]
+
+2. Sifat fungsi periodik: 
+\\[
+f(x + T) = f(x) \\quad \\text{dengan } T = ${selectedType.period}
+\\]
+
+3. Hitung: 
+\\[
+f(${selectedPoint}) ${selectedOp.symbol} f(${selectedPoint} + ${
             selectedType.period
-          }) = f(${selectedPoint}) ${selectedOp.symbol} f(${selectedPoint})\\)
-4. \\(f(${selectedPoint}) = ${periodicCoeff} \\cdot ${
+          }) 
+= f(${selectedPoint}) ${selectedOp.symbol} f(${selectedPoint})
+\\]
+
+4. Nilai fungsi di titik tersebut: 
+\\[
+f(${selectedPoint}) = ${periodicCoeff} \\cdot ${
             selectedType.func
-          }(${selectedPoint}) ${
+          }(${selectedPoint}) ${periodicConst >= 0 ? "+" : ""} ${periodicConst} 
+= ${periodicCoeff * funcValue} ${
             periodicConst >= 0 ? "+" : ""
-          }${periodicConst} = ${periodicCoeff * funcValue} ${
-            periodicConst >= 0 ? "+" : ""
-          }${periodicConst} = ${periodicCoeff * funcValue + periodicConst}\\)
-5. Hasil: \\(${periodicCoeff * funcValue + periodicConst} ${
-            selectedOp.symbol
-          } ${periodicCoeff * funcValue + periodicConst} = ${answer}\\)`;
+          } ${periodicConst} 
+= ${periodicCoeff * funcValue + periodicConst}
+\\]
+
+5. Hasil akhir: 
+\\[
+${periodicCoeff * funcValue + periodicConst} ${selectedOp.symbol} ${
+            periodicCoeff * funcValue + periodicConst
+          } = ${answer}
+\\]`;
+
           break;
       }
       qType = "Sifat Fungsi";
@@ -601,14 +754,38 @@ function generateHardFunctionQuestion() {
           }, tentukan nilai fungsi hasil transformasi di \\(x = ${xValTrans}\\).`; // Menggunakan 'question' dari scope luar
 
           steps = `Langkah penyelesaian:
-1. Fungsi asli: \\(f(x) = ${selectedFunc.func}\\)
-2. Transformasi: geser horizontal ${h} satuan, vertikal ${k} satuan
-3. Fungsi hasil: \\(g(x) = f(x - ${h}) ${k >= 0 ? "+" : ""}${k}\\)
-4. Substitusi \\(x = ${xValTrans}\\): \\(g(${xValTrans}) = f(${xValTrans} - ${h}) ${
+1. Fungsi asli: 
+\\[
+f(x) = ${selectedFunc.func}
+\\]
+
+2. Transformasi: 
+\\[
+\\text{Geser horizontal sebesar } ${h} \\text{ satuan, vertikal sebesar } ${k} \\text{ satuan}
+\\]
+
+3. Fungsi hasil transformasi: 
+\\[
+g(x) = f(x - ${h}) ${k >= 0 ? "+" : ""} ${k}
+\\]
+
+4. Substitusi \\(x = ${xValTrans}\\): 
+\\[
+g(${xValTrans}) = f(${xValTrans} - ${h}) ${
             k >= 0 ? "+" : ""
-          }${k} = f(${newX}) ${k >= 0 ? "+" : ""}${k}\\)
-5. Hitung \\(f(${newX}) = ${funcValue}\\)
-6. Tambahkan ${k}: \\(${funcValue} ${k >= 0 ? "+" : ""}${k} = ${answer}\\)`; // Menggunakan 'steps' dari scope luar
+          } ${k} = f(${newX}) ${k >= 0 ? "+" : ""} ${k}
+\\]
+
+5. Hitung nilai fungsi: 
+\\[
+f(${newX}) = ${funcValue}
+\\]
+
+6. Tambahkan konstanta: 
+\\[
+${funcValue} ${k >= 0 ? "+" : ""} ${k} = ${answer}
+\\]`;
+          // Menggunakan 'steps' dari scope luar
           break;
 
         case "reflection":
@@ -643,19 +820,36 @@ function generateHardFunctionQuestion() {
           question = `Diketahui fungsi \\(f(x) = ${selectedFunc.func}\\). Jika grafik fungsi ini dicerminkan terhadap sumbu-${axis}, tentukan nilai fungsi hasil transformasi di \\(x = ${xValRef}\\).`;
 
           steps = `Langkah penyelesaian:
-1. Fungsi asli: \\(f(x) = ${selectedFunc.func}\\)
+1. Fungsi asli: 
+\\[
+f(x) = ${selectedFunc.func}
+\\]
+
 2. Transformasi: pencerminan terhadap sumbu-${axis}
-3. Fungsi hasil: ${axis === "x" ? `\\(g(x) = -f(x)\\)` : `\\(g(x) = f(-x)\\)`}
-4. Substitusi \\(x = ${xValRef}\\): ${
-            axis === "x"
-              ? `\\(g(${xValRef}) = -f(${xValRef})\\)`
-              : `\\(g(${xValRef}) = f(-${xValRef})\\)`
-          }
-5. Hitung: ${
-            axis === "x"
-              ? `\\(-(${selectedFunc.eval(xValRef)}) = ${answer}\\)`
-              : `\\(f(-${xValRef}) = ${answer}\\)`
-          }`;
+
+3. Fungsi hasil: 
+\\[
+${axis === "x" ? `g(x) = -f(x)` : `g(x) = f(-x)`}
+\\]
+
+4. Substitusi \\(x = ${xValRef}\\): 
+\\[
+${
+  axis === "x"
+    ? `g(${xValRef}) = -f(${xValRef})`
+    : `g(${xValRef}) = f(-${xValRef})`
+}
+\\]
+
+5. Hitung: 
+\\[
+${
+  axis === "x"
+    ? `-(${selectedFunc.eval(xValRef)}) = ${answer}`
+    : `f(-${xValRef}) = ${answer}`
+}
+\\]`;
+
           break;
 
         case "scaling":
@@ -679,12 +873,33 @@ function generateHardFunctionQuestion() {
           question = `Diketahui fungsi \\(f(x) = ${selectedFunc.func}\\). Jika grafik fungsi ini diregangkan secara vertikal dengan faktor ${a} dan secara horizontal dengan faktor \\(\\frac{1}{${b}}\\), tentukan nilai fungsi hasil transformasi di \\(x = ${xValScale}\\).`;
 
           steps = `Langkah penyelesaian:
-1. Fungsi asli: \\(f(x) = ${selectedFunc.func}\\)
+1. Fungsi asli: 
+\\[
+f(x) = ${selectedFunc.func}
+\\]
+
 2. Transformasi: regangan vertikal faktor ${a}, horizontal faktor \\(\\frac{1}{${b}}\\)
-3. Fungsi hasil: \\(g(x) = ${a} \\cdot f(${b}x)\\)
-4. Substitusi \\(x = ${xValScale}\\): \\(g(${xValScale}) = ${a} \\cdot f(${b} \\times ${xValScale})\\)
-5. Hitung \\(f(${scaledX}) = ${scaleFuncValue}\\)
-6. Kalikan dengan ${a}: \\(${a} \\times ${scaleFuncValue} = ${answer}\\)`;
+
+3. Fungsi hasil transformasi: 
+\\[
+g(x) = ${a} \\cdot f(${b}x)
+\\]
+
+4. Substitusi \\(x = ${xValScale}\\): 
+\\[
+g(${xValScale}) = ${a} \\cdot f(${b} \\times ${xValScale}) = ${a} \\cdot f(${scaledX})
+\\]
+
+5. Hitung nilai fungsi: 
+\\[
+f(${scaledX}) = ${scaleFuncValue}
+\\]
+
+6. Kalikan dengan faktor vertikal: 
+\\[
+${a} \\times ${scaleFuncValue} = ${answer}
+\\]`;
+
           break;
 
         case "combination":
@@ -707,21 +922,42 @@ function generateHardFunctionQuestion() {
           question = `Diketahui fungsi \\(f(x) = ${selectedFunc.func}\\). Jika grafik fungsi ini digeser horizontal sejauh ${transH} satuan, vertikal sejauh ${transK} satuan, dan diregangkan vertikal dengan faktor ${transA}, tentukan nilai fungsi hasil transformasi di \\(x = ${xValComb}\\).`;
 
           steps = `Langkah penyelesaian:
-1. Fungsi asli: \\(f(x) = ${selectedFunc.func}\\)
+1. Fungsi asli: 
+\\[
+f(x) = ${selectedFunc.func}
+\\]
+
 2. Transformasi: geser horizontal ${transH}, vertikal ${transK}, regangan vertikal ${transA}
-3. Fungsi hasil: \\(g(x) = ${transA} \\cdot f(x - ${transH}) ${
+
+3. Fungsi hasil transformasi: 
+\\[
+g(x) = ${transA} \\cdot f(x - ${transH}) ${transK >= 0 ? "+" : ""} ${transK}
+\\]
+
+4. Substitusi \\(x = ${xValComb}\\): 
+\\[
+g(${xValComb}) = ${transA} \\cdot f(${xValComb} - ${transH}) ${
             transK >= 0 ? "+" : ""
-          }${transK}\\)
-4. Substitusi \\(x = ${xValComb}\\): \\(g(${xValComb}) = ${transA} \\cdot f(${xValComb} - ${transH}) ${
+          } ${transK} = ${transA} \\cdot f(${combNewX}) ${
             transK >= 0 ? "+" : ""
-          }${transK}\\)
-5. Hitung \\(f(${combNewX}) = ${combFuncValue}\\)
-6. Kalikan dengan ${transA}: \\(${transA} \\times ${combFuncValue} = ${
-            transA * combFuncValue
-          }\\)
-7. Tambahkan ${transK}: \\(${transA * combFuncValue} ${
-            transK >= 0 ? "+" : ""
-          }${transK} = ${answer}\\)`;
+          } ${transK}
+\\]
+
+5. Hitung nilai fungsi: 
+\\[
+f(${combNewX}) = ${combFuncValue}
+\\]
+
+6. Kalikan dengan faktor vertikal: 
+\\[
+${transA} \\times ${combFuncValue} = ${transA * combFuncValue}
+\\]
+
+7. Tambahkan konstanta vertikal: 
+\\[
+${transA * combFuncValue} ${transK >= 0 ? "+" : ""} ${transK} = ${answer}
+\\]`;
+
           break;
       }
 
@@ -744,24 +980,43 @@ function generateHardFunctionQuestion() {
           answer = 3 * (linearX + linearY);
 
           steps = `Langkah penyelesaian:
-1. Persamaan fungsional: \\(f(x+y) = f(x) + f(y)\\)
-2. Diketahui \\(f(1) = 3\\)
-3. Untuk mencari \\(f(${linearX + linearY})\\), perhatikan bahwa \\(${
+1. Persamaan fungsional: 
+\\[
+f(x+y) = f(x) + f(y)
+\\]
+
+2. Diketahui: 
+\\[
+f(1) = 3
+\\]
+
+3. Untuk mencari \\(f(${linearX + linearY})\\), perhatikan bahwa: 
+\\[
+${linearX + linearY} = 1 + 1 + \\dots + 1 \\quad \\text{(sebanyak ${
             linearX + linearY
-          } = 1 + 1 + ... + 1\\) (sebanyak ${linearX + linearY} kali)
-4. Dengan menggunakan persamaan fungsional berulang kali:
-   \\(f(${
-     linearX + linearY
-   }) = f(1 + 1 + ... + 1) = f(1) + f(1) + ... + f(1) = ${
+          } kali)}
+\\]
+
+4. Gunakan persamaan fungsional berulang kali: 
+\\[
+f(${
             linearX + linearY
-          } \\cdot f(1)\\)
-5. Substitusi \\(f(1) = 3\\): \\(${linearX + linearY} \\cdot 3 = ${answer}\\)`;
+          }) = f(1 + 1 + \\dots + 1) = f(1) + f(1) + \\dots + f(1) = ${
+            linearX + linearY
+          } \\cdot f(1)
+\\]
+
+5. Substitusi \\(f(1) = 3\\): 
+\\[
+${linearX + linearY} \\cdot 3 = ${answer}
+\\]`;
+
           break;
 
         case "exponential":
           // Persamaan fungsional eksponensial: f(x+y) = f(x)f(y)
-          const expX = getRandomInt(1, 5);
-          const expY = getRandomInt(1, 5);
+          const expX = getRandomInt(1, 3);
+          const expY = getRandomInt(1, 3);
           const baseValue = getRandomInt(2, 5);
 
           question = `Diketahui fungsi \\(f\\) memenuhi persamaan \\(f(x+y) = f(x) \\cdot f(y)\\) untuk semua bilangan real x dan y. Jika \\(f(1) = ${baseValue}\\), tentukan nilai \\(f(${
@@ -770,20 +1025,37 @@ function generateHardFunctionQuestion() {
           answer = Math.pow(baseValue, expX + expY);
 
           steps = `Langkah penyelesaian:
-1. Persamaan fungsional: \\(f(x+y) = f(x) \\cdot f(y)\\)
-2. Diketahui \\(f(1) = ${baseValue}\\)
-3. Untuk mencari \\(f(${expX + expY})\\), perhatikan bahwa \\(${
+1. Persamaan fungsional: 
+\\[
+f(x+y) = f(x) \\cdot f(y)
+\\]
+
+2. Diketahui: 
+\\[
+f(1) = ${baseValue}
+\\]
+
+3. Untuk mencari \\(f(${expX + expY})\\), perhatikan bahwa: 
+\\[
+${expX + expY} = 1 + 1 + \\dots + 1 \\quad \\text{(sebanyak ${
             expX + expY
-          } = 1 + 1 + ... + 1\\) (sebanyak ${expX + expY} kali)
-4. Dengan menggunakan persamaan fungsional berulang kali:
-   \\(f(${
-     expX + expY
-   }) = f(1 + 1 + ... + 1) = f(1) \\cdot f(1) \\cdot ... \\cdot f(1) = [f(1)]^{${
+          } kali)}
+\\]
+
+4. Gunakan persamaan fungsional berulang kali: 
+\\[
+f(${
             expX + expY
-          }}\\)
-5. Substitusi \\(f(1) = ${baseValue}\\): \\(${baseValue}^{${
+          }) = f(1 + 1 + \\dots + 1) = f(1) \\cdot f(1) \\cdot \\dots \\cdot f(1) = [f(1)]^{${
             expX + expY
-          }} = ${answer}\\)`;
+          }}
+\\]
+
+5. Substitusi \\(f(1) = ${baseValue}\\): 
+\\[
+${baseValue}^{${expX + expY}} = ${answer}
+\\]`;
+
           break;
       }
       qType = "Persamaan Fungsional";
