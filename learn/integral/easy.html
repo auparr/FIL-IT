@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator Soal Integral Matematika Tingkat Dasar</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <link rel="stylesheet" href="/CSS/learning.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-button-container">
+        <a href="/integral.html" class="back-button">
+          <img src="/assets/images/back-button.svg" alt="Back" />
+        </a>
+      </div>
+      <h1>Generator Soal Integral Matematika</h1>
+      <p class="subtitle">
+        Tingkat Dasar • Integral Tak Tentu Polinomial dan Trigonometri Dasar
+      </p>
+
+      <div class="difficulty-info">
+        <h3>Tingkat Kesulitan: Dasar</h3>
+        <p>Soal pada tingkat ini meliputi konsep dasar integral tak tentu.</p>
+        <div class="method-info">
+          <h4>Jenis Soal:</h4>
+          <ul>
+            <li>
+              <strong>Polinomial Satu Suku</strong> - Integral fungsi pangkat
+              sederhana
+            </li>
+            <li>
+              <strong>Polinomial Beberapa Suku</strong> - Integral jumlah
+              beberapa fungsi pangkat
+            </li>
+            <li>
+              <strong>Trigonometri Dasar</strong> - Integral fungsi sinus dan
+              kosinus sederhana
+            </li>
+          </ul>
+        </div>
+        <div class="integer-only">
+          <strong>Fitur Khusus:</strong> Semua soal dijamin memiliki jawaban
+          <strong>bilangan bulat</strong> dengan pemilihan koefisien dan pangkat
+          yang tepat.
+        </div>
+        <div class="hint">
+          <strong>Tips:</strong> Gunakan aturan pangkat untuk integral: ∫xⁿ dx =
+          (1/(n+1))xⁿ⁺¹ + C. Untuk trigonometri, ingat bahwa ∫sin(x) dx =
+          -cos(x) + C dan ∫cos(x) dx = sin(x) + C.
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-value" id="totalQuestions">0</div>
+          <div class="stat-label">Total Soal</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="correctAnswers">0</div>
+          <div class="stat-label">Jawaban Benar</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="successRate">0%</div>
+          <div class="stat-label">Tingkat Keberhasilan</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="generateBtn">Generate Soal Baru</button>
+        <button id="checkBtn">Cek Jawaban</button>
+        <button id="showSolutionBtn">Tampilkan Penyelesaian</button>
+      </div>
+
+      <div class="question-box">
+        <div id="questionText">Klik "Generate Soal Baru" untuk memulai</div>
+        <div id="questionType" class="question-type"></div>
+      </div>
+
+      <div class="input-group">
+        <label for="answerInput"
+          >Jawaban Anda (Cukup Masukkan konstanta dan abaikan +C):</label
+        >
+        <input
+          type="text"
+          id="answerInput"
+          placeholder="Masukkan jawaban Anda di sini (bilangan bulat)"
+        />
+      </div>
+
+      <div class="result" id="result"></div>
+
+      <div class="solution" id="solution">
+        <h4>Langkah Penyelesaian:</h4>
+        <div id="solutionSteps"></div>
+      </div>
+
+      <div class="footer">
+        <p>Generator Soal Integral Matematika Tingkat Dasar &copy; 2023</p>
+      </div>
+    </div>
+
+    <script type="module" src="/JS/math/generator.js"></script>
+  </body>
+</html>

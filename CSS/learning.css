@@ -68,10 +68,6 @@ button {
 #showSolutionBtn {
   background: linear-gradient(to right, #e74c3c, #c0392b);
 }
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
 button:active {
   transform: translateY(0);
 }
@@ -241,10 +237,6 @@ input:focus {
 }
 
 /* Controls buttons hover */
-.controls button:hover {
-  transform: scale(1.25); /* scale to 125% */
-  transition: transform 0.3s; /* smooth scaling */
-}
 
 /* Atur ukuran SVG agar proporsional */
 .back-button img {
