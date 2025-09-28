@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integral - FIL IT!</title>
+    <link rel="stylesheet" href="/CSS/index.css" />
+    <link rel="stylesheet" href="/CSS/learn-topic.css" />
+  </head>
+  <body>
+    <div class="floating-math">∫</div>
+    <div class="floating-math">dx</div>
+    <div class="floating-math">f(x)dx</div>
+    <div class="floating-math">C</div>
+    <div class="floating-math">Σ</div>
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="monster-emoji monster1">👾</div>
+    <div class="monster-emoji monster2">👹</div>
+    <div class="monster-emoji monster3">🎯</div>
+
+    <div class="scroll-container">
+      <div class="main-content">
+        <div class="limit-header">
+          <h1 class="page-title">Integral</h1>
+          <p class="page-subtitle">Kuasai Teknik-Teknik Antiturunan</p>
+          <p class="limit-description">
+            Integral adalah konsep fundamental dalam kalkulus yang merupakan
+            kebalikan dari turunan (antiturunan). Integral digunakan untuk
+            menghitung luas di bawah kurva, volume, titik pusat massa, dan
+            banyak aplikasi lainnya dalam sains dan rekayasa.
+          </p>
+        </div>
+
+        <div class="notes-container">
+          <div class="notes-card">
+            <span class="notes-icon">📚</span>
+            <h2 class="notes-title">Materi Belajar</h2>
+            <p class="notes-description">
+              Catatan lengkap tentang integral tak tentu dan tentu. Pelajari
+              aturan dasar integral, teknik-teknik seperti substitusi dan
+              integral parsial, serta penerapan Teorema Dasar Kalkulus.
+            </p>
+            <a href="#" onclick="showComingSoon()" class="notes-btn">
+              Catatan Belajar
+            </a>
+          </div>
+        </div>
+
+        <div class="tests-container">
+          <div class="test-card easy">
+            <span class="test-icon">😊</span>
+            <h2 class="test-title">Soal Mudah</h2>
+            <p class="test-description">
+              Soal integral dasar seperti aturan pangkat dan fungsi trigonometri
+              sederhana untuk membangun fondasi yang kuat.
+            </p>
+            <a href="/learn/integral/easy.html" class="test-btn easy">
+              Mulai Mudah
+            </a>
+          </div>
+
+          <div class="test-card medium">
+            <span class="test-icon">😐</span>
+            <h2 class="test-title">Soal Menengah</h2>
+            <p class="test-description">
+              Soal yang memerlukan teknik substitusi sederhana dan integral
+              fungsi rasional dasar untuk menguji pemahaman Anda.
+            </p>
+            <a href="/learn/integral/medium.html" class="test-btn medium">
+              Coba Menengah
+            </a>
+          </div>
+
+          <div class="test-card hard">
+            <span class="test-icon">😓</span>
+            <h2 class="test-title">Soal Sulit</h2>
+            <p class="test-description">
+              Soal menantang yang melibatkan integral parsial, substitusi
+              trigonometri, dan dekomposisi pecahan parsial.
+            </p>
+            <a href="/learn/integral/hard.html" class="test-btn hard">
+              Tantangan Sulit
+            </a>
+          </div>
+
+          <div class="test-card advanced">
+            <span class="test-icon">🔥</span>
+            <h2 class="test-title">Soal Lanjutan</h2>
+            <p class="test-description">
+              Soal tingkat lanjut seperti integral tak wajar, penerapan integral
+              untuk mencari volume benda putar, dan soal aplikasi.
+            </p>
+            <a href="/learn/integral/advanced.html" class="test-btn advanced">
+              Lanjutkan
+            </a>
+          </div>
+        </div>
+
+        <a href="/learn.html" class="back-btn">← Back to Learning Topics</a>
+      </div>
+
+      <div class="footer">
+        <p>Presented by <span class="team-name">Kelompok 1</span> 🚀</p>
+      </div>
+    </div>
+
+    <script src="/JS/core/underDevelopment.js"></script>
+
+    <script>
+      // Add random floating symbols occasionally
+      setInterval(() => {
+        if (Math.random() < 0.3) {
+          const symbols = ["∫", "dx", "C", "Σ", "F(x)", "f(x)dx", "u-sub"];
+          const symbol = document.createElement("div");
+          symbol.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+          symbol.style.cssText = `
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            top: 100vh;
+            left: ${Math.random() * 80 + 10}%;
+            animation: floatUp 4s linear forwards;
+            z-index: 0;
+          `;
+          document.body.appendChild(symbol);
+
+          setTimeout(() => symbol.remove(), 4000);
+        }
+      }, 2000);
+
+      // Add floatUp animation if not already present
+      if (!document.querySelector("style[data-float-animation]")) {
+        const style = document.createElement("style");
+        style.setAttribute("data-float-animation", "true");
+        style.textContent = `
+          @keyframes floatUp {
+            to {
+              transform: translateY(-120vh) rotate(360deg);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    </script>
+  </body>
+</html>
