@@ -8,6 +8,7 @@ body {
   line-height: 1.6;
 }
 .container {
+  position: relative;
   background-color: white;
   border-radius: 15px;
   padding: 30px;
@@ -206,6 +207,7 @@ input:focus {
   white-space: pre-line;
   line-height: 1.5;
 }
+
 .question-type {
   display: inline-block;
   background: #3498db;
@@ -215,6 +217,60 @@ input:focus {
   font-size: 14px;
   margin-top: 10px;
 }
+/* Container tombol kembali */
+.back-button-container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Styling tombol kembali */
+.back-button {
+  display: inline-block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  border-radius: 50%;
+  font-weight: bold;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+/* Back button hover */
+.back-button:hover {
+  transform: scale(1.25); /* scale to 125% */
+  transition: transform 0.3s; /* smooth scaling */
+}
+
+/* Controls buttons hover */
+.controls button:hover {
+  transform: scale(1.25); /* scale to 125% */
+  transition: transform 0.3s; /* smooth scaling */
+}
+
+/* Atur ukuran SVG agar proporsional */
+.back-button img {
+  width: 50px; /* sesuaikan lebar */
+  height: auto; /* pertahankan aspek rasio */
+  display: block;
+}
+
+/* Controls styling */
+.controls {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.controls button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
 .lhopital {
   background: #9b59b6;
 }
