@@ -202,8 +202,8 @@ export function generateAdvancedIntegralQuestion() {
     case "improper_integral_convergent":
       {
         const improperTypes = [
-          //   "exp_decay",
-          //   "polynomial_decay",
+          "exp_decay",
+          "polynomial_decay",
           "rational_decay",
         ];
         const impType = getRandomElement(improperTypes);
