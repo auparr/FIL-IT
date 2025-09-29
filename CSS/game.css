@@ -64,12 +64,20 @@ body {
 .obstacle {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #ff8b94, #ff6b6b);
+  background: rgba(255, 64, 64, 1);
   position: absolute;
   border-radius: 8px;
   z-index: 4;
   box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
   transition: transform 0.1s;
+}
+.question-box {
+  width: 40px;
+  height: 40px;
+  background: gold;
+  border: 3px solid brown;
+  border-radius: 6px;
+  position: absolute;
 }
 
 /* ==========================================================================
@@ -89,13 +97,13 @@ body {
   pointer-events: none;
   z-index: 1;
   transition: all 0.3s;
-  filter: blur(1px);
+  filter: blur(2px);
 }
 
 /* Efek khusus saat "chasing" */
 .chasing {
   border-bottom-color: rgba(255, 50, 50, 0.6) !important;
-  filter: blur(0px) !important;
+  filter: blur(4px) !important;
   animation: pulse 0.5s infinite alternate;
 }
 
@@ -140,8 +148,8 @@ body {
 
 /* Efek mata berkedip saat mengejar */
 .chasing-monster::before {
-  background: rgba(255, 100, 100, 1);
-  box-shadow: 12px 0 0 rgba(255, 100, 100, 1);
+  background: rgb(98, 3, 3);
+  box-shadow: 12px 0 0 rgb(98, 3, 3);
   animation: blink 0.3s infinite alternate;
 }
 
@@ -233,10 +241,6 @@ body {
   z-index: 100;
 }
 
-.over-Btn-container {
-  display: flex;
-  flex-direction: column;
-}
 /* Overlay Game Over */
 #gameOver {
   position: absolute;
@@ -256,7 +260,6 @@ body {
 /* Tombol Restart dan Menu */
 #restartBtn,
 #menuBtn {
-  flex: 1 1 0;
   margin-top: 20px;
   padding: 12px 30px;
   background: linear-gradient(45deg, #4ecdc4, #44a08d);
@@ -514,182 +517,43 @@ body {
   }
 }
 
-/* ==========================================================================
-   6. BACKGROUND DECORATIONS (matching index.html)
-   ========================================================================== */
+/* game.css - ADD these styles to the existing file */
 
-/* Floating math symbols */
-.floating-math {
+/* Quest Box Styles */
+.quest-box {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, gold, #ffd700);
+  border: 3px solid #b8860b;
+  border-radius: 10px;
   position: absolute;
-  font-size: 2rem;
-  opacity: 0.1;
-  color: #ff6b6b;
-  animation: float 8s infinite ease-in-out;
-  z-index: 0;
-  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.8),
+    inset 0 0 15px rgba(255, 255, 255, 0.4);
+  animation: questBoxPulse 1.5s infinite alternate;
 }
 
-.floating-math:nth-child(1) {
-  top: 15%;
-  left: 10%;
-  animation-delay: 0s;
-}
-.floating-math:nth-child(2) {
-  top: 25%;
-  right: 15%;
-  animation-delay: 2s;
-  color: #4ecdc4;
-}
-.floating-math:nth-child(3) {
-  bottom: 20%;
-  left: 20%;
-  animation-delay: 4s;
-  color: #ffd93d;
-}
-.floating-math:nth-child(4) {
-  top: 60%;
-  right: 25%;
-  animation-delay: 6s;
-  color: #a8e6cf;
-}
-.floating-math:nth-child(5) {
-  bottom: 30%;
-  right: 10%;
-  animation-delay: 1s;
-  color: #ff8b94;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg) scale(1);
-    opacity: 0.1;
-  }
-  50% {
-    transform: translateY(-20px) rotate(10deg) scale(1.1);
-    opacity: 0.2;
-  }
-}
-
-/* Glowing orbs */
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.3;
-  animation: pulse-orb 4s infinite ease-in-out;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.orb1 {
-  width: 200px;
-  height: 200px;
-  background: #ff6b6b;
-  top: 20%;
-  left: -5%;
-  animation-delay: 0s;
-}
-
-.orb2 {
-  width: 150px;
-  height: 150px;
-  background: #4ecdc4;
-  bottom: 10%;
-  right: 55%;
-  animation-delay: 2s;
-}
-
-.orb3 {
-  width: 100px;
-  height: 100px;
-  background: #ffd93d;
-  top: 50%;
-  right: 10%;
-  animation-delay: 4s;
-}
-
-@keyframes pulse-orb {
-  0%,
-  100% {
+@keyframes questBoxPulse {
+  0% {
     transform: scale(1);
-    opacity: 0.2;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8),
+      inset 0 0 15px rgba(255, 255, 255, 0.4);
   }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.4;
-  }
-}
-
-/* Fun monsters */
-.monster-emoji {
-  position: absolute;
-  font-size: 3rem;
-  animation: monsterDance 3s infinite ease-in-out;
-  z-index: 0;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.monster1 {
-  top: 10%;
-  left: 5%;
-  animation-delay: 0s;
-}
-
-.monster2 {
-  bottom: 15%;
-  right: 8%;
-  animation-delay: 1s;
-}
-
-.monster3 {
-  top: 70%;
-  left: 8%;
-  animation-delay: 2s;
-}
-
-@keyframes monsterDance {
-  0%,
   100% {
-    transform: rotate(-10deg) scale(1);
-  }
-  25% {
-    transform: rotate(10deg) scale(1.1);
-  }
-  50% {
-    transform: rotate(-5deg) scale(0.9);
-  }
-  75% {
-    transform: rotate(15deg) scale(1.05);
+    transform: scale(1.25);
+    box-shadow: 0 0 35px rgba(255, 215, 0, 1),
+      inset 0 0 20px rgba(255, 255, 255, 0.6);
   }
 }
 
-/* ==========================================================================
-   7. MOBILE ADJUSTMENTS FOR DECORATIONS
-   ========================================================================== */
-
-@media (max-width: 768px) {
-  .floating-math {
-    font-size: 1.5rem;
-  }
-
-  .monster-emoji {
-    font-size: 2rem;
-  }
-
-  .orb1 {
-    width: 150px;
-    height: 150px;
-  }
-
-  .orb2 {
-    width: 120px;
-    height: 120px;
-  }
-
-  .orb3 {
-    width: 80px;
-    height: 80px;
-  }
+.quest-box::before {
+  content: "?";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #8b4513;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }

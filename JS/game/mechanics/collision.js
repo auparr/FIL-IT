@@ -1,6 +1,6 @@
-function checkCollision(player, monster) {
+function checkCollision(player, entity) {
   const playerRect = player.getBoundingClientRect();
-  const monsterRect = monster.getBoundingClientRect();
+  const monsterRect = entity.getBoundingClientRect();
 
   return !(
     playerRect.right < monsterRect.left ||

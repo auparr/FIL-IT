@@ -5,9 +5,6 @@ function update() {
   let collisionDetected = false;
   let collidedMonsterData = null;
 
-  // Update score
-  //   updateScore();
-
   // Move player (keyboard controls)
   if ((keys["ArrowUp"] || keys["W"] || keys["w"]) && posY > 0)
     posY -= playerSpeed;
@@ -40,6 +37,10 @@ function update() {
   player.style.left = posX + "px";
   player.style.top = posY + "px";
 
+  if (handleQuestBoxInteraction()) {
+    return; // Stop game loop for quest box question
+  }
+
   // Update monsters
   monsterData.forEach((data) => {
     const monster = data.el;
@@ -70,7 +71,11 @@ function update() {
       data.isChasing = canSee;
       vision.classList.toggle("chasing", canSee);
       monster.classList.toggle("chasing-monster", canSee);
-      monster.style.transform = canSee ? "scale(1.1)" : "scale(1)";
+      monster.classList.toggle("chasing-mouth", canSee);
+      monster.style.transform = canSee ? "scale(1.15)" : "scale(1)";
+      monster.style.background = canSee
+        ? "rgba(208, 6, 6, 1)"
+        : "rgba(255, 64, 64, 1)";
     }
 
     if (canSee) {
@@ -140,6 +145,13 @@ function update() {
     if (!collisionDetected && checkCollision(player, monster)) {
       collisionDetected = true;
       collidedMonsterData = data;
+    }
+
+    const questBox = document.getElementById("questBox");
+    if (questBox && checkCollision(player, questBox)) {
+      // Trigger quest box question
+      showQuestBoxQuestion();
+      return; // Pause the game
     }
   });
 

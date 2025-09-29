@@ -3,17 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Monster Pursuit with Enhanced Vision</title>
+    <title>Monster Pursuit - Quest Box Challenge</title>
     <link rel="stylesheet" href="CSS/game.css" />
   </head>
   <body>
-    <!-- <div id="score">Survival Time: 0s</div> -->
     <div id="hpDisplay">HP: 3/3</div>
     <div id="gameArea">
       <div id="player"></div>
       <div id="gameOver">
         <h1>Game Over!</h1>
-        <!-- <p id="finalScore">You survived for 0 seconds</p> -->
         <button id="restartBtn">Play Again</button>
         <button id="menuBtn">Back to Menu</button>
       </div>
@@ -32,16 +30,19 @@
       </div>
     </div>
     <div id="instructions">
-      Use arrow keys to move. Avoid the monsters and answer math questions to
-      escape!
+      🎯 Reach the glowing Quest Box to win! Use arrow keys or WASD to move.
+      Avoid monsters or answer math questions to escape!
     </div>
     <div id="legend">
-      <span class="legend-item"
-        ><span class="legend-color patrol-color"></span>Patrolling</span
-      >
-      <span class="legend-item"
-        ><span class="legend-color chase-color"></span>Chasing You!</span
-      >
+      <span class="legend-item">
+        <span class="legend-color patrol-color"></span>Patrolling
+      </span>
+      <span class="legend-item">
+        <span class="legend-color chase-color"></span>Chasing You!
+      </span>
+      <span class="legend-item" style="color: #4ecdc4; font-weight: bold">
+        ✨ Quest Box = Victory!
+      </span>
     </div>
 
     <!-- Mobile Joystick -->
@@ -49,28 +50,28 @@
       <div class="joystick-knob" id="joystickKnob"></div>
     </div>
 
-    <script src="/JS/controls/joyStick.js"></script>
-    <script src="/JS/controls/keyMove.js"></script>
-    <script src="/JS/core/gameLoop.js"></script>
-    <script src="/JS/core/gameOver.js"></script>
-    <!-- <script src="/JS/core/updateScore.js"></script> -->
-    <script src="/JS/entities/monster.js"></script>
-    <script src="/JS/mechanics/collision.js"></script>
-    <script src="/JS/math/math.js"></script>
+    <script src="/JS/game/controls/joyStick.js"></script>
+    <script src="/JS/game/controls/keyMove.js"></script>
+
+    <script src="/JS/game/core/gameLoop.js"></script>
+    <script src="/JS/game/core/gameOver.js"></script>
+
+    <script src="/JS/game/entities/monster.js"></script>
+    <script src="/JS/game/entities/questBox.js"></script>
+
+    <script src="/JS/game/mechanics/collision.js"></script>
+    <script src="/JS/game/math.js"></script>
 
     <script>
       const player = document.getElementById("player");
       const gameArea = document.getElementById("gameArea");
-      const scoreDisplay = document.getElementById("score");
       const gameOverScreen = document.getElementById("gameOver");
-      const finalScoreDisplay = document.getElementById("finalScore");
       const restartBtn = document.getElementById("restartBtn");
       const menuBtn = document.getElementById("menuBtn");
       let viewportWidth = window.innerWidth;
       let monsterCount = 0;
 
       let gameRunning = true;
-      let score = 0;
 
       if (viewportWidth <= 1024) {
         monsterCount = 5;
@@ -97,6 +98,12 @@
         // Reset HP system
         resetHP();
 
+        // Remove any existing victory screen
+        const existingVictory = document.getElementById("victoryScreen");
+        if (existingVictory) {
+          existingVictory.remove();
+        }
+
         if (window.innerWidth <= 1300) {
           document.getElementById("joystick").style.display = "block";
         } else {
@@ -109,14 +116,17 @@
         player.style.left = posX + "px";
         player.style.top = posY + "px";
 
-        // Clear existing monsters
+        // Clear existing monsters and quest box
         monsterData.length = 0;
         document
-          .querySelectorAll(".obstacle, .vision")
+          .querySelectorAll(".obstacle, .vision, .quest-box")
           .forEach((el) => el.remove());
 
         // Create new monsters
         createMonsters();
+
+        // Create quest box
+        createQuestBox();
 
         // Start game loop
         update();
@@ -128,10 +138,16 @@
         window.location.href = "index.html";
       });
 
-      // Submit answer button
+      // Submit answer button - handle both monster and quest box questions
       document
         .getElementById("submitAnswer")
-        .addEventListener("pointerdown", checkAnswer);
+        .addEventListener("pointerdown", () => {
+          if (window.isQuestBoxQuestion) {
+            checkQuestBoxAnswer();
+          } else {
+            checkAnswer();
+          }
+        });
 
       // Initialize joystick
       initJoystick();
