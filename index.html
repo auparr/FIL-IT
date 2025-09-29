@@ -38,20 +38,9 @@
       <p>Presented by <span class="team-name">Kelompok 1</span> 🚀</p>
     </div>
 
+    <script src="/JS/core/mobileWarning.js"></script>
     <script>
-      // Keyboard shortcuts with fun feedback
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          // Add fun transition effect
-          document.body.style.transform = "scale(0.95)";
-          document.body.style.transition = "transform 0.1s ease";
-          setTimeout(() => {
-            window.location.href = "game.html";
-          }, 100);
-        }
-      });
-
+      showMobileWarning();
       // Add random floating numbers occasionally
       setInterval(() => {
         if (Math.random() < 0.3) {

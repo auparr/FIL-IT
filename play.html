@@ -70,14 +70,11 @@
       let monsterCount = 0;
 
       let gameRunning = true;
-
       let score = 0;
-      let gameStartTime = Date.now();
 
       if (viewportWidth <= 1024) {
         monsterCount = 5;
-      }
-      if (viewportWidth > 1024) {
+      } else {
         monsterCount = 9;
       }
 
@@ -94,8 +91,6 @@
         // Reset game state
         gameRunning = true;
         mathQuestionActive = false;
-        score = 0;
-        gameStartTime = Date.now();
         gameOverScreen.style.display = "none";
         hideMathQuestion();
 

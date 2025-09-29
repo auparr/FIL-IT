@@ -233,6 +233,10 @@ body {
   z-index: 100;
 }
 
+.over-Btn-container {
+  display: flex;
+  flex-direction: column;
+}
 /* Overlay Game Over */
 #gameOver {
   position: absolute;
@@ -252,6 +256,7 @@ body {
 /* Tombol Restart dan Menu */
 #restartBtn,
 #menuBtn {
+  flex: 1 1 0;
   margin-top: 20px;
   padding: 12px 30px;
   background: linear-gradient(45deg, #4ecdc4, #44a08d);
