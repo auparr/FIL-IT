@@ -164,7 +164,7 @@ export function generateAdvancedIntegralQuestion() {
 4. Terapkan rumus: $$\\int u dv = uv - \\int v du$$
 5. $$\\int \\ln x \\sin x dx = -\\cos x \\ln x - \\int (-\\cos x) \\cdot \\frac{1}{x} dx$$
 6. $$= -\\cos x \\ln x + \\int \\frac{\\cos x}{x} dx$$
-7. Integral $$\\int \\frac{\\cos x}{x} dx$$ tidak memiliki bentuk closed-form sederhana
+7. Integral $$\\int \\frac{\\cos x}{x} dx$$ tidak memiliki bentuk closed-form sederhana<br>
 8. Untuk tujuan pembelajaran, kita asumsikan hasil dalam bentuk:
 9. $$\\int \\ln x \\sin x dx = -\\cos x \\ln x + \\text{Ci}(x) + C$$
 10. Dimana Ci(x) adalah cosine integral
