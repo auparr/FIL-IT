@@ -2,6 +2,8 @@ function update() {
   if (!gameRunning || mathQuestionActive) return;
 
   const areaRect = gameArea.getBoundingClientRect();
+  let collisionDetected = false;
+  let collidedMonsterData = null;
 
   // Update score
   //   updateScore();
@@ -134,12 +136,19 @@ function update() {
     let visionDeg = Math.atan2(data.dy, data.dx) * (180 / Math.PI) - 90;
     vision.style.transform = `rotate(${visionDeg}deg)`;
 
-    // Check collision - show math question instead of immediate game over
-    if (checkCollision(player, monster)) {
-      showMathQuestion(data); // Pass the monster data to the function
-      return; // Stop processing other monsters when question appears
+    // Check collision - store collision info instead of immediately showing question
+    if (!collisionDetected && checkCollision(player, monster)) {
+      collisionDetected = true;
+      collidedMonsterData = data;
     }
   });
 
+  // Handle collision after all monsters are updated
+  if (collisionDetected) {
+    showMathQuestion(collidedMonsterData);
+    return; // Stop the game loop until math question is resolved
+  }
+
+  // Continue game loop
   requestAnimationFrame(update);
 }

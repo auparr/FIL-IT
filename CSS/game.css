@@ -12,12 +12,18 @@ body {
   align-items: center;
   /* Memastikan body memenuhi seluruh tinggi viewport */
   height: 100vh;
-  /* Gaya latar belakang, warna teks, dan font */
-  background: #111;
+  /* Gaya latar belakang yang konsisten dengan index.html */
+  background: radial-gradient(
+    circle at 20% 50%,
+    #1a0d2e 0%,
+    #0a0a0a 50%,
+    #0d1b2a 100%
+  );
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   /* Menyembunyikan overflow untuk mencegah scrollbar */
   overflow: hidden;
+  position: relative;
 }
 
 /* ==========================================================================
@@ -28,24 +34,29 @@ body {
 #gameArea {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(#444, #222, #111);
-  border: 4px solid #fff;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 26, 46, 0.6),
+    rgba(22, 33, 62, 0.6)
+  );
+  border: 4px solid #4ecdc4;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+  box-shadow: 0 0 30px rgba(78, 205, 196, 0.4);
+  backdrop-filter: blur(10px);
 }
 
 /* Objek Pemain (Player) */
 #player {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, dodgerblue, deepskyblue);
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
   position: absolute;
   top: 100px;
   left: 100px;
   border-radius: 8px;
   z-index: 3;
-  box-shadow: 0 0 10px dodgerblue;
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
   transition: transform 0.1s;
 }
 
@@ -53,11 +64,11 @@ body {
 .obstacle {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, crimson, darkred);
+  background: linear-gradient(135deg, #ff8b94, #ff6b6b);
   position: absolute;
   border-radius: 8px;
   z-index: 4;
-  box-shadow: 0 0 10px crimson;
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
   transition: transform 0.1s;
 }
 
@@ -165,6 +176,8 @@ body {
   background: rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 100;
 }
 
 /* Kelas untuk status HP yang berbeda */
@@ -216,6 +229,8 @@ body {
   text-align: center;
   font-size: 14px;
   color: #aaa;
+  position: relative;
+  z-index: 100;
 }
 
 /* Overlay Game Over */
@@ -238,18 +253,48 @@ body {
 #restartBtn,
 #menuBtn {
   margin-top: 20px;
-  padding: 10px 20px;
-  background: dodgerblue;
-  border: none;
-  border-radius: 5px;
+  padding: 12px 30px;
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+  border: 2px solid #4ecdc4;
+  border-radius: 50px;
   color: white;
   font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+  position: relative;
+  overflow: hidden;
 }
+
+#restartBtn::before,
+#menuBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+#restartBtn:hover::before,
+#menuBtn:hover::before {
+  left: 100%;
+}
+
 #restartBtn:hover,
 #menuBtn:hover {
-  background: deepskyblue;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(78, 205, 196, 0.5);
 }
 
 /* Legenda */
@@ -259,6 +304,8 @@ body {
   color: #ccc;
   text-align: center;
   line-height: 1.4;
+  position: relative;
+  z-index: 100;
 }
 .legend-item {
   display: inline-block;
@@ -290,8 +337,8 @@ body {
   transform: translateX(-50%);
   width: 120px;
   height: 120px;
-  background: rgba(255, 255, 255, 0.3);
-  border: 3px solid rgba(255, 255, 255, 0.5);
+  background: rgba(78, 205, 196, 0.3);
+  border: 3px solid rgba(78, 205, 196, 0.5);
   border-radius: 50%;
   display: none; /* Defaultnya tersembunyi */
   z-index: 1000;
@@ -301,8 +348,8 @@ body {
   position: absolute;
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid #333;
+  background: rgba(78, 205, 196, 0.8);
+  border: 2px solid #4ecdc4;
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -352,11 +399,11 @@ body {
 
 .math-modal {
   background: linear-gradient(135deg, #1a1a2e, #16213e);
-  border: 3px solid #0066cc;
+  border: 3px solid #4ecdc4;
   border-radius: 15px;
   padding: 30px;
   text-align: center;
-  box-shadow: 0 0 30px rgba(0, 102, 204, 0.6);
+  box-shadow: 0 0 30px rgba(78, 205, 196, 0.6);
   max-width: 400px;
   width: 90%;
 }
@@ -390,7 +437,7 @@ body {
   font-size: 24px;
   padding: 15px;
   width: 200px;
-  border: 3px solid #0066cc;
+  border: 3px solid #4ecdc4;
   border-radius: 8px;
   text-align: center;
   background: rgba(255, 255, 255, 0.9);
@@ -459,5 +506,185 @@ body {
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   6. BACKGROUND DECORATIONS (matching index.html)
+   ========================================================================== */
+
+/* Floating math symbols */
+.floating-math {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.1;
+  color: #ff6b6b;
+  animation: float 8s infinite ease-in-out;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.floating-math:nth-child(1) {
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+}
+.floating-math:nth-child(2) {
+  top: 25%;
+  right: 15%;
+  animation-delay: 2s;
+  color: #4ecdc4;
+}
+.floating-math:nth-child(3) {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+  color: #ffd93d;
+}
+.floating-math:nth-child(4) {
+  top: 60%;
+  right: 25%;
+  animation-delay: 6s;
+  color: #a8e6cf;
+}
+.floating-math:nth-child(5) {
+  bottom: 30%;
+  right: 10%;
+  animation-delay: 1s;
+  color: #ff8b94;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg) scale(1.1);
+    opacity: 0.2;
+  }
+}
+
+/* Glowing orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.3;
+  animation: pulse-orb 4s infinite ease-in-out;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.orb1 {
+  width: 200px;
+  height: 200px;
+  background: #ff6b6b;
+  top: 20%;
+  left: -5%;
+  animation-delay: 0s;
+}
+
+.orb2 {
+  width: 150px;
+  height: 150px;
+  background: #4ecdc4;
+  bottom: 10%;
+  right: 55%;
+  animation-delay: 2s;
+}
+
+.orb3 {
+  width: 100px;
+  height: 100px;
+  background: #ffd93d;
+  top: 50%;
+  right: 10%;
+  animation-delay: 4s;
+}
+
+@keyframes pulse-orb {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+}
+
+/* Fun monsters */
+.monster-emoji {
+  position: absolute;
+  font-size: 3rem;
+  animation: monsterDance 3s infinite ease-in-out;
+  z-index: 0;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.monster1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.monster2 {
+  bottom: 15%;
+  right: 8%;
+  animation-delay: 1s;
+}
+
+.monster3 {
+  top: 70%;
+  left: 8%;
+  animation-delay: 2s;
+}
+
+@keyframes monsterDance {
+  0%,
+  100% {
+    transform: rotate(-10deg) scale(1);
+  }
+  25% {
+    transform: rotate(10deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(-5deg) scale(0.9);
+  }
+  75% {
+    transform: rotate(15deg) scale(1.05);
+  }
+}
+
+/* ==========================================================================
+   7. MOBILE ADJUSTMENTS FOR DECORATIONS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .floating-math {
+    font-size: 1.5rem;
+  }
+
+  .monster-emoji {
+    font-size: 2rem;
+  }
+
+  .orb1 {
+    width: 150px;
+    height: 150px;
+  }
+
+  .orb2 {
+    width: 120px;
+    height: 120px;
+  }
+
+  .orb3 {
+    width: 80px;
+    height: 80px;
   }
 }

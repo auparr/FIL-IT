@@ -29,7 +29,7 @@ function createMonsters() {
       y: y,
       dx: Math.cos(angle) * 2,
       dy: Math.sin(angle) * 2,
-      chaseSpeed: 2.5,
+      chaseSpeed: 3.2,
       visionRange: 150,
       visionAngle: (60 * Math.PI) / 180,
       isChasing: false,
