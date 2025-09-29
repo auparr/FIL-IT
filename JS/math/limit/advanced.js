@@ -91,7 +91,7 @@ export function generateAdvancedLimitQuestion() {
    \\[\\lim_{x \\to 0} \\frac{-${a3 ** 2}\\sin(${a3}x)}{${6 * c3}x}\\]
 4. Gunakan limit dasar \\(\\lim_{x \\to 0} \\frac{\\sin(kx)}{x} = k\\).
 5. Hasil:
-   \\[\\frac{-${a3 ** 3}}({6${c3}}) = ${answer}\\]`;
+   \\[\\frac{-${a3 ** 3}}{6(${c3})} = ${answer}\\]`;
       qType = "Trigonometri-Rasional";
       break;
 
