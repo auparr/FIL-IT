@@ -10,6 +10,8 @@ import { generateAdvancedFunctionQuestion } from "./fungsi/advanced.js";
 
 import { generateBasicIntegralQuestion } from "./integral/easy.js";
 import { generateMediumIntegralQuestion } from "./integral/medium.js";
+import { generateHardIntegralQuestion } from "./integral/hard.js";
+import { generateAdvancedIntegralQuestion } from "./integral/advanced.js";
 
 // Variabel untuk menyimpan soal, jawaban dan statistik
 let currentQuestion = null;
@@ -371,7 +373,75 @@ function displayNewQuestion() {
       updateStats();
 
       break;
+    case "integral/hard.html":
+      currentQuestion = generateHardIntegralQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
 
+      // Update tampilan jenis soal
+      questionTypeEl.textContent = currentQuestionType;
+
+      // Beri warna berbeda berdasarkan jenis soal
+      if (currentQuestionType.includes("Satu Suku")) {
+        questionTypeEl.className = "question-type polynomial-single";
+      } else if (currentQuestionType.includes("Beberapa Suku")) {
+        questionTypeEl.className = "question-type polynomial-multi";
+      } else {
+        questionTypeEl.className = "question-type trigonometric";
+      }
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+      solutionDiv.innerHTML = solutionSteps;
+
+      // Render ulang MathJax
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      // Update statistik
+      totalQuestions++;
+      updateStats();
+
+      break;
+
+    case "integral/advanced.html":
+      currentQuestion = generateAdvancedIntegralQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      // Update tampilan jenis soal
+      questionTypeEl.textContent = currentQuestionType;
+
+      // Beri warna berbeda berdasarkan jenis soal
+      if (currentQuestionType.includes("Satu Suku")) {
+        questionTypeEl.className = "question-type polynomial-single";
+      } else if (currentQuestionType.includes("Beberapa Suku")) {
+        questionTypeEl.className = "question-type polynomial-multi";
+      } else {
+        questionTypeEl.className = "question-type trigonometric";
+      }
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+      solutionDiv.innerHTML = solutionSteps;
+
+      // Render ulang MathJax
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      // Update statistik
+      totalQuestions++;
+      updateStats();
+
+      break;
     default:
       alert(`there is no ${key}.`);
       break;

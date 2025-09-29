@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator Soal Integral Matematika Tingkat Sulit</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <link rel="stylesheet" href="/CSS/learning.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-button-container">
+        <a href="/learn/integral.html" class="back-button">
+          <img src="/assets/images/back-button.svg" alt="Back" />
+        </a>
+      </div>
+      <header>
+        <h1>Generator Soal Integral Matematika</h1>
+        <p class="subtitle">
+          Tingkat Sulit • Integral Parsial, Pecahan Parsial, dan Substitusi
+          Trigonometri
+        </p>
+      </header>
+
+      <div class="content">
+        <div class="difficulty-info">
+          <h3>Tingkat Kesulitan: Sulit</h3>
+          <p>
+            Soal pada tingkat ini meliputi integral parsial, pecahan parsial,
+            dan substitusi trigonometri untuk fungsi yang lebih kompleks.
+          </p>
+          <div class="method-info">
+            <h4>Jenis Soal:</h4>
+            <ul>
+              <li>
+                <strong>Integral Parsial Polinomial-Eksponensial</strong> -
+                Integral produk polinomial dengan fungsi eksponensial
+              </li>
+              <li>
+                <strong>Integral Parsial Polinomial-Trigonometri</strong> -
+                Integral produk polinomial dengan fungsi trigonometri
+              </li>
+              <li>
+                <strong>Pecahan Parsial Sederhana</strong> - Integral fungsi
+                rasional dengan dekomposisi pecahan parsial
+              </li>
+              <li>
+                <strong>Substitusi Trigonometri Bentuk Akar</strong> - Integral
+                bentuk akar dengan substitusi trigonometri
+              </li>
+            </ul>
+          </div>
+          <div class="integer-only">
+            <strong>Fitur Khusus:</strong> Semua soal dijamin memiliki jawaban
+            <strong>bilangan bulat</strong> dengan pemilihan koefisien dan
+            parameter yang tepat.
+          </div>
+          <div class="hint">
+            <strong>Tips:</strong> Untuk integral parsial gunakan rumus ∫u dv =
+            uv - ∫v du. Untuk pecahan parsial, dekomposisi dahulu menjadi
+            pecahan-pecahan sederhana. Untuk substitusi trigonometri, gunakan
+            identitas: x = a sin θ untuk √(a²-x²), x = a tan θ untuk √(a²+x²), x
+            = a sec θ untuk √(x²-a²).
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-value" id="totalQuestions">0</div>
+            <div class="stat-label">Total Soal</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="correctAnswers">0</div>
+            <div class="stat-label">Jawaban Benar</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="successRate">0%</div>
+            <div class="stat-label">Tingkat Keberhasilan</div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="generateBtn">Generate Soal Baru</button>
+          <button id="checkBtn">Cek Jawaban</button>
+          <button id="showSolutionBtn">Tampilkan Penyelesaian</button>
+        </div>
+
+        <div class="question-box">
+          <div id="questionText">Klik "Generate Soal Baru" untuk memulai</div>
+          <div id="questionType" class="question-type"></div>
+        </div>
+
+        <div class="input-group">
+          <label for="answerInput"
+            >Jawaban Anda (dalam bentuk ekspresi matematika, termasuk
+            +C):</label
+          >
+          <input
+            type="text"
+            id="answerInput"
+            placeholder="Contoh: xe^x - e^x + C"
+          />
+        </div>
+
+        <div class="result" id="result"></div>
+
+        <div class="solution" id="solution">
+          <h4>Langkah Penyelesaian:</h4>
+          <div id="solutionSteps"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Generator Soal Integral Matematika Tingkat Sulit &copy; 2023</p>
+      </div>
+    </div>
+
+    <script type="module" src="/JS/math/generator.js"></script>
+  </body>
+</html>

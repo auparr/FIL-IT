@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator Soal Integral Matematika Tingkat Lanjut</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <link rel="stylesheet" href="/CSS/learning.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-button-container">
+        <a href="/learn/integral.html" class="back-button">
+          <img src="/assets/images/back-button.svg" alt="Back" />
+        </a>
+      </div>
+      <header>
+        <h1>Generator Soal Integral Matematika</h1>
+        <p class="subtitle">
+          Tingkat Lanjut • Integral Bertingkat, Kombinasi Kompleks, dan Integral
+          Tak Wajar
+        </p>
+      </header>
+
+      <div class="content">
+        <div class="difficulty-info">
+          <h3>Tingkat Kesulitan: Lanjut</h3>
+          <p>
+            Soal pada tingkat ini meliputi integral multi-langkah, kombinasi
+            teknik integral kompleks, integral tak wajar konvergen, dan
+            substitusi bertingkat dengan integral parsial.
+          </p>
+          <div class="method-info">
+            <h4>Jenis Soal:</h4>
+            <ul>
+              <li>
+                <strong>Integral Parsial Bertingkat</strong> - Integral yang
+                memerlukan penerapan integral parsial berulang kali
+              </li>
+              <li>
+                <strong>Kombinasi Trigonometri-Eksponensial-Logaritma</strong> -
+                Integral kompleks yang menggabungkan fungsi trigonometri,
+                eksponensial, dan logaritma
+              </li>
+              <li>
+                <strong>Integral Tak Wajar Konvergen</strong> - Integral dengan
+                batas tak hingga atau diskontinuitas yang konvergen
+              </li>
+              <li>
+                <strong>Substitusi Bertingkat dengan Parsial</strong> -
+                Kombinasi substitusi berlapis dengan teknik integral parsial
+              </li>
+            </ul>
+          </div>
+          <div class="integer-only">
+            <strong>Fitur Khusus:</strong> Semua soal dijamin memiliki jawaban
+            <strong>bilangan bulat</strong> dengan pemilihan koefisien dan
+            parameter yang sangat hati-hati untuk hasil yang presisi.
+          </div>
+          <div class="hint">
+            <strong>Tips:</strong> Untuk integral bertingkat, terapkan integral
+            parsial secara sistematis dan catat pola yang muncul. Untuk
+            kombinasi kompleks, identifikasi hierarki fungsi dan gunakan
+            substitusi yang tepat. Untuk integral tak wajar, evaluasi limit
+            secara hati-hati. Untuk substitusi bertingkat, rencanakan urutan
+            substitusi dan parsial dengan teliti.
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-value" id="totalQuestions">0</div>
+            <div class="stat-label">Total Soal</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="correctAnswers">0</div>
+            <div class="stat-label">Jawaban Benar</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="successRate">0%</div>
+            <div class="stat-label">Tingkat Keberhasilan</div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="generateBtn">Generate Soal Baru</button>
+          <button id="checkBtn">Cek Jawaban</button>
+          <button id="showSolutionBtn">Tampilkan Penyelesaian</button>
+        </div>
+
+        <div class="question-box">
+          <div id="questionText">Klik "Generate Soal Baru" untuk memulai</div>
+          <div id="questionType" class="question-type"></div>
+        </div>
+
+        <div class="input-group">
+          <label for="answerInput"
+            >Jawaban Anda (dalam bentuk ekspresi matematika, termasuk +C atau
+            nilai numerik untuk integral tak wajar):</label
+          >
+          <input
+            type="text"
+            id="answerInput"
+            placeholder="Contoh: e^x(x^2 - 2x + 2) + C atau 2 (untuk integral tak wajar)"
+          />
+        </div>
+
+        <div class="result" id="result"></div>
+
+        <div class="solution" id="solution">
+          <h4>Langkah Penyelesaian:</h4>
+          <div id="solutionSteps"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Generator Soal Integral Matematika Tingkat Lanjut &copy; 2023</p>
+      </div>
+    </div>
+
+    <script type="module" src="/JS/math/generator.js"></script>
+  </body>
+</html>
