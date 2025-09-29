@@ -42,13 +42,13 @@ export function generateAdvancedIntegralQuestion() {
           question = `Hitung integral tak tentu: $$\\int ${coeff}x^${n} e^x dx$$`;
 
           if (n === 2) {
-            steps = `Langkah penyelesaian:
-1. Gunakan integral parsial berulang untuk $$\\int x^2 e^x dx$$
-2. **Langkah 1:** u₁ = x², dv₁ = e^x dx → du₁ = 2x dx, v₁ = e^x
+            steps = `Langkah penyelesaian:<br>
+1. Gunakan integral parsial berulang untuk $$\\int x^2 e^x dx$$<br>
+2. Langkah 1: u₁ = x², dv₁ = e^x dx → du₁ = 2x dx, v₁ = e^x
 3. $$\\int x^2 e^x dx = x^2 e^x - \\int 2x e^x dx$$
-4. **Langkah 2:** u₂ = 2x, dv₂ = e^x dx → du₂ = 2 dx, v₂ = e^x
+4. Langkah 2: u₂ = 2x, dv₂ = e^x dx → du₂ = 2 dx, v₂ = e^x
 5. $$\\int 2x e^x dx = 2x e^x - \\int 2 e^x dx = 2x e^x - 2e^x$$
-6. **Gabungkan:** $$\\int x^2 e^x dx = x^2 e^x - (2x e^x - 2e^x) = e^x(x^2 - 2x + 2)$$
+6. Gabungkan: $$\\int x^2 e^x dx = x^2 e^x - (2x e^x - 2e^x) = e^x(x^2 - 2x + 2)$$
 7. Jadi: $$\\int ${coeff}x^2 e^x dx = ${coeff}e^x(x^2 - 2x + 2) + C$$`;
 
             answer = coeff;
@@ -56,12 +56,12 @@ export function generateAdvancedIntegralQuestion() {
           } else {
             // n = 3
             steps = `Langkah penyelesaian:
-1. Gunakan integral parsial tiga kali untuk $$\\int x^3 e^x dx$$
-2. **Langkah 1:** u₁ = x³, dv₁ = e^x dx → du₁ = 3x² dx, v₁ = e^x
+1. Gunakan integral parsial tiga kali untuk $$\\int x^3 e^x dx$$<br>
+2. Langkah 1: u₁ = x³, dv₁ = e^x dx → du₁ = 3x² dx, v₁ = e^x
 3. $$\\int x^3 e^x dx = x^3 e^x - \\int 3x^2 e^x dx$$
-4. **Langkah 2:** Dari hasil sebelumnya, $$\\int x^2 e^x dx = e^x(x^2 - 2x + 2)$$
+4. Langkah 2: Dari hasil sebelumnya, $$\\int x^2 e^x dx = e^x(x^2 - 2x + 2)$$
 5. Maka $$\\int 3x^2 e^x dx = 3e^x(x^2 - 2x + 2)$$
-6. **Gabungkan:** $$\\int x^3 e^x dx = x^3 e^x - 3e^x(x^2 - 2x + 2) = e^x(x^3 - 3x^2 + 6x - 6)$$
+6. Gabungkan: $$\\int x^3 e^x dx = x^3 e^x - 3e^x(x^2 - 2x + 2) = e^x(x^3 - 3x^2 + 6x - 6)$$
 7. Jadi: $$\\int ${coeff}x^3 e^x dx = ${coeff}e^x(x^3 - 3x^2 + 6x - 6) + C$$`;
 
             answer = coeff;
@@ -75,13 +75,13 @@ export function generateAdvancedIntegralQuestion() {
 
           if (n === 2) {
             steps = `Langkah penyelesaian:
-1. Gunakan integral parsial berulang untuk $$\\int (\\ln x)^2 dx$$
-2. **Langkah 1:** u₁ = (ln x)², dv₁ = dx → du₁ = \\frac{2\\ln x}{x} dx, v₁ = x
+1. Gunakan integral parsial berulang untuk $$\\int (\\ln x)^2 dx$$<br>
+2. Langkah 1: u₁ = (ln x)², dv₁ = dx → du₁ = \\frac{2\\ln x}{x} dx, v₁ = x
 3. $$\\int (\\ln x)^2 dx = x(\\ln x)^2 - \\int x \\cdot \\frac{2\\ln x}{x} dx = x(\\ln x)^2 - \\int 2\\ln x dx$$
-4. **Langkah 2:** u₂ = ln x, dv₂ = dx → du₂ = \\frac{1}{x} dx, v₂ = x
+4. Langkah 2: u₂ = ln x, dv₂ = dx → du₂ = \\frac{1}{x} dx, v₂ = x
 5. $$\\int \\ln x dx = x\\ln x - \\int x \\cdot \\frac{1}{x} dx = x\\ln x - x$$
 6. Maka $$\\int 2\\ln x dx = 2(x\\ln x - x) = 2x\\ln x - 2x$$
-7. **Gabungkan:** $$\\int (\\ln x)^2 dx = x(\\ln x)^2 - 2x\\ln x + 2x = x[(\\ln x)^2 - 2\\ln x + 2]$$
+7. Gabungkan: $$\\int (\\ln x)^2 dx = x(\\ln x)^2 - 2x\\ln x + 2x = x[(\\ln x)^2 - 2\\ln x + 2]$$
 8. Jadi: $$\\int ${coeff}(\\ln x)^2 dx = ${coeff}x[(\\ln x)^2 - 2\\ln x + 2] + C$$`;
 
             answer = coeff;
@@ -123,12 +123,12 @@ export function generateAdvancedIntegralQuestion() {
 
           steps = `Langkah penyelesaian:
 1. Gunakan integral parsial dua kali untuk $$\\int e^x \\sin x dx$$
-2. **Metode Sistematis:** Misalkan I = $$\\int e^x \\sin x dx$$
-3. **Langkah 1:** u₁ = sin x, dv₁ = e^x dx → du₁ = cos x dx, v₁ = e^x
+2. Metode Sistematis: Misalkan I = $$\\int e^x \\sin x dx$$
+3. Langkah 1: u₁ = sin x, dv₁ = e^x dx → du₁ = cos x dx, v₁ = e^x
 4. $$I = e^x \\sin x - \\int e^x \\cos x dx$$
-5. **Langkah 2:** u₂ = cos x, dv₂ = e^x dx → du₂ = -sin x dx, v₂ = e^x
+5. Langkah 2: u₂ = cos x, dv₂ = e^x dx → du₂ = -sin x dx, v₂ = e^x
 6. $$\\int e^x \\cos x dx = e^x \\cos x - \\int e^x(-\\sin x) dx = e^x \\cos x + I$$
-7. **Substitusi kembali:** $$I = e^x \\sin x - (e^x \\cos x + I)$$
+7. Substitusi kembali: $$I = e^x \\sin x - (e^x \\cos x + I)$$
 8. $$I = e^x \\sin x - e^x \\cos x - I$$
 9. $$2I = e^x(\\sin x - \\cos x)$$
 10. $$I = \\frac{1}{2}e^x(\\sin x - \\cos x)$$
@@ -141,12 +141,12 @@ export function generateAdvancedIntegralQuestion() {
 
           steps = `Langkah penyelesaian:
 1. Gunakan integral parsial dua kali untuk $$\\int e^x \\cos x dx$$
-2. **Metode Sistematis:** Misalkan I = $$\\int e^x \\cos x dx$$
-3. **Langkah 1:** u₁ = cos x, dv₁ = e^x dx → du₁ = -sin x dx, v₁ = e^x
+2. Metode Sistematis: Misalkan I = $$\\int e^x \\cos x dx$$
+3. Langkah 1: u₁ = cos x, dv₁ = e^x dx → du₁ = -sin x dx, v₁ = e^x
 4. $$I = e^x \\cos x - \\int e^x(-\\sin x) dx = e^x \\cos x + \\int e^x \\sin x dx$$
-5. **Langkah 2:** u₂ = sin x, dv₂ = e^x dx → du₂ = cos x dx, v₂ = e^x
+5. Langkah 2: u₂ = sin x, dv₂ = e^x dx → du₂ = cos x dx, v₂ = e^x
 6. $$\\int e^x \\sin x dx = e^x \\sin x - \\int e^x \\cos x dx = e^x \\sin x - I$$
-7. **Substitusi kembali:** $$I = e^x \\cos x + (e^x \\sin x - I)$$
+7. Substitusi kembali: $$I = e^x \\cos x + (e^x \\sin x - I)$$
 8. $$I = e^x \\cos x + e^x \\sin x - I$$
 9. $$2I = e^x(\\cos x + \\sin x)$$
 10. $$I = \\frac{1}{2}e^x(\\cos x + \\sin x)$$
@@ -159,13 +159,13 @@ export function generateAdvancedIntegralQuestion() {
 
           steps = `Langkah penyelesaian:
 1. Gunakan integral parsial untuk $$\\int \\ln x \\sin x dx$$
-2. **Pilih:** u = ln x, dv = sin x dx
-3. **Hitung:** du = (1/x) dx, v = -cos x
-4. **Terapkan rumus:** $$\\int u dv = uv - \\int v du$$
+2. Pilih: u = ln x, dv = sin x dx
+3. Hitung: du = (1/x) dx, v = -cos x
+4. Terapkan rumus: $$\\int u dv = uv - \\int v du$$
 5. $$\\int \\ln x \\sin x dx = -\\cos x \\ln x - \\int (-\\cos x) \\cdot \\frac{1}{x} dx$$
 6. $$= -\\cos x \\ln x + \\int \\frac{\\cos x}{x} dx$$
-7. **Integral $$\\int \\frac{\\cos x}{x} dx$$ tidak memiliki bentuk closed-form sederhana**
-8. **Untuk tujuan pembelajaran, kita asumsikan hasil dalam bentuk:**
+7. Integral $$\\int \\frac{\\cos x}{x} dx$$ tidak memiliki bentuk closed-form sederhana
+8. Untuk tujuan pembelajaran, kita asumsikan hasil dalam bentuk:
 9. $$\\int \\ln x \\sin x dx = -\\cos x \\ln x + \\text{Ci}(x) + C$$
 10. Dimana Ci(x) adalah cosine integral
 11. Jadi: $$\\int ${coeff}\\ln x \\sin x dx = ${coeff}(-\\cos x \\ln x + \\text{Ci}(x)) + C$$`;
@@ -217,19 +217,19 @@ export function generateAdvancedIntegralQuestion() {
           question = `Hitung integral tak wajar: $$\\int_0^{\\infty} ${coeff}xe^{-${a}x} dx$$`;
 
           steps = `Langkah penyelesaian:
-1. **Uji konvergensi:** Untuk x → ∞, xe^(-${a}x) → 0 karena eksponensial lebih cepat dari polinomial
-2. **Hitung integral:** $$\\int_0^{\\infty} ${coeff}xe^{-${a}x} dx = ${coeff} \\int_0^{\\infty} xe^{-${a}x} dx$$
-3. **Integral parsial:** u = x, dv = e^(-${a}x) dx → du = dx, v = -\\frac{1}{${a}}e^{-${a}x}
+1. Uji konvergensi: Untuk x → ∞, xe^(-${a}x) → 0 karena eksponensial lebih cepat dari polinomial
+2. Hitung integral: $$\\int_0^{\\infty} ${coeff}xe^{-${a}x} dx = ${coeff} \\int_0^{\\infty} xe^{-${a}x} dx$$
+3. Integral parsial: u = x, dv = e^(-${a}x) dx → du = dx, v = -\\frac{1}{${a}}e^{-${a}x}
 4. $$\\int xe^{-${a}x} dx = -\\frac{x}{${a}}e^{-${a}x} + \\frac{1}{${a}} \\int e^{-${a}x} dx$$
 5. $$= -\\frac{x}{${a}}e^{-${a}x} - \\frac{1}{${
             a * a
           }}e^{-${a}x} = -\\frac{e^{-${a}x}}{${a}}\\left(x + \\frac{1}{${a}}\\right)$$
-6. **Evaluasi limit:** 
+6. Evaluasi limit: 
    - Batas atas (x → ∞): $$\\lim_{x \\to \\infty} \\left(-\\frac{e^{-${a}x}}{${a}}\\left(x + \\frac{1}{${a}}\\right)\\right) = 0$$
    - Batas bawah (x = 0): $$-\\frac{e^0}{${a}}\\left(0 + \\frac{1}{${a}}\\right) = -\\frac{1}{${
             a * a
           }}$$
-7. **Hasil:** $$0 - \\left(-\\frac{1}{${a * a}}\\right) = \\frac{1}{${a * a}}$$
+7. Hasil: $$0 - \\left(-\\frac{1}{${a * a}}\\right) = \\frac{1}{${a * a}}$$
 8. Jadi: $$\\int_0^{\\infty} ${coeff}xe^{-${a}x} dx = \\frac{${coeff}}{${
             a * a
           }}$$`;
@@ -243,16 +243,16 @@ export function generateAdvancedIntegralQuestion() {
           question = `Hitung integral tak wajar: $$\\int_1^{\\infty} \\frac{${coeff}}{x^2 + ${a}} dx$$`;
 
           steps = `Langkah penyelesaian:
-1. **Uji konvergensi:** Untuk x → ∞, \\frac{1}{x^2 + ${a}} ~ \\frac{1}{x^2}, integral konvergen karena p = 2 > 1
-2. **Substitusi trigonometri:** x = \\sqrt{${a}} \\tan(θ), dx = \\sqrt{${a}} \\sec^2(θ) dθ
-3. **Transformasi integral:** x^2 + ${a} = ${a}\\tan^2(θ) + ${a} = ${a}\\sec^2(θ)
+1. Uji konvergensi: Untuk x → ∞, \\frac{1}{x^2 + ${a}} ~ \\frac{1}{x^2}, integral konvergen karena p = 2 > 1
+2. Substitusi trigonometri: x = \\sqrt{${a}} \\tan(θ), dx = \\sqrt{${a}} \\sec^2(θ) dθ
+3. Transformasi integral: x^2 + ${a} = ${a}\\tan^2(θ) + ${a} = ${a}\\sec^2(θ)
 4. $$\\int \\frac{1}{x^2 + ${a}} dx = \\int \\frac{\\sqrt{${a}} \\sec^2(θ)}{${a}\\sec^2(θ)} dθ = \\frac{1}{\\sqrt{${a}}} \\int dθ = \\frac{θ}{\\sqrt{${a}}}$$
-5. **Kembalikan ke x:** θ = \\arctan\\left(\\frac{x}{\\sqrt{${a}}}\\right)
+5. Kembalikan ke x: θ = \\arctan\\left(\\frac{x}{\\sqrt{${a}}}\\right)
 6. $$\\int \\frac{1}{x^2 + ${a}} dx = \\frac{1}{\\sqrt{${a}}} \\arctan\\left(\\frac{x}{\\sqrt{${a}}}\\right)$$
-7. **Evaluasi limit:**
+7. Evaluasi limit:
    - Batas atas (x → ∞): $$\\lim_{x \\to \\infty} \\frac{1}{\\sqrt{${a}}} \\arctan\\left(\\frac{x}{\\sqrt{${a}}}\\right) = \\frac{1}{\\sqrt{${a}}} \\cdot \\frac{π}{2} = \\frac{π}{2\\sqrt{${a}}}$$
    - Batas bawah (x = 1): $$\\frac{1}{\\sqrt{${a}}} \\arctan\\left(\\frac{1}{\\sqrt{${a}}}\\right)$$
-8. **Hasil:** $$\\frac{π}{2\\sqrt{${a}}} - \\frac{1}{\\sqrt{${a}}} \\arctan\\left(\\frac{1}{\\sqrt{${a}}}\\right)$$
+8. Hasil: $$\\frac{π}{2\\sqrt{${a}}} - \\frac{1}{\\sqrt{${a}}} \\arctan\\left(\\frac{1}{\\sqrt{${a}}}\\right)$$
 9. Jadi: $$\\int_1^{\\infty} \\frac{${coeff}}{x^2 + ${a}} dx = \\frac{${coeff}}{\\sqrt{${a}}}\\left[\\frac{π}{2} - \\arctan\\left(\\frac{1}{\\sqrt{${a}}}\\right)\\right]$$`;
 
           const result =
@@ -267,21 +267,21 @@ export function generateAdvancedIntegralQuestion() {
           question = `Hitung integral tak wajar: $$\\int_1^{\\infty} \\frac{${coeff}}{x^${p}} dx$$`;
 
           steps = `Langkah penyelesaian:
-1. **Uji konvergensi:** Untuk p = ${p} > 1, integral $$\\int_1^{\\infty} \\frac{1}{x^p} dx$$ konvergen
-2. **Ubah ke bentuk limit:** $$\\int_1^{\\infty} \\frac{${coeff}}{x^${p}} dx = \\lim_{b \\to \\infty} \\int_1^{b} \\frac{${coeff}}{x^${p}} dx = ${coeff} \\lim_{b \\to \\infty} \\int_1^{b} x^{-${p}} dx$$
-3. **Antiturunan:** $$\\int x^{-${p}} dx = \\frac{x^{-${p}+1}}{-${p}+1} = \\frac{x^{${
+1. Uji konvergensi: Untuk p = ${p} > 1, integral $$\\int_1^{\\infty} \\frac{1}{x^p} dx$$ konvergen
+2. Ubah ke bentuk limit: $$\\int_1^{\\infty} \\frac{${coeff}}{x^${p}} dx = \\lim_{b \\to \\infty} \\int_1^{b} \\frac{${coeff}}{x^${p}} dx = ${coeff} \\lim_{b \\to \\infty} \\int_1^{b} x^{-${p}} dx$$
+3. Antiturunan: $$\\int x^{-${p}} dx = \\frac{x^{-${p}+1}}{-${p}+1} = \\frac{x^{${
             1 - p
           }}}{${1 - p}} = -\\frac{1}{${p - 1}}x^{-${p - 1}}$$
-4. **Evaluasi integral:** - Batas atas (x → b): $$\\lim_{b \\to \\infty} \\left(-\\frac{1}{${
+4. Evaluasi integral: - Batas atas (x → b): $$\\lim_{b \\to \\infty} \\left(-\\frac{1}{${
             p - 1
           }}b^{-${p - 1}}\\right) = 0$$
    - Batas bawah (x = 1): $$-\\frac{1}{${p - 1}} \\cdot 1^{-${
             p - 1
           }} = -\\frac{1}{${p - 1}}$$
-5. **Hasil:** $$${coeff} \\times \\left[0 - \\left(-\\frac{1}{${
+5. Hasil: $$${coeff} \\times \\left[0 - \\left(-\\frac{1}{${
             p - 1
           }}\\right)\\right] = ${coeff} \\times \\frac{1}{${p - 1}}$$
-6. **Jadi:** $$\\int_1^{\\infty} \\frac{${coeff}}{x^${p}} dx = \\frac{${coeff}}{${
+6. Jadi: $$\\int_1^{\\infty} \\frac{${coeff}}{x^${p}} dx = \\frac{${coeff}}{${
             p - 1
           }}$$`;
 
@@ -299,17 +299,17 @@ export function generateAdvancedIntegralQuestion() {
         question = `Hitung integral tak tentu: $$\\int ${coeff}\\sin(\\ln x) dx$$`;
 
         steps = `Langkah penyelesaian:
-1. **Substitusi pertama:** u = ln x → x = e^u, dx = e^u du
+1. Substitusi pertama: u = ln x → x = e^u, dx = e^u du<br>
 2. $$\\int ${coeff}\\sin(\\ln x) dx = ${coeff} \\int \\sin(u) e^u du$$
-3. **Integral parsial untuk** $$\\int e^u \\sin u du$$:
-4. **Metode sistematis:** Misalkan I = $$\\int e^u \\sin u du$$
-5. **Langkah 1:** v₁ = sin u, dw₁ = e^u du → dv₁ = cos u du, w₁ = e^u
+3. Integral parsial untuk $$\\int e^u \\sin u du$$:
+4. Metode sistematis: Misalkan I = $$\\int e^u \\sin u du$$
+5. Langkah 1: v₁ = sin u, dw₁ = e^u du → dv₁ = cos u du, w₁ = e^u
 6. $$I = e^u \\sin u - \\int e^u \\cos u du$$
-7. **Langkah 2:** v₂ = cos u, dw₂ = e^u du → dv₂ = -sin u du, w₂ = e^u  
+7. Langkah 2: v₂ = cos u, dw₂ = e^u du → dv₂ = -sin u du, w₂ = e^u  
 8. $$\\int e^u \\cos u du = e^u \\cos u + \\int e^u \\sin u du = e^u \\cos u + I$$
-9. **Substitusi:** $$I = e^u \\sin u - (e^u \\cos u + I)$$
+9. Substitusi: $$I = e^u \\sin u - (e^u \\cos u + I)$$
 10. $$2I = e^u(\\sin u - \\cos u)$$, jadi $$I = \\frac{1}{2}e^u(\\sin u - \\cos u)$$
-11. **Substitusi balik:** $$\\int e^u \\sin u du = \\frac{1}{2}e^{\\ln x}(\\sin(\\ln x) - \\cos(\\ln x))$$
+11. Substitusi balik: $$\\int e^u \\sin u du = \\frac{1}{2}e^{\\ln x}(\\sin(\\ln x) - \\cos(\\ln x))$$
 12. $$= \\frac{1}{2}x(\\sin(\\ln x) - \\cos(\\ln x))$$
 13. Jadi: $$\\int ${coeff}\\sin(\\ln x) dx = \\frac{${coeff}}{2}x(\\sin(\\ln x) - \\cos(\\ln x)) + C$$`;
 
