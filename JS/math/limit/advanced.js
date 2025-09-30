@@ -135,11 +135,11 @@ export function generateAdvancedLimitQuestion() {
 1. Substitusi \\(x=0\\):
    \\[\\frac{e^0 - 1 - 0}{0} = \\frac{0}{0}\\] → bentuk tak tentu.
 2. Terapkan L'Hôpital:
-   \\[\\lim_{x \\to 0} \\frac{${a5}e^{${a5}x} - ${a5}}{2${b5}x}\\]
+   \\[\\lim_{x \\to 0} \\frac{${a5}e^{${a5}x} - ${a5}}{2(${b5})x}\\]
 3. Masih \\(0/0\\). Terapkan L'Hôpital lagi:
-   \\[\\lim_{x \\to 0} \\frac{${a5 ** 2}e^{${a5}x}}{2${b5}}\\]
+   \\[\\lim_{x \\to 0} \\frac{${a5 ** 2}e^{${a5}x}}{2(${b5})}\\]
 4. Substitusi \\(x=0\\):
-   \\[\\frac{${a5 ** 2}}{2${b5}} = ${answer}\\]`;
+   \\[\\frac{${a5 ** 2}}{2(${b5})} = ${answer}\\]`;
       qType = "Fungsi Campuran";
       break;
   }

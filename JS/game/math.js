@@ -135,7 +135,7 @@ function showQuestBoxQuestion() {
   gameRunning = false;
   window.isQuestBoxQuestion = true;
 
-  currentQuestion = mediumQuestionGenerator();
+  currentQuestion = advancedQuestionGenerator();
 
   const mathModal = document.getElementById("mathQuestion");
   const questionText = document.getElementById("questionText");

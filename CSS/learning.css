@@ -38,9 +38,11 @@ h1 {
   flex-direction: column;
 }
 #questionText {
-  font-size: 24px;
+  /* min 0.8rem, skala mengikuti 2vw, max 2.3rem */
+  font-size: clamp(1rem, 3vw, 2.3rem);
   color: #2c3e50;
 }
+
 .controls {
   display: flex;
   justify-content: space-between;

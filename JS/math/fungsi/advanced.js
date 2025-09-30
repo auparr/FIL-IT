@@ -10,7 +10,7 @@ export function generateAdvancedFunctionQuestion() {
   const types = [
     "double_graph_transformations",
     "advanced_functional_equations",
-    //   "mixed_applications",
+    // "mixed_applications",
   ];
 
   const type = getRandomElement(types);
