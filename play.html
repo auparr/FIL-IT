@@ -72,6 +72,9 @@
     <script src="/JS/game/quest/hard.js"></script>
     <script src="/JS/game/quest/advanced.js"></script>
 
+    <script src="/JS/game/levelSystem.js"></script>
+    <script src="/JS/game/questBoxSystem.js"></script>
+
     <script>
       const player = document.getElementById("player");
       const gameArea = document.getElementById("gameArea");
@@ -79,22 +82,26 @@
       const restartBtn = document.getElementById("restartBtn");
       const menuBtn = document.getElementById("menuBtn");
       let viewportWidth = window.innerWidth;
-      let monsterCount = 0;
 
       let gameRunning = true;
 
-      if (viewportWidth <= 1024) {
-        monsterCount = 5;
-      } else {
-        monsterCount = 9;
+      function getMonsterCount(viewportWidth) {
+        const minMonsters = 5;
+        const maxMonsters = 12;
+
+        // scale linearly: 1 monster per 200px of width
+        const scaled = Math.floor(viewportWidth / 200);
+
+        return Math.min(Math.max(scaled, minMonsters), maxMonsters);
       }
 
+      let monsterCount = getMonsterCount(window.innerWidth);
       const monsterData = [];
 
       // Create player
       let posX = 100,
         posY = 100;
-      const playerSpeed = 10;
+      const playerSpeed = 4;
       let keys = {};
 
       // Initialize game
@@ -106,6 +113,9 @@
         gameOverScreen.style.display = "none";
         hideMathQuestion();
 
+        // NEW: Initialize level system
+        initLevelSystem();
+
         // Reset HP system
         resetHP();
 
@@ -113,6 +123,12 @@
         const existingVictory = document.getElementById("victoryScreen");
         if (existingVictory) {
           existingVictory.remove();
+        }
+
+        // NEW: Remove game complete screen if exists
+        const existingComplete = document.getElementById("gameCompleteScreen");
+        if (existingComplete) {
+          existingComplete.remove();
         }
 
         if (window.innerWidth <= 1300) {
@@ -142,7 +158,6 @@
         // Start game loop
         update();
       }
-
       // Restart game
       restartBtn.addEventListener("pointerdown", initGame);
       menuBtn.addEventListener("pointerdown", () => {

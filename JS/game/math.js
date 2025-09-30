@@ -128,40 +128,40 @@ function showMathQuestion(monsterData) {
   setTimeout(() => answerInput.focus(), 100);
 }
 
-function showQuestBoxQuestion() {
-  if (mathQuestionActive) return;
+// function showQuestBoxQuestion() {
+//   if (mathQuestionActive) return;
 
-  mathQuestionActive = true;
-  gameRunning = false;
-  window.isQuestBoxQuestion = true;
+//   mathQuestionActive = true;
+//   gameRunning = false;
+//   window.isQuestBoxQuestion = true;
 
-  currentQuestion = advancedQuestionGenerator();
+//   currentQuestion = advancedQuestionGenerator();
 
-  const mathModal = document.getElementById("mathQuestion");
-  const questionText = document.getElementById("questionText");
-  const modalTitle = mathModal.querySelector("h2");
-  const modalDescription = mathModal.querySelector("p");
-  const answerInput = document.getElementById("answerInput");
+//   const mathModal = document.getElementById("mathQuestion");
+//   const questionText = document.getElementById("questionText");
+//   const modalTitle = mathModal.querySelector("h2");
+//   const modalDescription = mathModal.querySelector("p");
+//   const answerInput = document.getElementById("answerInput");
 
-  clearModalFeedback();
+//   clearModalFeedback();
 
-  if (window.innerWidth <= 1300) {
-    document.getElementById("joystick").style.display = "none";
-  }
+//   if (window.innerWidth <= 1300) {
+//     document.getElementById("joystick").style.display = "none";
+//   }
 
-  modalTitle.textContent = "Final Challenge!";
-  modalDescription.innerHTML =
-    "Solve this to complete your quest!<br><strong>NOTE: Cukup masukkan koefisien jika soalnya berupa integral!</strong>";
-  questionText.innerHTML = currentQuestion.question;
-  answerInput.value = "";
-  mathModal.style.display = "flex";
+//   modalTitle.textContent = "Final Challenge!";
+//   modalDescription.innerHTML =
+//     "Solve this to complete your quest!<br><strong>NOTE: Cukup masukkan koefisien jika soalnya berupa integral!</strong>";
+//   questionText.innerHTML = currentQuestion.question;
+//   answerInput.value = "";
+//   mathModal.style.display = "flex";
 
-  if (typeof MathJax !== "undefined" && MathJax.typeset) {
-    MathJax.typeset([questionText]);
-  }
+//   if (typeof MathJax !== "undefined" && MathJax.typeset) {
+//     MathJax.typeset([questionText]);
+//   }
 
-  setTimeout(() => answerInput.focus(), 100);
-}
+//   setTimeout(() => answerInput.focus(), 100);
+// }
 
 function hideMathQuestion() {
   const mathModal = document.getElementById("mathQuestion");
@@ -203,22 +203,6 @@ function checkAnswer() {
   }
 }
 
-function checkQuestBoxAnswer() {
-  const answerInput = document.getElementById("answerInput");
-  const validation = validateAnswer(answerInput.value);
-
-  if (!validation.valid) {
-    showQuestionFeedback(validation.error, "warning");
-    return;
-  }
-
-  if (validation.value === currentQuestion.answer) {
-    victory();
-  } else {
-    handleQuestBoxWrongAnswer();
-  }
-}
-
 // =========================
 // Answer Handlers
 // =========================
@@ -226,11 +210,6 @@ function checkQuestBoxAnswer() {
 function handleCorrectAnswer() {
   if (window.innerWidth <= 1300) {
     document.getElementById("joystick").style.display = "block";
-  }
-
-  if (window.isQuestBoxQuestion) {
-    victory();
-    return;
   }
 
   removeMonster(currentCollidingMonster);
@@ -246,25 +225,6 @@ function handleCorrectAnswer() {
 }
 
 function handleWrongAnswer() {
-  if (window.isQuestBoxQuestion) {
-    handleQuestBoxWrongAnswer();
-    return;
-  }
-
-  decreaseHP();
-
-  if (playerHP <= 0) {
-    gameOver();
-  } else {
-    resetAnswerInput();
-    showQuestionFeedback(
-      `Wrong! HP: ${playerHP}/3 remaining. Try again!`,
-      "damage"
-    );
-  }
-}
-
-function handleQuestBoxWrongAnswer() {
   decreaseHP();
 
   if (playerHP <= 0) {
@@ -428,68 +388,4 @@ function showFeedback(message, type) {
       feedback.remove();
     }
   }, 2000);
-}
-
-// =========================
-// Victory System
-// =========================
-
-function victory() {
-  gameRunning = false;
-  mathQuestionActive = false;
-  window.isQuestBoxQuestion = false;
-  hideMathQuestion();
-
-  const questBox = document.getElementById("questBox");
-  if (questBox) questBox.remove();
-
-  showVictoryScreen();
-}
-
-function showVictoryScreen() {
-  const victoryScreen = document.createElement("div");
-  victoryScreen.id = "victoryScreen";
-  victoryScreen.style.cssText = `
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    color: white;
-    font-family: sans-serif;
-    text-align: center;
-  `;
-
-  victoryScreen.innerHTML = `
-    <h1 style="font-size: 48px; color: #4ecdc4; margin-bottom: 20px; text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);">
-      VICTORY!
-    </h1>
-    <p style="font-size: 24px; margin-bottom: 30px; color: #ffd93d;">
-      You completed the quest!
-    </p>
-    <p style="font-size: 18px; margin-bottom: 40px; color: #ccc;">
-      You defeated the monsters and solved the final challenge!
-    </p>
-    <div class="victory-btn-container">
-      <a id="victoryRestartBtn" class="victory-btn restart" href="play.html">Play Again</a>
-      <a id="victoryMenuBtn" class="victory-btn menu" href="index.html">Back to Menu</a>
-    </div>
-  `;
-
-  document.body.appendChild(victoryScreen);
-
-  document
-    .getElementById("victoryRestartBtn")
-    .addEventListener("pointerdown", initGame);
-  document
-    .getElementById("victoryMenuBtn")
-    .addEventListener("pointerdown", () => {
-      window.location.href = "index.html";
-    });
 }

@@ -21,7 +21,15 @@ document.addEventListener("keydown", (e) => {
 
   // Handle Enter key for math questions
   if (e.key === "Enter" && mathQuestionActive) {
-    checkAnswer();
+    e.preventDefault();
+
+    if (window.isQuestBoxQuestion) {
+      // Quest box question - use quest box handler
+      checkQuestBoxAnswer();
+    } else {
+      // Monster question - use monster handler
+      checkAnswer();
+    }
   }
 });
 

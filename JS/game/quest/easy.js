@@ -131,59 +131,94 @@ function easyQuestionGenerator() {
     ];
     const type = getRandomElement(types);
 
+    // Declare all variables that might be needed for the return object outside the switch statement.
     let question, answer;
+
+    // Variables for polynomial cases
+    let exponent, exponent1, exponent2, coefficient, coefficient1, coefficient2;
+    let answer1, answer2;
+    let distinctExponents;
+
+    // Variables for trigonometry case
+    let trigCoefficient, trigFunction;
 
     switch (type) {
       case "polynomial_single_term":
-        const exponent = getRandomInt(0, 8);
-        const coefficient = getIntegerFriendlyCoefficient(exponent);
+        exponent = getRandomInt(0, 8);
+        coefficient = getIntegerFriendlyCoefficient(exponent);
 
-        question = `Hitung integral tak tentu: $$\\int ${coefficient}x^{${exponent}} dx$$`;
-        answer = `${coefficient / (exponent + 1)}x^{${exponent + 1}} + C`;
+        question = `Hitung integral tak tentu: $$\\int ${coefficient}x^{${exponent}}  dx$$`;
+
+        // ∫kxⁿ dx = k/(n+1) * xⁿ⁺¹
+        const resultCoefficient = coefficient / (exponent + 1);
+        answer = resultCoefficient; // The question seems to want just the coefficient.
+
         break;
 
       case "polynomial_multi_term":
-        let exponent1 = getRandomInt(0, 6);
-        let exponent2;
+        exponent1 = getRandomInt(0, 6);
+        // Ensure the second exponent is different
         do {
           exponent2 = getRandomInt(0, 6);
         } while (exponent1 === exponent2);
 
-        const coefficient1 = getIntegerFriendlyCoefficient(exponent1);
-        const coefficient2 = getIntegerFriendlyCoefficient(exponent2);
+        distinctExponents = [exponent1, exponent2];
 
-        question = `Hitung integral tak tentu: $$\\int (${coefficient1}x^{${exponent1}} + ${coefficient2}x^{${exponent2}}) dx$$`;
-        const answer1 = `${coefficient1 / (exponent1 + 1)}x^{${exponent1 + 1}}`;
-        const answer2 = `${coefficient2 / (exponent2 + 1)}x^{${exponent2 + 1}}`;
-        answer = `${answer1} + ${answer2} + C`;
+        coefficient1 = getIntegerFriendlyCoefficient(distinctExponents[0]);
+        coefficient2 = getIntegerFriendlyCoefficient(distinctExponents[1]);
+
+        question = `Hitung integral tak tentu: $$\\int (${coefficient1}x^{${distinctExponents[0]}} + ${coefficient2}x^{${distinctExponents[1]}})  dx$$`;
+
+        // ∫(axᵐ + bxⁿ) dx = a/(m+1) xᵐ⁺¹ + b/(n+1) xⁿ⁺¹
+        answer1 = coefficient1 / (distinctExponents[0] + 1);
+        answer2 = coefficient2 / (distinctExponents[1] + 1);
+
+        // FIX: Get the coefficient of the HIGHEST power term after integration
+        if (distinctExponents[0] > distinctExponents[1]) {
+          answer = answer1;
+        } else {
+          answer = answer2;
+        }
         break;
 
       case "basic_trigonometric_simplified":
-        const trigFunction = getRandomElement(["sin", "cos"]);
-        const trigCoefficient = getRandomInt(2, 10);
+        // FIX: Define the trigonometric function and coefficient
+        trigFunction = getRandomElement(["sin", "cos"]);
+        trigCoefficient = getRandomInt(2, 10);
 
-        question = `Hitung integral tak tentu: $$\\int ${trigCoefficient}\\${trigFunction}(x) dx$$`;
+        question = `Hitung integral tak tentu: $$\\int ${trigCoefficient}\\${trigFunction}(x)  dx$$`;
 
         if (trigFunction === "sin") {
-          answer = `-${trigCoefficient}cos(x) + C`;
+          // ∫k sin(x) dx = -k cos(x) + C
+          answer = -trigCoefficient; // Answer is the resulting
         } else {
-          answer = `${trigCoefficient}sin(x) + C`;
+          // trigFunction is "cos"
+          // ∫k cos(x) dx = k sin(x) + C
+          answer = trigCoefficient; // Answer is the resulting
         }
         break;
     }
 
-    return { question, answer };
+    return {
+      question,
+      answer,
+    };
   }
-  function generateEasyLimitQuestion() {
+
+  function generateBasicLimitQuestion() {
     const questionType = getRandomInt(0, 1);
+
+    // Nilai x yang didekati (bilangan bulat kecil)
     const xValue = getRandomInt(-5, 5);
 
     let question, answer;
 
     if (questionType === 0) {
-      const degree = getRandomInt(1, 2);
+      // Soal polinomial: ax^2 + bx + c atau ax + b
+      const degree = getRandomInt(1, 2); // Derajat polinomial (1 atau 2)
 
       if (degree === 1) {
+        // Fungsi linear: ax + b
         const a = getRandomInt(1, 5) * (Math.random() > 0.5 ? 1 : -1);
         const b = getRandomInt(-10, 10);
 
@@ -192,6 +227,7 @@ function easyQuestionGenerator() {
         } ${b})\\]`;
         answer = a * xValue + b;
       } else {
+        // Fungsi kuadrat: ax^2 + bx + c
         const a = getRandomInt(1, 3) * (Math.random() > 0.5 ? 1 : -1);
         const b = getRandomInt(-5, 5);
         const c = getRandomInt(-10, 10);
@@ -202,6 +238,7 @@ function easyQuestionGenerator() {
         answer = a * xValue * xValue + b * xValue + c;
       }
     } else {
+      // Soal rasional sederhana: (ax + b)/(cx + d) dengan cx + d ≠ 0 saat x = xValue
       let a, b, c, d;
       let attempts = 0;
 
@@ -223,15 +260,16 @@ function easyQuestionGenerator() {
       answer = (a * xValue + b) / (c * xValue + d);
 
       if (!Number.isInteger(answer)) {
-        return generateEasyLimitQuestion();
+        return generateBasicLimitQuestion();
       }
     }
+
     return { question, answer };
   }
   const generators = [
     generateEasyFunctionQuestion,
     generateBasicIntegralQuestion,
-    generateEasyLimitQuestion,
+    generateBasicLimitQuestion,
   ];
   const chosenGenerator =
     generators[Math.floor(Math.random() * generators.length)];

@@ -36,10 +36,10 @@ function checkQuestBoxCollision() {
 }
 
 // Handle quest box interaction
-function handleQuestBoxInteraction() {
-  if (checkQuestBoxCollision()) {
-    showQuestBoxQuestion();
-    return true;
-  }
-  return false;
-}
+// function handleQuestBoxInteraction() {
+//   if (checkQuestBoxCollision()) {
+//     showQuestBoxQuestion();
+//     return true;
+//   }
+//   return false;
+// }
