@@ -15,14 +15,14 @@ function generateQuestBoxQuestions() {
   // Generate 5 DIFFERENT questions based on current difficulty
   for (let i = 0; i < 5; i++) {
     const question = getQuestionForQuestBox();
-    console.log("Generated question", i + 1, ":", question);
+    // console.log("Generated question", i + 1, ":", question);
     questBoxQuestions.push({
       question: question.question,
       answer: question.answer,
     });
   }
   currentQuestionIndex = 0;
-  console.log("Generated 5 new questions:", questBoxQuestions);
+  //   console.log("Generated 5 new questions:", questBoxQuestions);
 }
 
 function getCurrentQuestBoxQuestion() {
@@ -30,7 +30,7 @@ function getCurrentQuestBoxQuestion() {
     questBoxQuestions.length === 0 ||
     currentQuestionIndex >= questBoxQuestions.length
   ) {
-    console.error("No question available at index:", currentQuestionIndex);
+    // console.error("No question available at index:", currentQuestionIndex);
     return null;
   }
   return questBoxQuestions[currentQuestionIndex];
@@ -43,7 +43,7 @@ function hasMoreQuestions() {
 function moveToNextQuestion() {
   if (hasMoreQuestions()) {
     currentQuestionIndex++;
-    console.log("Moving to question", currentQuestionIndex + 1);
+    // console.log("Moving to question", currentQuestionIndex + 1);
     return true;
   }
   return false;
@@ -63,23 +63,23 @@ function showQuestBoxQuestion() {
 
   // Generate all 5 questions ONLY when starting fresh
   if (questBoxQuestions.length === 0) {
-    console.log("Generating new set of 5 questions...");
+    // console.log("Generating new set of 5 questions...");
     generateQuestBoxQuestions();
   }
 
   const questBoxCurrentQuestion = getCurrentQuestBoxQuestion();
 
   if (!questBoxCurrentQuestion) {
-    console.error("Failed to get current question!");
+    // console.error("Failed to get current question!");
     return;
   }
 
-  console.log(
-    "Showing question",
-    currentQuestionIndex + 1,
-    "of 5:",
-    questBoxCurrentQuestion
-  );
+  //   console.log(
+  //     "Showing question",
+  //     currentQuestionIndex + 1,
+  //     "of 5:",
+  //     questBoxCurrentQuestion
+  //   );
 
   const mathModal = document.getElementById("mathQuestion");
   const questionText = document.getElementById("questionText");
@@ -101,8 +101,9 @@ function showQuestBoxQuestion() {
       ${getCurrentDifficultyConfig().name} Difficulty - Level ${currentLevel}
     </strong><br>
     <span style="font-size: 12px; color: #888;">
-      Answer with a number (integers only)
-    </span>
+      Jawab menggunakan integer (bilangan bulat)
+    </span><br>
+    <strong style="font-size:13px;">Note: Cukup masukkan koefisien untuk soal integral!</strong>
   `;
 
   // FIX: Use questBoxCurrentQuestion instead of currentQuestion
@@ -149,12 +150,12 @@ function checkQuestBoxAnswer() {
   // FIX: Get correct answer from the array
   const correctAnswer = questBoxQuestions[currentQuestionIndex].answer;
 
-  console.log(
-    "User answer:",
-    validation.value,
-    "Correct answer:",
-    correctAnswer
-  );
+  //   console.log(
+  //     "User answer:",
+  //     validation.value,
+  //     "Correct answer:",
+  //     correctAnswer
+  //   );
 
   // FIX: Compare with correctAnswer from array
   if (validation.value === correctAnswer) {
@@ -171,7 +172,7 @@ function handleCorrectQuestBoxAnswer() {
   questBoxQuestionsAnswered++;
   updateLevelDisplay();
 
-  console.log(`Correct! Progress: ${questBoxQuestionsAnswered}/5`);
+  //   console.log(`Correct! Progress: ${questBoxQuestionsAnswered}/5`);
 
   showQuestionFeedback(`Correct! (${questBoxQuestionsAnswered}/5)`, "success");
 
