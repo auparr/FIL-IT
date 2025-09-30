@@ -7,10 +7,10 @@ export function generateMediumFunctionQuestion() {
     return array[Math.floor(Math.random() * array.length)];
   }
   const types = [
-    // "complex_composition", // Komposisi tiga fungsi atau dengan fungsi kuadrat
-    // "function_inverse", // Invers fungsi linear atau kuadrat
-    // "complex_domain_range", // Domain dan range fungsi dengan pecahan atau akar
-    // "advanced_operations", // Operasi dengan fungsi kuadrat dan rasional
+    "complex_composition", // Komposisi tiga fungsi atau dengan fungsi kuadrat
+    "function_inverse", // Invers fungsi linear atau kuadrat
+    "complex_domain_range", // Domain dan range fungsi dengan pecahan atau akar
+    "advanced_operations", // Operasi dengan fungsi kuadrat dan rasional
     "graph_analysis", // Analisis grafik fungsi kuadrat dan rasional
   ];
 

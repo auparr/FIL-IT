@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Monster Pursuit - Quest Box Challenge</title>
     <link rel="stylesheet" href="CSS/game.css" />
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
   </head>
   <body>
     <div id="hpDisplay">HP: 3/3</div>
@@ -62,6 +67,9 @@
     <script src="/JS/game/mechanics/collision.js"></script>
     <script src="/JS/game/math.js"></script>
 
+    <script src="/JS/game/quest/easy.js"></script>
+    <script src="/JS/game/quest/medium.js"></script>
+
     <script>
       const player = document.getElementById("player");
       const gameArea = document.getElementById("gameArea");
@@ -84,7 +92,7 @@
       // Create player
       let posX = 100,
         posY = 100;
-      const playerSpeed = 4;
+      const playerSpeed = 10;
       let keys = {};
 
       // Initialize game
@@ -92,6 +100,7 @@
         // Reset game state
         gameRunning = true;
         mathQuestionActive = false;
+        window.isQuestBoxQuestion = false;
         gameOverScreen.style.display = "none";
         hideMathQuestion();
 
