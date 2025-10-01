@@ -44,15 +44,15 @@ export function generateEasyLimitQuestion() {
       steps = `Langkah penyelesaian:
 1. Karena ini adalah fungsi polinomial sederhana, kita dapat menggunakan substitusi langsung.
 2. Substitusi \\(x = ${xValue}\\):
-   \\[${a}(${xValue})^2 ${b >= 0 ? "+" : ""} ${b}(${xValue}) ${
+   \\[${a}(${xValue})^2 ${b >= 0 ? "+" : "-"} ${b}(${xValue}) ${
         c >= 0 ? "+" : ""
       } ${c}\\]
 3. Hitung:
-   \\[${a}(${xValue * xValue}) ${b >= 0 ? "+" : ""} ${b * xValue} ${
+   \\[${a}(${xValue * xValue}) ${b >= 0 ? "+" : "-"} ${b * xValue} ${
         c >= 0 ? "+" : ""
       } ${c}\\]
 4. Hitung:
-   \\[${a * xValue * xValue} ${b >= 0 ? "+" : ""} ${b * xValue} ${
+   \\[${a * xValue * xValue} ${b >= 0 ? "+" : "-"} ${b * xValue} ${
         c >= 0 ? "+" : ""
       } ${c} = ${answer}\\]`;
       type = "Polinomial Kuadrat";
