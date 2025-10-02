@@ -126,7 +126,7 @@ function easyQuestionGenerator() {
   function generateBasicIntegralQuestion() {
     const types = [
       "polynomial_single_term",
-      "polynomial_multi_term",
+      //   "polynomial_multi_term",
       "basic_trigonometric_simplified",
     ];
     const type = getRandomElement(types);

@@ -15,7 +15,7 @@ function generateQuestBoxQuestions() {
   // Generate 5 DIFFERENT questions based on current difficulty
   for (let i = 0; i < 5; i++) {
     const question = getQuestionForQuestBox();
-    // console.log("Generated question", i + 1, ":", question);
+    console.log("Generated question", i + 1, ":", question);
     questBoxQuestions.push({
       question: question.question,
       answer: question.answer,
@@ -43,7 +43,7 @@ function hasMoreQuestions() {
 function moveToNextQuestion() {
   if (hasMoreQuestions()) {
     currentQuestionIndex++;
-    // console.log("Moving to question", currentQuestionIndex + 1);
+    console.log("Moving to question", currentQuestionIndex + 1);
     return true;
   }
   return false;
@@ -253,7 +253,7 @@ function completeLevel() {
   // Advance to next level
   const advancement = advanceToNextLevel();
 
-  console.log("Advancement:", advancement);
+  //   console.log("Advancement:", advancement);
 
   setTimeout(() => {
     showLevelCompleteMessage(advancement);

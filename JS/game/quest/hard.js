@@ -271,55 +271,32 @@ function hardQuestionGenerator() {
         answer = generated.answer;
         break;
 
+      // Replace the entire "trigonometric" case in hard.js (around line 340-420)
+
       case "trigonometric":
-        // Soal fungsi trigonometri dengan sudut istimewa
+        // Soal fungsi trigonometri dengan sudut istimewa - HANYA NILAI INTEGER
         const trigFunc = getRandomElement(["sin", "cos", "tan"]);
         const trigCoeff = getRandomInt(1, 2);
         let angle;
         let trigValue;
 
-        // Daftar sudut istimewa yang nilai trigonometrinya integer atau setengah integer
-        // dan dapat dikalikan dengan integer untuk menghasilkan integer.
-        const specialAngles = [
+        // Daftar sudut istimewa - HANYA yang menghasilkan -1, 0, atau 1
+        const integerAngles = [
           { angle: 0, sin: 0, cos: 1, tan: 0 },
-          {
-            angle: 30,
-            sin: 0.5,
-            cos: Math.sqrt(3) / 2,
-            tan: 1 / Math.sqrt(3),
-          },
-          {
-            angle: 45,
-            sin: Math.sqrt(2) / 2,
-            cos: Math.sqrt(2) / 2,
-            tan: 1,
-          },
-          { angle: 60, sin: Math.sqrt(3) / 2, cos: 0.5, tan: Math.sqrt(3) },
           { angle: 90, sin: 1, cos: 0, tan: undefined },
-          {
-            angle: 120,
-            sin: Math.sqrt(3) / 2,
-            cos: -0.5,
-            tan: -Math.sqrt(3),
-          },
+          { angle: 180, sin: 0, cos: -1, tan: 0 },
+          { angle: 270, sin: -1, cos: 0, tan: undefined },
+          { angle: 360, sin: 0, cos: 1, tan: 0 },
+        ];
+
+        // Tambahkan sudut untuk tan yang valid (45, 135, 225, 315)
+        const tanAngles = [
+          { angle: 45, sin: Math.sqrt(2) / 2, cos: Math.sqrt(2) / 2, tan: 1 },
           {
             angle: 135,
             sin: Math.sqrt(2) / 2,
             cos: -Math.sqrt(2) / 2,
             tan: -1,
-          },
-          {
-            angle: 150,
-            sin: 0.5,
-            cos: -Math.sqrt(3) / 2,
-            tan: -1 / Math.sqrt(3),
-          },
-          { angle: 180, sin: 0, cos: -1, tan: 0 },
-          {
-            angle: 210,
-            sin: -0.5,
-            cos: -Math.sqrt(3) / 2,
-            tan: 1 / Math.sqrt(3),
           },
           {
             angle: 225,
@@ -328,74 +305,68 @@ function hardQuestionGenerator() {
             tan: 1,
           },
           {
-            angle: 240,
-            sin: -Math.sqrt(3) / 2,
-            cos: -0.5,
-            tan: Math.sqrt(3),
-          },
-          { angle: 270, sin: -1, cos: 0, tan: undefined },
-          {
-            angle: 300,
-            sin: -Math.sqrt(3) / 2,
-            cos: 0.5,
-            tan: -Math.sqrt(3),
-          },
-          {
             angle: 315,
             sin: -Math.sqrt(2) / 2,
             cos: Math.sqrt(2) / 2,
             tan: -1,
           },
-          {
-            angle: 330,
-            sin: -0.5,
-            cos: Math.sqrt(3) / 2,
-            tan: -1 / Math.sqrt(3),
-          },
         ];
 
-        // Filter sudut yang sesuai dengan fungsi trigonometri (khusus tan, hindari undefined)
-        let suitableAngles = specialAngles.filter((a) => {
-          if (trigFunc === "tan") return a.tan !== undefined;
-          return true;
-        });
+        // Filter sudut berdasarkan fungsi trigonometri
+        let suitableAngles;
 
-        suitableAngles = suitableAngles.filter((a) => {
-          if (trigFunc === "sin") {
-            return (
-              a.sin === 0 ||
-              a.sin === 1 ||
-              a.sin === -1 ||
-              a.sin === 0.5 ||
-              a.sin === -0.5
-            );
-          } else if (trigFunc === "cos") {
-            return (
-              a.cos === 0 ||
-              a.cos === 1 ||
-              a.cos === -1 ||
-              a.cos === 0.5 ||
-              a.cos === -0.5
-            );
-          } else if (trigFunc === "tan") {
-            return a.tan === 0 || a.tan === 1 || a.tan === -1;
-          }
-        });
-
-        // Jika tidak ada sudut yang memenuhi, ulangi dengan fungsi lain? Atau paksa menggunakan sudut yang diinginkan?
-        if (suitableAngles.length === 0) {
-          // Jika tidak ada, maka kita gunakan sudut yang menghasilkan integer (0,1,-1) saja.
-          suitableAngles = specialAngles.filter((a) => {
-            if (trigFunc === "sin") {
-              return a.sin === 0 || a.sin === 1 || a.sin === -1;
-            } else if (trigFunc === "cos") {
-              return a.cos === 0 || a.cos === 1 || a.cos === -1;
-            } else if (trigFunc === "tan") {
-              return a.tan === 0 || a.tan === 1 || a.tan === -1;
-            }
-          });
+        if (trigFunc === "sin") {
+          // Hanya sudut dengan sin = -1, 0, atau 1
+          suitableAngles = integerAngles.filter(
+            (a) => a.sin === 0 || a.sin === 1 || a.sin === -1
+          );
+        } else if (trigFunc === "cos") {
+          // Hanya sudut dengan cos = -1, 0, atau 1
+          suitableAngles = integerAngles.filter(
+            (a) => a.cos === 0 || a.cos === 1 || a.cos === -1
+          );
+        } else if (trigFunc === "tan") {
+          // Hanya sudut dengan tan = -1, 0, atau 1
+          suitableAngles = [
+            ...integerAngles.filter((a) => a.tan === 0),
+            ...tanAngles.filter((a) => a.tan === 1 || a.tan === -1),
+          ];
         }
 
+        // Filter lebih lanjut: angle harus habis dibagi trigCoeff
+        suitableAngles = suitableAngles.filter(
+          (a) => a.angle % trigCoeff === 0
+        );
+
+        // Jika tidak ada yang cocok, paksa trigCoeff = 1
+        if (suitableAngles.length === 0) {
+          const newTrigCoeff = 1;
+          if (trigFunc === "sin") {
+            suitableAngles = integerAngles.filter(
+              (a) =>
+                (a.sin === 0 || a.sin === 1 || a.sin === -1) &&
+                a.angle % newTrigCoeff === 0
+            );
+          } else if (trigFunc === "cos") {
+            suitableAngles = integerAngles.filter(
+              (a) =>
+                (a.cos === 0 || a.cos === 1 || a.cos === -1) &&
+                a.angle % newTrigCoeff === 0
+            );
+          } else {
+            suitableAngles = [
+              ...integerAngles.filter(
+                (a) => a.tan === 0 && a.angle % newTrigCoeff === 0
+              ),
+              ...tanAngles.filter(
+                (a) =>
+                  (a.tan === 1 || a.tan === -1) && a.angle % newTrigCoeff === 0
+              ),
+            ];
+          }
+        }
+
+        // Pilih sudut secara acak
         const selectedAngle = getRandomElement(suitableAngles);
         angle = selectedAngle.angle;
 
@@ -412,79 +383,23 @@ function hardQuestionGenerator() {
             break;
         }
 
-        // Tentukan multiplier agar hasil perkalian dengan trigValue integer
-        let trigMultiplier;
-        if (trigValue === 0.5 || trigValue === -0.5) {
-          // Kalikan 2 untuk mendapatkan integer
-          trigMultiplier = 2 * getRandomInt(1, 3); // 2, 4, 6
-        } else {
-          // Untuk nilai integer (0,1,-1) multiplier bebas
-          trigMultiplier = getRandomInt(1, 3);
-        }
+        // PENTING: Multiplier yang menjamin hasil integer
+        // Karena trigValue sekarang HANYA -1, 0, atau 1, maka multiplier bebas
+        const trigMultiplier = getRandomInt(1, 10);
+        const trigAddConst = getRandomInt(-10, 10);
 
-        // Konstanta penambah
-        const trigAddConst = getRandomInt(-5, 5);
-
-        // Pastikan bahwa x yang akan disubstitusi adalah integer
-        // Karena angle adalah integer, dan trigCoeff adalah integer (1 atau 2), maka x = angle / trigCoeff harus integer?
-        // Tapi jika trigCoeff=2 dan angle=30, maka x=15 (integer) -> baik.
-        // Tapi jika trigCoeff=2 dan angle=45, maka x=22.5 (bukan integer) -> tidak baik.
-        // Jadi, kita harus memastikan bahwa angle / trigCoeff adalah integer.
-
-        // Kita akan pilih trigCoeff dan angle sedemikian sehingga angle % trigCoeff === 0
-        // Tapi dalam kode, kita sudah memilih angle dan trigCoeff secara acak. Maka kita perlu menyesuaikan.
-
-        // Solusi: kita pilih angle yang habis dibagi trigCoeff.
-        // Atau kita atur agar x yang ditanyakan adalah integer, maka angle = trigCoeff * x, dan x kita pilih integer.
-
-        // Ubah pendekatan: tentukan x integer dulu, lalu angle = trigCoeff * x, dan angle harus ada di daftar suitableAngles.
-
-        // Tapi karena kode sudah berjalan, kita bisa lakukan penyesuaian dengan memfilter suitableAngles yang angle-nya habis dibagi trigCoeff.
-
-        suitableAngles = suitableAngles.filter(
-          (a) => a.angle % trigCoeff === 0
-        );
-
-        // Jika setelah filter tidak ada, maka kita ubah trigCoeff menjadi 1 (atau pilih angle yang memenuhi)
-        if (suitableAngles.length === 0) {
-          trigCoeff = 1;
-          // Filter lagi dengan trigCoeff=1
-          suitableAngles = suitableAngles.filter(
-            (a) => a.angle % trigCoeff === 0
-          );
-        }
-
-        // Sekarang pilih lagi selectedAngle dari suitableAngles yang sudah difilter
-        const selectedAngleNew = getRandomElement(suitableAngles);
-        angle = selectedAngleNew.angle;
-
-        // Update trigValue sesuai sudut yang baru
-        switch (trigFunc) {
-          case "sin":
-            trigValue = selectedAngleNew.sin;
-            break;
-          case "cos":
-            trigValue = selectedAngleNew.cos;
-            break;
-          case "tan":
-            trigValue = selectedAngleNew.tan;
-            break;
-        }
-
-        // Hitung x
+        // Hitung x (dijamin integer karena angle % trigCoeff === 0)
         const x = angle / trigCoeff;
 
-        // Sekarang, soal akan menjadi: f(x) = trigMultiplier * trigFunc(trigCoeff * x) + trigAddConst
-        // Dan kita minta f(x) untuk x yang sudah dihitung.
-
-        question = `Diketahui fungsi \\(f(x) = ${trigMultiplier} \\cdot ${trigFunc}(${trigCoeff}x^\\circ) ${
+        // Buat soal
+        question = `Diketahui fungsi \\(f(x) = ${trigMultiplier} \\cdot \\${trigFunc}(${trigCoeff}x^\\circ) ${
           trigAddConst >= 0 ? "+" : ""
         }${trigAddConst}\\). Tentukan nilai \\(f(${x})\\).`;
 
-        answer = trigMultiplier * trigValue + trigAddConst;
+        // Hitung jawaban - DIJAMIN INTEGER
+        answer = Math.round(trigMultiplier * trigValue + trigAddConst);
 
         break;
-
       case "functional_properties":
         // Soal sifat fungsi (ganjil/genap/periodik) dengan jawaban selalu integer
         const propertyType = getRandomElement(["odd", "even", "periodic"]);

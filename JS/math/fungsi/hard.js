@@ -8,12 +8,12 @@ export function generateHardFunctionQuestion() {
     return array[Math.floor(Math.random() * array.length)];
   }
   const types = [
-    "exponential", // Fungsi eksponen
-    "logarithmic", // Fungsi logaritma
+    // "exponential", // Fungsi eksponen
+    // "logarithmic", // Fungsi logaritma
     "trigonometric", // Fungsi trigonometri
-    "functional_properties", // Sifat fungsi
-    "transformations", // Transformasi grafik
-    "functional_equations", // Persamaan fungsional
+    // "functional_properties", // Sifat fungsi
+    // "transformations", // Transformasi grafik
+    // "functional_equations", // Persamaan fungsional
   ];
 
   const type = getRandomElement(types);
