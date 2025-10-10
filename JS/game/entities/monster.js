@@ -4,7 +4,6 @@ function createMonsters() {
     const monster = document.createElement("div");
     monster.classList.add("obstacle");
 
-    // Random position that's not too close to player
     let x, y;
     do {
       x = Math.random() * (gameArea.offsetWidth - 50);
@@ -19,7 +18,6 @@ function createMonsters() {
     vision.classList.add("vision");
     gameArea.appendChild(vision);
 
-    // Random initial direction
     let angle = Math.random() * 2 * Math.PI;
 
     monsterData.push({

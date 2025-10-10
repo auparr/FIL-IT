@@ -58,130 +58,22 @@
     <script src="/JS/game/controls/joyStick.js"></script>
     <script src="/JS/game/controls/keyMove.js"></script>
 
-    <script src="/JS/game/core/gameLoop.js"></script>
-    <script src="/JS/game/core/gameOver.js"></script>
-
-    <script src="/JS/game/entities/monster.js"></script>
     <script src="/JS/game/entities/questBox.js"></script>
+    <script src="/JS/game/entities/monster.js"></script>
 
     <script src="/JS/game/mechanics/collision.js"></script>
-    <script src="/JS/game/math.js"></script>
 
     <script src="/JS/game/quest/easy.js"></script>
     <script src="/JS/game/quest/medium.js"></script>
     <script src="/JS/game/quest/hard.js"></script>
     <script src="/JS/game/quest/advanced.js"></script>
 
-    <script src="/JS/game/levelSystem.js"></script>
-    <script src="/JS/game/questBoxSystem.js"></script>
+    <script src="/JS/game/core/gameLoop.js"></script>
+    <script src="/JS/game/core/gameOver.js"></script>
+    <script src="/JS/game/core/math.js"></script>
+    <script src="/JS/game/core/levelSystem.js"></script>
+    <script src="/JS/game/core/questBoxSystem.js"></script>
 
-    <script>
-      const player = document.getElementById("player");
-      const gameArea = document.getElementById("gameArea");
-      const gameOverScreen = document.getElementById("gameOver");
-      const restartBtn = document.getElementById("restartBtn");
-      const menuBtn = document.getElementById("menuBtn");
-      let viewportWidth = window.innerWidth;
-
-      let gameRunning = true;
-
-      function getMonsterCount(viewportWidth) {
-        const minMonsters = 5;
-        const maxMonsters = 12;
-
-        // scale linearly: 1 monster per 200px of width
-        const scaled = Math.floor(viewportWidth / 200);
-
-        return Math.min(Math.max(scaled, minMonsters), maxMonsters);
-      }
-
-      let monsterCount = getMonsterCount(window.innerWidth);
-      const monsterData = [];
-
-      // Create player
-      let posX = 100,
-        posY = 100;
-      const playerSpeed = 4;
-      let keys = {};
-
-      // Initialize game
-      function initGame() {
-        // Reset game state
-        gameRunning = true;
-        mathQuestionActive = false;
-        window.isQuestBoxQuestion = false;
-        gameOverScreen.style.display = "none";
-        hideMathQuestion();
-
-        // NEW: Initialize level system
-        initLevelSystem();
-
-        // Reset HP system
-        resetHP();
-
-        // Remove any existing victory screen
-        const existingVictory = document.getElementById("victoryScreen");
-        if (existingVictory) {
-          existingVictory.remove();
-        }
-
-        // NEW: Remove game complete screen if exists
-        const existingComplete = document.getElementById("gameCompleteScreen");
-        if (existingComplete) {
-          existingComplete.remove();
-        }
-
-        if (window.innerWidth <= 1300) {
-          document.getElementById("joystick").style.display = "block";
-        } else {
-          document.getElementById("joystick").style.display = "none";
-        }
-
-        // Reset player position
-        posX = 100;
-        posY = 100;
-        player.style.left = posX + "px";
-        player.style.top = posY + "px";
-
-        // Clear existing monsters and quest box
-        monsterData.length = 0;
-        document
-          .querySelectorAll(".obstacle, .vision, .quest-box")
-          .forEach((el) => el.remove());
-
-        // Create new monsters
-        createMonsters();
-
-        // Create quest box
-        createQuestBox();
-
-        // Start game loop
-        update();
-      }
-      // Restart game
-      restartBtn.addEventListener("pointerdown", () => {
-        window.location.href = "play.html";
-      });
-      menuBtn.addEventListener("pointerdown", () => {
-        window.location.href = "index.html";
-      });
-
-      // Submit answer button - handle both monster and quest box questions
-      document
-        .getElementById("submitAnswer")
-        .addEventListener("pointerdown", () => {
-          if (window.isQuestBoxQuestion) {
-            checkQuestBoxAnswer();
-          } else {
-            checkAnswer();
-          }
-        });
-
-      // Initialize joystick
-      initJoystick();
-
-      // Start the game
-      initGame();
-    </script>
+    <script src="/JS/game/main.js"></script>
   </body>
 </html>

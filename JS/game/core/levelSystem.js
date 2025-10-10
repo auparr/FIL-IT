@@ -2,12 +2,10 @@
 // Level System Core
 // =========================
 
-// Game Progress State
-let currentDifficulty = "easy"; // easy, medium, hard, advanced
-let currentLevel = 1; // 1-5
-let questBoxQuestionsAnswered = 0; // Track progress in current quest box (0-5)
+let currentDifficulty = "easy";
+let currentLevel = 1;
+let questBoxQuestionsAnswered = 0;
 
-// Difficulty Configuration
 const DIFFICULTY_CONFIG = {
   easy: {
     name: "Easy",
@@ -35,7 +33,6 @@ const DIFFICULTY_CONFIG = {
   },
 };
 
-// Get difficulty order for progression
 const DIFFICULTY_ORDER = ["easy", "medium", "hard", "advanced"];
 
 // =========================
@@ -64,21 +61,18 @@ function canAdvanceToNextDifficulty() {
 }
 
 function advanceToNextLevel() {
-  questBoxQuestionsAnswered = 0; // Reset quest box progress
+  questBoxQuestionsAnswered = 0;
 
   if (canAdvanceToNextDifficulty()) {
-    // Move to next difficulty
     const currentIndex = DIFFICULTY_ORDER.indexOf(currentDifficulty);
     if (currentIndex < DIFFICULTY_ORDER.length - 1) {
       currentDifficulty = DIFFICULTY_ORDER[currentIndex + 1];
       currentLevel = 1;
       return { type: "difficulty", difficulty: currentDifficulty };
     } else {
-      // Game completed!
       return { type: "game_complete" };
     }
   } else {
-    // Move to next level in same difficulty
     currentLevel++;
     return { type: "level", level: currentLevel };
   }

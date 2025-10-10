@@ -2,9 +2,9 @@
 // Quest Box 5-Question System
 // =========================
 
-let questBoxQuestions = []; // Array to hold 5 questions
-let currentQuestionIndex = 0; // Track which question we're on (0-4)
-let isProcessingAnswer = false; // NEW: Prevent spam submissions
+let questBoxQuestions = [];
+let currentQuestionIndex = 0;
+let isProcessingAnswer = false;
 
 // =========================
 // Question Generation
@@ -12,10 +12,9 @@ let isProcessingAnswer = false; // NEW: Prevent spam submissions
 
 function generateQuestBoxQuestions() {
   questBoxQuestions = [];
-  // Generate 5 DIFFERENT questions based on current difficulty
   for (let i = 0; i < 5; i++) {
     const question = getQuestionForQuestBox();
-    console.log("Generated question", i + 1, ":", question);
+    // console.log("Generated question", i + 1, ":", question);
     questBoxQuestions.push({
       question: question.question,
       answer: question.answer,
@@ -54,14 +53,12 @@ function moveToNextQuestion() {
 // =========================
 
 function showQuestBoxQuestion() {
-  // Only block if it's a NEW quest box interaction (not a question progression)
   if (mathQuestionActive && questBoxQuestions.length === 0) return;
 
   mathQuestionActive = true;
   gameRunning = false;
   window.isQuestBoxQuestion = true;
 
-  // Generate all 5 questions ONLY when starting fresh
   if (questBoxQuestions.length === 0) {
     // console.log("Generating new set of 5 questions...");
     generateQuestBoxQuestions();
@@ -73,13 +70,6 @@ function showQuestBoxQuestion() {
     // console.error("Failed to get current question!");
     return;
   }
-
-  //   console.log(
-  //     "Showing question",
-  //     currentQuestionIndex + 1,
-  //     "of 5:",
-  //     questBoxCurrentQuestion
-  //   );
 
   const mathModal = document.getElementById("mathQuestion");
   const questionText = document.getElementById("questionText");
@@ -106,7 +96,6 @@ function showQuestBoxQuestion() {
     <strong style="font-size:13px;">Note: Cukup masukkan koefisien untuk soal integral!</strong>
   `;
 
-  // FIX: Use questBoxCurrentQuestion instead of currentQuestion
   questionText.innerHTML = questBoxCurrentQuestion.question;
   answerInput.value = "";
   mathModal.style.display = "flex";
@@ -127,13 +116,11 @@ function showQuestBoxQuestion() {
 // =========================
 
 function checkQuestBoxAnswer() {
-  // NEW: Prevent spam submissions
   if (isProcessingAnswer) {
     console.log("Already processing an answer, please wait...");
     return;
   }
 
-  // Check if we've already completed 5 questions
   if (questBoxQuestionsAnswered >= 5) {
     console.log("All questions already answered, ignoring submit");
     return;
@@ -157,7 +144,6 @@ function checkQuestBoxAnswer() {
   //     correctAnswer
   //   );
 
-  // FIX: Compare with correctAnswer from array
   if (validation.value === correctAnswer) {
     handleCorrectQuestBoxAnswer();
   } else {
@@ -166,7 +152,6 @@ function checkQuestBoxAnswer() {
 }
 
 function handleCorrectQuestBoxAnswer() {
-  // NEW: Set processing flag to prevent spam
   isProcessingAnswer = true;
 
   questBoxQuestionsAnswered++;
@@ -176,31 +161,25 @@ function handleCorrectQuestBoxAnswer() {
 
   showQuestionFeedback(`Correct! (${questBoxQuestionsAnswered}/5)`, "success");
 
-  // Disable submit button and input temporarily
   const submitBtn = document.getElementById("submitAnswer");
   const answerInput = document.getElementById("answerInput");
   submitBtn.disabled = true;
   answerInput.disabled = true;
-  answerInput.readOnly = true; // Extra protection
+  answerInput.readOnly = true;
   submitBtn.style.opacity = "0.5";
 
-  // Wait before moving to next question
   setTimeout(() => {
-    // Re-enable submit button and input
     submitBtn.disabled = false;
     answerInput.disabled = false;
     answerInput.readOnly = false;
     submitBtn.style.opacity = "1";
 
-    // NEW: Reset processing flag
     isProcessingAnswer = false;
 
     if (hasMoreQuestions()) {
-      // Move to next question
       moveToNextQuestion();
       showQuestBoxQuestion();
     } else {
-      // All 5 questions answered! Level complete!
       console.log("All 5 questions answered! Completing level...");
       completeLevel();
     }
@@ -230,7 +209,6 @@ function handleWrongQuestBoxAnswer() {
 function completeLevel() {
   console.log("=== LEVEL COMPLETE ===");
 
-  // Hide question modal
   hideMathQuestion();
   mathQuestionActive = false;
   window.isQuestBoxQuestion = false;
@@ -239,18 +217,14 @@ function completeLevel() {
     document.getElementById("joystick").style.display = "block";
   }
 
-  // Restore HP to full
   playerHP = 3;
   updateHPDisplay();
 
-  // Remove quest box
   const questBox = document.getElementById("questBox");
   if (questBox) questBox.remove();
 
-  // Show celebration feedback
   showFeedback("Level Complete! HP Restored!", "victory");
 
-  // Advance to next level
   const advancement = advanceToNextLevel();
 
   //   console.log("Advancement:", advancement);
@@ -260,13 +234,11 @@ function completeLevel() {
     updateLevelDisplay();
   }, 1000);
 
-  // Check if game is complete
   if (advancement.type === "game_complete") {
     setTimeout(() => {
       showGameCompleteScreen();
     }, 3500);
   } else {
-    // Reset for next level
     setTimeout(() => {
       resetForNextLevel();
     }, 3500);
@@ -280,31 +252,25 @@ function completeLevel() {
 function resetForNextLevel() {
   console.log("=== RESETTING FOR NEXT LEVEL ===");
 
-  // Clear questions array completely for next level
   questBoxQuestions = [];
   currentQuestionIndex = 0;
   questBoxQuestionsAnswered = 0;
-  isProcessingAnswer = false; // Reset spam prevention flag
+  isProcessingAnswer = false;
 
   console.log("Reset complete. Questions cleared:", questBoxQuestions.length);
 
-  // Remove all existing monsters
   monsterData.forEach((data) => {
     if (data.el) data.el.remove();
     if (data.vision) data.vision.remove();
   });
-  monsterData.length = 0; // Clear the array
+  monsterData.length = 0;
 
-  // Recreate monsters for the new level
   createMonsters();
 
-  // Move player to safe position
   movePlayerToSafePosition();
 
-  // Create new quest box
   createQuestBox();
 
-  // Resume game
   gameRunning = true;
   requestAnimationFrame(update);
 }
@@ -399,7 +365,7 @@ function showGameCompleteScreen() {
     .getElementById("playAgainBtn")
     .addEventListener("pointerdown", () => {
       completeScreen.remove();
-      initGame(); // Restart from Easy Level 1
+      initGame();
     });
 
   document.getElementById("mainMenuBtn").addEventListener("pointerdown", () => {

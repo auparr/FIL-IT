@@ -128,41 +128,6 @@ function showMathQuestion(monsterData) {
   setTimeout(() => answerInput.focus(), 100);
 }
 
-// function showQuestBoxQuestion() {
-//   if (mathQuestionActive) return;
-
-//   mathQuestionActive = true;
-//   gameRunning = false;
-//   window.isQuestBoxQuestion = true;
-
-//   currentQuestion = advancedQuestionGenerator();
-
-//   const mathModal = document.getElementById("mathQuestion");
-//   const questionText = document.getElementById("questionText");
-//   const modalTitle = mathModal.querySelector("h2");
-//   const modalDescription = mathModal.querySelector("p");
-//   const answerInput = document.getElementById("answerInput");
-
-//   clearModalFeedback();
-
-//   if (window.innerWidth <= 1300) {
-//     document.getElementById("joystick").style.display = "none";
-//   }
-
-//   modalTitle.textContent = "Final Challenge!";
-//   modalDescription.innerHTML =
-//     "Solve this to complete your quest!<br><strong>NOTE: Cukup masukkan koefisien jika soalnya berupa integral!</strong>";
-//   questionText.innerHTML = currentQuestion.question;
-//   answerInput.value = "";
-//   mathModal.style.display = "flex";
-
-//   if (typeof MathJax !== "undefined" && MathJax.typeset) {
-//     MathJax.typeset([questionText]);
-//   }
-
-//   setTimeout(() => answerInput.focus(), 100);
-// }
-
 function hideMathQuestion() {
   const mathModal = document.getElementById("mathQuestion");
   mathModal.style.display = "none";

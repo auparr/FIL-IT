@@ -1,6 +1,4 @@
-// questBox.js
 function createQuestBox() {
-  // Remove existing quest box if any
   const existingQuestBox = document.querySelector(".quest-box");
   if (existingQuestBox) {
     existingQuestBox.remove();
@@ -10,7 +8,6 @@ function createQuestBox() {
   questBox.classList.add("quest-box");
   questBox.id = "questBox";
 
-  // Position quest box away from player and monsters
   let x, y;
   do {
     x = Math.random() * (gameArea.offsetWidth - 50);
@@ -20,26 +17,15 @@ function createQuestBox() {
   questBox.style.left = x + "px";
   questBox.style.top = y + "px";
 
-  // Add pulsing animation
   questBox.style.animation = "questBoxPulse 1s infinite alternate";
 
   gameArea.appendChild(questBox);
   return questBox;
 }
 
-// Check collision with quest box
 function checkQuestBoxCollision() {
   const questBox = document.getElementById("questBox");
   if (!questBox) return false;
 
   return checkCollision(player, questBox);
 }
-
-// Handle quest box interaction
-// function handleQuestBoxInteraction() {
-//   if (checkQuestBoxCollision()) {
-//     showQuestBoxQuestion();
-//     return true;
-//   }
-//   return false;
-// }

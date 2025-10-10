@@ -3,10 +3,9 @@ const joystickKnob = document.getElementById("joystickKnob");
 let joystickActive = false;
 let joystickDirection = { x: 0, y: 0 };
 
-// Mobile Joystick Functions
 function initJoystick() {
   let startX, startY;
-  const maxDistance = 40; // Maximum distance from center
+  const maxDistance = 40;
 
   function handleStart(e) {
     e.preventDefault();
@@ -34,7 +33,6 @@ function initJoystick() {
 
     joystickKnob.style.transform = `translate(calc(-50% + ${knobX}px), calc(-50% + ${knobY}px))`;
 
-    // Calculate movement direction (normalized)
     joystickDirection.x = distance > 5 ? knobX / maxDistance : 0;
     joystickDirection.y = distance > 5 ? knobY / maxDistance : 0;
   }
@@ -47,14 +45,12 @@ function initJoystick() {
     joystickDirection.y = 0;
   }
 
-  // Touch events
   joystick.addEventListener("touchstart", handleStart, {
     passive: false,
   });
   document.addEventListener("touchmove", handleMove, { passive: false });
   document.addEventListener("touchend", handleEnd, { passive: false });
 
-  // Mouse events for testing on desktop
   joystick.addEventListener("mousedown", handleStart);
   document.addEventListener("mousemove", handleMove);
   document.addEventListener("mouseup", handleEnd);

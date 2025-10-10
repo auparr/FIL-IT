@@ -5,7 +5,6 @@ function update() {
   let collisionDetected = false;
   let collidedMonsterData = null;
 
-  // Move player (keyboard controls)
   if ((keys["ArrowUp"] || keys["W"] || keys["w"]) && posY > 0)
     posY -= playerSpeed;
   if (
@@ -21,7 +20,6 @@ function update() {
   )
     posX += playerSpeed;
 
-  // Move player (joystick controls)
   if (joystickDirection.x !== 0 || joystickDirection.y !== 0) {
     const newX = posX + joystickDirection.x * playerSpeed;
     const newY = posY + joystickDirection.y * playerSpeed;
@@ -38,35 +36,28 @@ function update() {
   player.style.top = posY + "px";
 
   if (handleQuestBoxInteraction()) {
-    return; // Stop game loop for quest box question
+    return;
   }
 
-  // Update monsters
   monsterData.forEach((data) => {
     const monster = data.el;
     const vision = data.vision;
 
-    // Calculate distance and angle to player
     let dx = posX - data.x;
     let dy = posY - data.y;
     let distance = Math.sqrt(dx * dx + dy * dy);
 
-    // Current direction angle
     let dirAngle = Math.atan2(data.dy, data.dx);
     data.direction = dirAngle;
 
-    // Angle to player
     let playerAngle = Math.atan2(dy, dx);
 
-    // Angle difference
     let angleDiff = Math.abs(dirAngle - playerAngle);
     if (angleDiff > Math.PI) angleDiff = 2 * Math.PI - angleDiff;
 
-    // Check if player is in vision cone
     let canSee =
       distance < data.visionRange && angleDiff < data.visionAngle / 2;
 
-    // Update chasing state
     if (canSee !== data.isChasing) {
       data.isChasing = canSee;
       vision.classList.toggle("chasing", canSee);
@@ -79,7 +70,6 @@ function update() {
     }
 
     if (canSee) {
-      // Chase player
       let normX = dx / distance;
       let normY = dy / distance;
       data.x += normX * data.chaseSpeed;
@@ -87,7 +77,6 @@ function update() {
       data.dx = normX * 2;
       data.dy = normY * 2;
     } else {
-      // Random movement with occasional direction changes
       if (Math.random() < 0.02) {
         let newAngle = data.direction + (Math.random() - 0.5) * 0.5;
         data.dx = Math.cos(newAngle) * 2;
@@ -97,7 +86,6 @@ function update() {
       data.x += data.dx;
       data.y += data.dy;
 
-      // Bounce off walls
       if (data.x <= 0 || data.x + monster.offsetWidth >= areaRect.width) {
         data.dx *= -1;
       }
@@ -106,7 +94,6 @@ function update() {
       }
     }
 
-    // Keep monsters within bounds
     data.x = Math.max(
       0,
       Math.min(data.x, areaRect.width - monster.offsetWidth)
@@ -123,10 +110,9 @@ function update() {
     // Update direction indicator
     let deg = Math.atan2(data.dy, data.dx) * (180 / Math.PI);
     monster.style.setProperty("--direction", `${deg + 90}deg`);
-    monster.querySelector = null; // Reset for CSS
+    monster.querySelector = null;
 
     // Update vision cone position and rotation
-    // Position cone behind the monster based on its direction
     let backX =
       data.x +
       monster.offsetWidth / 2 -
@@ -151,16 +137,14 @@ function update() {
     if (questBox && checkCollision(player, questBox)) {
       // Trigger quest box question
       showQuestBoxQuestion();
-      return; // Pause the game
+      return;
     }
   });
 
-  // Handle collision after all monsters are updated
   if (collisionDetected) {
     showMathQuestion(collidedMonsterData);
-    return; // Stop the game loop until math question is resolved
+    return;
   }
 
-  // Continue game loop
   requestAnimationFrame(update);
 }

@@ -16,18 +16,15 @@ document.addEventListener("keydown", (e) => {
     ].includes(e.key)
   ) {
     keys[e.key] = true;
-    e.preventDefault(); // Prevent scrolling
+    e.preventDefault();
   }
 
-  // Handle Enter key for math questions
   if (e.key === "Enter" && mathQuestionActive) {
     e.preventDefault();
 
     if (window.isQuestBoxQuestion) {
-      // Quest box question - use quest box handler
       checkQuestBoxAnswer();
     } else {
-      // Monster question - use monster handler
       checkAnswer();
     }
   }

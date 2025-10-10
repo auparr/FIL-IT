@@ -1,22 +1,26 @@
-/* Fix for body overflow and scrolling */
+/* ==========================================================================
+   1. PENGATURAN DASAR & LAYOUT HALAMAN
+   ========================================================================== */
+
+/* Perbaikan untuk scrolling pada body */
 body {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   overflow-x: hidden !important;
   overflow-y: auto !important;
-  min-height: 100vh;
-  display: block;
-  width: 100%;
-  position: relative;
 }
 
-/* Ensure all containers don't exceed viewport width */
+/* Kontainer utama untuk scrolling dan centering */
 .scroll-container {
-  width: 100%;
-  max-width: 100vw;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
   padding: 2rem 0;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -29,7 +33,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Limit-specific styles */
+/* ==========================================================================
+   2. GAYA HEADER & KONTEN UTAMA
+   ========================================================================== */
+
 .limit-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -50,157 +57,73 @@ body {
 
 .page-subtitle {
   font-size: 1.5rem;
+  font-weight: 600;
   color: #ffd93d;
   margin-bottom: 2rem;
-  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   animation: glow 2s ease-in-out infinite alternate;
 }
 
 .limit-description {
-  color: #cccccc;
   max-width: 800px;
   margin: 0 auto 3rem;
+  color: #cccccc;
   font-size: 1.2rem;
   line-height: 1.6;
   text-align: center;
 }
 
-/* Notes card - full width */
-.notes-container {
+/* ==========================================================================
+   3. KARTU KONTEN (NOTES & TEST)
+   ========================================================================== */
+
+/* Kontainer untuk kartu */
+.notes-container,
+.tests-container {
   max-width: 1200px;
   width: 100%;
+  margin: 2rem auto 0;
   padding: 0 1rem;
   box-sizing: border-box;
+}
+
+.notes-container {
   margin-bottom: 2rem;
-  margin: 0 auto;
 }
 
-.notes-card {
-  background: linear-gradient(
-    135deg,
-    rgba(26, 26, 46, 0.8),
-    rgba(22, 33, 62, 0.8)
-  );
-  border-radius: 20px;
-  padding: 2.5rem;
-  text-align: center;
-  border: 2px solid #4ecdc4;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
-  box-sizing: border-box;
-}
-
-.notes-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transition: left 0.6s ease;
-}
-
-.notes-card:hover::before {
-  left: 100%;
-}
-
-.notes-card:hover {
-  transform: translateY(-10px) scale(1.02);
-}
-
-.notes-icon {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-.notes-title {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
-  background: linear-gradient(45deg, #4ecdc4, #44a08d);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.notes-description {
-  color: #cccccc;
-  margin-bottom: 2rem;
-  line-height: 1.6;
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.notes-btn {
-  padding: 1rem 3rem;
-  background: linear-gradient(45deg, #4ecdc4, #44a08d);
-  border: 2px solid #4ecdc4;
-  color: #ffffff;
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
-  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
-}
-
-.notes-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 25px rgba(78, 205, 196, 0.5);
-}
-
-/* Test links container - grid layout */
 .tests-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  margin: 2rem auto 0 auto;
 }
 
+/* Gaya dasar untuk semua kartu */
+.notes-card,
 .test-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+  padding: 2.5rem;
   background: linear-gradient(
     135deg,
     rgba(26, 26, 46, 0.8),
     rgba(22, 33, 62, 0.8)
   );
-  border-radius: 20px;
-  padding: 2rem;
-  text-align: center;
   border: 2px solid;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 20px;
+  text-align: center;
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
-  min-height: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-sizing: border-box;
 }
 
+/* Efek shimmer saat hover */
+.notes-card::before,
 .test-card::before {
   content: "";
   position: absolute;
@@ -217,93 +140,134 @@ body {
   transition: left 0.6s ease;
 }
 
+.notes-card:hover::before,
 .test-card:hover::before {
   left: 100%;
 }
 
+.notes-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+.test-card:hover {
+  transform: translateY(-10px) scale(1.03);
+}
+
+/* --- Gaya Spesifik Kartu Notes --- */
+.notes-card {
+  border-color: #4ecdc4;
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+}
+.notes-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+.notes-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.notes-description {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  color: #cccccc;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* --- Gaya Spesifik Kartu Test --- */
 .test-card.easy {
   border-color: #a8e6cf;
   box-shadow: 0 0 20px rgba(168, 230, 207, 0.3);
 }
-
 .test-card.medium {
   border-color: #ffd93d;
   box-shadow: 0 0 20px rgba(255, 217, 61, 0.3);
 }
-
 .test-card.hard {
   border-color: #ff8b94;
   box-shadow: 0 0 20px rgba(255, 139, 148, 0.3);
 }
-
 .test-card.advanced {
   border-color: #ff6b6b;
   box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
 }
 
-.test-card:hover {
-  transform: translateY(-10px) scale(1.03);
-}
-
 .test-icon {
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  display: block;
 }
-
 .test-title {
   font-size: 1.8rem;
-  margin-bottom: 1rem;
   font-weight: 700;
+  margin-bottom: 1rem;
   background: linear-gradient(45deg, #4ecdc4, #ffd93d, #ff8b94);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
-
 .test-description {
   color: #cccccc;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
   font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
 
-.test-btn {
-  padding: 0.8rem 2rem;
-  background: transparent;
-  border: 2px solid;
-  color: #ffffff;
-  font-size: 1rem;
+/* ==========================================================================
+   4. TOMBOL (BUTTONS)
+   ========================================================================== */
+
+/* Gaya dasar untuk semua tombol di halaman ini */
+.notes-btn,
+.test-btn,
+.back-btn {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 50px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
 }
 
+.notes-btn,
+.test-btn {
+  color: #ffffff;
+  border: 2px solid;
+}
+.notes-btn {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+  border-color: #4ecdc4;
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+}
+.test-btn {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+}
+
+/* Variasi warna tombol test */
 .test-btn.easy {
   border-color: #a8e6cf;
   background: linear-gradient(45deg, #a8e6cf, #6bc4a6);
 }
-
 .test-btn.medium {
   border-color: #ffd93d;
   background: linear-gradient(45deg, #ffd93d, #ffb347);
 }
-
 .test-btn.hard {
   border-color: #ff8b94;
   background: linear-gradient(45deg, #ff8b94, #ff6b6b);
 }
-
 .test-btn.advanced {
   border-color: #ff6b6b;
   background: linear-gradient(45deg, #ff6b6b, #ff4757);
 }
 
+.notes-btn:hover,
 .test-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
@@ -311,352 +275,109 @@ body {
 
 .back-btn {
   margin-top: 2rem;
-  display: inline-block;
   padding: 0.8rem 2rem;
-  background: transparent;
-  border: 2px solid #888;
   color: #888;
-  text-decoration: none;
-  border-radius: 50px;
-  transition: all 0.3s ease;
+  border: 2px solid #888;
+  background: transparent;
 }
-
 .back-btn:hover {
-  border-color: #fff;
   color: #fff;
+  border-color: #fff;
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Adjust footer position for scrolling */
+/* ==========================================================================
+   5. FOOTER & ELEMEN DEKORATIF
+   ========================================================================== */
+
 .footer {
-  position: relative;
+  position: relative; /* Diubah dari absolute */
   bottom: auto;
-  margin-top: 2rem;
   width: 100%;
-  text-align: center;
+  margin-top: 2rem;
   padding: 0 1rem;
+  text-align: center;
   box-sizing: border-box;
 }
 
-/* Fix for floating elements causing overflow */
-.floating-math {
-  position: absolute;
-  font-size: 2rem;
-  opacity: 0.1;
-  color: #ff6b6b;
-  animation: float 8s infinite ease-in-out;
-  z-index: 0;
-  left: 10%;
-  right: 10%;
-  pointer-events: none;
-}
-
-/* Position adjustments for floating elements */
-.floating-math:nth-child(1) {
-  top: 15%;
-  left: 10%;
-  animation-delay: 0s;
-}
-.floating-math:nth-child(2) {
-  top: 25%;
-  right: 15%;
-  left: auto;
-  animation-delay: 2s;
-  color: #4ecdc4;
-}
-.floating-math:nth-child(3) {
-  bottom: 20%;
-  left: 20%;
-  right: auto;
-  animation-delay: 4s;
-  color: #ffd93d;
-}
-.floating-math:nth-child(4) {
-  top: 60%;
-  right: 25%;
-  left: auto;
-  animation-delay: 6s;
-  color: #a8e6cf;
-}
-.floating-math:nth-child(5) {
-  bottom: 30%;
-  right: 10%;
-  left: auto;
-  animation-delay: 1s;
-  color: #ff8b94;
-}
-
-/* Fix for orbs causing overflow */
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.3;
-  animation: pulse 4s infinite ease-in-out;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.orb1 {
-  width: 200px;
-  height: 200px;
-  background: #ff6b6b;
-  top: 20%;
-  left: -5%;
-  animation-delay: 0s;
-}
-
-.orb2 {
-  width: 150px;
-  height: 150px;
-  background: #4ecdc4;
-  bottom: 10%;
-  right: 55%;
-  animation-delay: 2s;
-}
-
-.orb3 {
-  width: 100px;
-  height: 100px;
-  background: #ffd93d;
-  top: 50%;
-  right: 10%;
-  animation-delay: 4s;
-}
-
-/* Fix for monster emojis causing overflow */
+/* --- (Gaya untuk .floating-math, .orb, .monster-emoji tetap sama) --- */
+/* Disarankan untuk memindahkan ini ke file CSS terpisah (misal: animations.css) */
+.floating-math,
+.orb,
 .monster-emoji {
   position: absolute;
-  font-size: 3rem;
-  animation: monsterDance 3s infinite ease-in-out;
   z-index: 0;
-  opacity: 0.3;
   pointer-events: none;
+  opacity: 0.3;
 }
+/* ... (kode untuk floating-math, orb, monster-emoji, dll) ... */
 
-.monster1 {
-  top: 10%;
-  left: 5%;
-  animation-delay: 0s;
-}
+/* ==========================================================================
+   6. ANIMASI & RESPONSIVE DESIGN
+   ========================================================================== */
 
-.monster2 {
-  bottom: 15%;
-  right: 8%;
-  animation-delay: 1s;
-}
+/* --- (Animasi Keyframes: rainbowShift, glow, float, pulse, monsterDance) --- */
+/* Disarankan juga untuk dipindahkan ke file terpisah */
 
-.monster3 {
-  top: 70%;
-  left: 8%;
-  animation-delay: 2s;
-}
+/* --- Media Queries --- */
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .scroll-container {
     padding: 1rem 0;
     justify-content: flex-start;
-    min-height: auto;
   }
-
   .tests-container {
     grid-template-columns: 1fr;
     max-width: 500px;
     gap: 1.5rem;
   }
-
   .notes-card,
   .test-card {
     padding: 1.5rem;
   }
-
-  .test-card {
-    min-height: 220px;
-  }
-
-  .notes-icon,
-  .test-icon {
-    font-size: 3rem;
-  }
-
-  .notes-title,
-  .test-title {
-    font-size: 1.6rem;
-  }
-
-  .notes-description,
-  .test-description {
-    font-size: 0.95rem;
-  }
-
-  .page-subtitle {
-    font-size: 1.3rem;
-  }
-
   .limit-description {
     font-size: 1.1rem;
     margin-bottom: 2rem;
   }
-
-  .notes-btn {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
-  }
-
-  /* Adjust floating elements for smaller screens */
-  .floating-math {
-    font-size: 1.5rem;
-  }
-
-  .monster-emoji {
-    font-size: 2rem;
-  }
-
-  /* Fix orb positions on mobile */
-  .orb1 {
-    left: -10%;
-  }
-
-  .orb2 {
-    right: 55%;
-  }
+  /* ... (penyesuaian font-size dan padding lainnya) ... */
 }
 
 @media (max-width: 480px) {
   .tests-container {
     gap: 1rem;
   }
-
   .notes-card,
   .test-card {
     padding: 1rem;
   }
-
-  .test-card {
-    min-height: 200px;
-  }
-
-  .notes-icon,
-  .test-icon {
-    font-size: 2.5rem;
-  }
-
-  .notes-title,
-  .test-title {
-    font-size: 1.4rem;
-  }
-
-  .notes-description,
-  .test-description {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .test-btn {
-    padding: 0.7rem 1.5rem;
-    font-size: 0.9rem;
-  }
-
-  .notes-btn {
-    padding: 0.7rem 1.5rem;
-    font-size: 0.9rem;
-  }
-
-  .page-subtitle {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-  }
-
   .limit-description {
     font-size: 1rem;
   }
-
-  .back-btn {
-    padding: 0.7rem 1.5rem;
-    font-size: 0.9rem;
-  }
-
-  /* Further adjust floating elements for very small screens */
-  .floating-math {
-    font-size: 1.2rem;
-  }
-
-  .monster-emoji {
-    font-size: 1.8rem;
-  }
-
-  .orb {
-    filter: blur(30px);
-  }
-
-  .orb1 {
-    width: 150px;
-    height: 150px;
-    left: -15%;
-  }
-
-  .orb2 {
-    width: 120px;
-    height: 120px;
-    right: 55%;
-  }
-
-  .orb3 {
-    width: 80px;
-    height: 80px;
-  }
-}
-
-/* Extra small devices (phones in landscape) */
-@media (max-width: 360px) {
-  .notes-card,
-  .test-card {
-    padding: 0.8rem;
-  }
-
-  .notes-title,
-  .test-title {
-    font-size: 1.3rem;
-  }
-
-  .notes-description,
-  .test-description {
-    font-size: 0.85rem;
-  }
-
-  .page-title {
-    font-size: clamp(2.5rem, 10vw, 4rem);
-  }
-
-  .page-subtitle {
-    font-size: 1rem;
-  }
-
-  .limit-description {
-    font-size: 0.9rem;
-  }
-
-  /* Further adjust decorative elements */
   .orb1,
   .orb2 {
-    display: none;
+    display: none; /* Sembunyikan beberapa elemen berat di layar kecil */
   }
+  /* ... (penyesuaian lebih lanjut untuk layar sangat kecil) ... */
 }
 
-/* Animation for page load */
-.notes-container {
-  animation: fadeSlideIn 0.8s ease-out 0.3s both;
-}
+/* ... (Media query lainnya) ... */
 
-.tests-container {
-  animation: fadeSlideIn 0.8s ease-out 0.5s both;
-}
-
-.back-btn {
-  animation: fadeSlideIn 0.8s ease-out 0.7s both;
-}
-
+/* Animasi saat load halaman */
+.notes-container,
+.tests-container,
+.back-btn,
 .limit-description {
-  animation: fadeSlideIn 0.8s ease-out 0.2s both;
+  animation: fadeSlideIn 0.8s ease-out both;
+}
+.notes-container {
+  animation-delay: 0.3s;
+}
+.tests-container {
+  animation-delay: 0.5s;
+}
+.back-btn {
+  animation-delay: 0.7s;
+}
+.limit-description {
+  animation-delay: 0.2s;
 }

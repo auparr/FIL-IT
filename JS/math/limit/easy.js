@@ -3,17 +3,15 @@ export function generateEasyLimitQuestion() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  // Pilih jenis fungsi acak (0: polinomial, 1: rasional sederhana)
   const questionType = getRandomInt(0, 1);
 
-  // Nilai x yang didekati (bilangan bulat kecil)
   const xValue = getRandomInt(-5, 5);
 
   let question, answer, steps, type;
 
   if (questionType === 0) {
     // Soal polinomial: ax^2 + bx + c atau ax + b
-    const degree = getRandomInt(1, 2); // Derajat polinomial (1 atau 2)
+    const degree = getRandomInt(1, 2);
 
     if (degree === 1) {
       // Fungsi linear: ax + b

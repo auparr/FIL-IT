@@ -13,7 +13,6 @@ import { generateMediumIntegralQuestion } from "./integral/medium.js";
 import { generateHardIntegralQuestion } from "./integral/hard.js";
 import { generateAdvancedIntegralQuestion } from "./integral/advanced.js";
 
-// Variabel untuk menyimpan soal, jawaban dan statistik
 let currentQuestion = null;
 let currentAnswer = null;
 let solutionSteps = "";
@@ -21,16 +20,13 @@ let totalQuestions = 0;
 let correctAnswers = 0;
 let currentQuestionType = "";
 
-// path
 const pathParts = window.location.pathname.split("/");
-// misal: /learn/limit/easy.html → ["", "learn", "limit", "easy.html"]
 
-const topic = pathParts[2]; // limit
-const fileName = pathParts[3]; // easy.html
+const topic = pathParts[2];
+const fileName = pathParts[3];
 
 const key = `${topic}/${fileName}`;
 
-// DOM elements
 const questionText = document.getElementById("questionText");
 const questionTypeEl = document.getElementById("questionType");
 const answerInput = document.getElementById("answerInput");
@@ -51,7 +47,6 @@ function displayNewQuestion() {
       questionText.innerHTML = currentQuestion.question;
       currentQuestionType = currentQuestion.type;
 
-      // Update tampilan jenis soal
       questionTypeEl.textContent = currentQuestionType;
       questionTypeEl.className = "question-type";
 
@@ -62,13 +57,11 @@ function displayNewQuestion() {
 
       solutionDiv.innerHTML = solutionSteps;
 
-      // Render ulang MathJax
       if (MathJax.typeset && window.MathJax) {
         MathJax.typeset([questionText]);
         MathJax.typeset([solutionDiv]);
       }
 
-      // Update statistik
       totalQuestions++;
       updateStats();
       break;

@@ -1,67 +1,133 @@
+/* ==========================================================================
+   1. GAYA DASAR & LAYOUT UTAMA
+   ========================================================================== */
+
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   color: #333;
   line-height: 1.6;
 }
+
 .container {
   position: relative;
   background-color: white;
-  border-radius: 15px;
   padding: 30px;
+  border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
 h1 {
   color: #2c3e50;
   text-align: center;
   margin-bottom: 10px;
 }
+
 .subtitle {
-  text-align: center;
   color: #7f8c8d;
+  text-align: center;
   margin-bottom: 30px;
 }
+
+.footer {
+  color: #7f8c8d;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* ==========================================================================
+   2. KOMPONEN KONTEN
+   ========================================================================== */
+
+/* --- Kotak Pertanyaan --- */
 .question-box {
-  background-color: #f8f9fa;
-  border: 2px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
   padding: 25px;
   margin: 25px 0;
+  background-color: #f8f9fa;
+  border: 2px solid #e9ecef;
   border-radius: 10px;
   text-align: center;
-  min-height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
 }
+
 #questionText {
-  /* min 0.8rem, skala mengikuti 2vw, max 2.3rem */
   font-size: clamp(1rem, 3vw, 2.3rem);
   color: #2c3e50;
 }
 
+.question-type {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-top: 10px;
+  background: #3498db; /* Warna default */
+  color: white;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+/* --- Grup Input & Form --- */
+.input-group {
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* --- Tombol Kontrol --- */
 .controls {
   display: flex;
-  justify-content: space-between;
-  margin: 25px 0;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 10px;
+  margin: 25px 0;
 }
-button {
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s;
+
+.controls button {
   flex: 1;
   min-width: 150px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
 }
+
+.controls button:active {
+  transform: translateY(0);
+}
+
 #generateBtn {
   background: linear-gradient(to right, #3498db, #2980b9);
 }
@@ -71,91 +137,93 @@ button {
 #showSolutionBtn {
   background: linear-gradient(to right, #e74c3c, #c0392b);
 }
-button:active {
-  transform: translateY(0);
+
+/* --- Tombol Kembali (Back Button) --- */
+.back-button-container {
+  text-align: center;
+  margin: 0 auto;
 }
-.input-group {
-  margin: 20px 0;
+
+.back-button {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  transition: transform 0.3s;
 }
-label {
+
+.back-button:hover {
+  transform: scale(1.25);
+}
+
+.back-button img {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #2c3e50;
+  width: 50px;
+  height: auto;
 }
-input {
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  width: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.3s;
-}
-input:focus {
-  border-color: #3498db;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-}
-.result {
-  margin-top: 25px;
-  padding: 20px;
-  border-radius: 10px;
-  display: none;
-  animation: fadeIn 0.5s;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.correct {
-  background-color: #d4edda;
-  color: #155724;
-  border: 2px solid #c3e6cb;
-}
-.incorrect {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 2px solid #f5c6cb;
-}
-.explanation {
-  margin-top: 15px;
-  font-style: italic;
-  color: #555;
-  line-height: 1.5;
-}
-.solution {
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-radius: 5px;
-  border-left: 4px solid #3498db;
-  display: none;
-}
+
+/* ==========================================================================
+   3. KOMPONEN INFO & HASIL
+   ========================================================================== */
+
+/* --- Kotak Info Kesulitan & Metode --- */
 .difficulty-info {
-  background-color: #e8f4fc;
   padding: 20px;
-  border-radius: 10px;
   margin-bottom: 25px;
+  background-color: #e8f4fc;
   border-left: 5px solid #3498db;
+  border-radius: 10px;
 }
+
 .difficulty-info h3 {
   margin-top: 0;
   color: #2c3e50;
 }
+
+.method-info {
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #e8f4fc;
+  border-radius: 5px;
+}
+
+.method-info h4 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+/* --- Kotak Hint & Catatan --- */
+.hint,
+.integer-only {
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.hint {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeaa7;
+}
+
+.integer-only {
+  color: #0c5460;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}
+
+/* --- Statistik --- */
 .stats {
   display: flex;
   justify-content: space-around;
+  padding: 15px;
   margin-top: 20px;
   background-color: #f8f9fa;
-  padding: 15px;
   border-radius: 10px;
   text-align: center;
 }
+
 .stat-item {
   flex: 1;
 }
@@ -168,224 +236,115 @@ input:focus {
   font-size: 14px;
   color: #7f8c8d;
 }
-.footer {
-  text-align: center;
-  margin-top: 30px;
-  color: #7f8c8d;
-  font-size: 14px;
+
+/* --- Hasil & Solusi --- */
+.result {
+  display: none;
+  padding: 20px;
+  margin-top: 25px;
+  border-radius: 10px;
+  animation: fadeIn 0.5s;
 }
-.hint {
-  background-color: #fff3cd;
-  border: 1px solid #ffeaa7;
-  border-radius: 5px;
-  padding: 10px;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #856404;
+
+.result.correct {
+  color: #155724;
+  background-color: #d4edda;
+  border: 2px solid #c3e6cb;
 }
-.integer-only {
-  background-color: #d1ecf1;
-  border: 1px solid #bee5eb;
-  border-radius: 5px;
-  padding: 10px;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #0c5460;
+
+.result.incorrect {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 2px solid #f5c6cb;
 }
-.method-info {
-  background-color: #e8f4fc;
+
+.explanation {
+  margin-top: 15px;
+  color: #555;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.solution {
+  display: none;
   padding: 15px;
+  margin-top: 15px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
   border-radius: 5px;
-  margin: 10px 0;
 }
-.method-info h4 {
-  margin-top: 0;
-  color: #2c3e50;
-}
+
 #solutionSteps {
   white-space: pre-line;
   line-height: 1.5;
 }
 
-.question-type {
-  display: inline-block;
-  background: #3498db;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 14px;
-  margin-top: 10px;
-}
-/* Container tombol kembali */
-.back-button-container {
-  margin: 0 auto;
-  text-align: center;
-}
+/* ==========================================================================
+   4. WARNA TIPE PERTANYAAN (QUESTION TYPE COLORS)
+   ========================================================================== */
 
-/* Styling tombol kembali */
-.back-button {
-  display: inline-block;
-  padding: 10px;
-  color: white;
-  text-decoration: none;
-  border-radius: 50%;
-  font-weight: bold;
-  transition: transform 0.3s, background-color 0.3s;
-}
+/* Mengelompokkan kelas yang memiliki warna sama */
 
-/* Back button hover */
-.back-button:hover {
-  transform: scale(1.25); /* scale to 125% */
-  transition: transform 0.3s; /* smooth scaling */
-}
-
-/* Controls buttons hover */
-
-/* Atur ukuran SVG agar proporsional */
-.back-button img {
-  width: 50px; /* sesuaikan lebar */
-  height: auto; /* pertahankan aspek rasio */
-  display: block;
-}
-
-/* Controls styling */
-.controls {
-  margin: 20px 0;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.controls button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.lhopital {
-  background: #9b59b6;
-}
-.advanced {
-  background: #e67e22;
-}
-.complex {
-  background: #16a085;
-}
-.trigonometric {
-  background: #e74c3c;
-}
-.infinity {
-  background: #f39c12;
-}
-.function-composition {
-  background: #9b59b6;
-}
-.function-inverse {
-  background: #e67e22;
-}
-.domain-range {
-  background: #2ecc71;
-}
-.function-operations {
-  background: #e74c3c;
-}
-.graph-analysis {
-  background: #16a085;
-}
-.function-eval {
-  background: #3498db;
-}
-.domain-range {
-  background: #2ecc71;
-}
-.function-operations {
-  background: #e74c3c;
-}
-.function-composition {
-  background: #f39c12;
-}
-.exponential {
-  background: #3498db;
-}
-.logarithmic {
-  background: #2ecc71;
-}
-.trigonometric {
-  background: #e74c3c;
-}
-.functional-properties {
-  background: #f39c12;
-}
-.transformations {
-  background: #9b59b6;
-}
-.functional-equations {
-  background: #1abc9c;
-}
-.lhopital {
-  background: #9b59b6;
-}
-.advanced {
-  background: #e67e22;
-}
-.complex {
-  background: #16a085;
-}
-.trigonometric {
-  background: #e74c3c;
-}
-.infinity {
-  background: #f39c12;
-}
-.function-composition {
-  background: #9b59b6;
-}
-.function-inverse {
-  background: #e67e22;
-}
-.domain-range {
-  background: #2ecc71;
-}
-.function-operations {
-  background: #e74c3c;
-}
-.graph-analysis {
-  background: #16a085;
-}
-.function-eval {
-  background: #3498db;
-}
-.multi-layer-composition {
-  background: #9b59b6;
-}
-.complex-inverse {
-  background: #e67e22;
-}
-.graph-transformations {
-  background: #16a085;
-}
-.piecewise-limit {
-  background: #e74c3c;
-}
-.parametric-conditions {
-  background: #f39c12;
-}
-.functional-equations {
-  background: #3498db;
-}
-.mixed-applications {
-  background: #2ecc71;
-}
+.lhopital,
+.function-composition,
+.transformations,
+.multi-layer-composition,
 .double-graph {
-  background: #9b59b6;
+  background: #9b59b6; /* Ungu */
 }
+
+.advanced,
+.function-inverse,
+.complex-inverse,
 .functional-equations {
-  background: #e67e22;
+  background: #e67e22; /* Oranye */
 }
+
+.complex,
+.graph-analysis,
+.graph-transformations,
 .mixed-applications {
-  background: #16a085;
+  background: #16a085; /* Hijau Tua */
+}
+
+.trigonometric,
+.function-operations,
+.piecewise-limit {
+  background: #e74c3c; /* Merah */
+}
+
+.infinity,
+.function-composition,
+.functional-properties,
+.parametric-conditions {
+  background: #f39c12; /* Kuning */
+}
+
+.domain-range,
+.logarithmic,
+.mixed-applications {
+  background: #2ecc71; /* Hijau Cerah */
+}
+
+.function-eval,
+.exponential,
+.functional-equations {
+  background: #3498db; /* Biru */
+}
+
+.functional-equations {
+  background: #1abc9c; /* Pirus */
+}
+
+/* ==========================================================================
+   5. ANIMASI
+   ========================================================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
