@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turunan - FIL IT!</title>
+    <link rel="stylesheet" href="/CSS/index.css" />
+    <link rel="stylesheet" href="/CSS/learn-topic.css" />
+  </head>
+  <body>
+    <div class="floating-math">dy/dx</div>
+    <div class="floating-math">f'(x)</div>
+    <div class="floating-math">d/dx</div>
+    <div class="floating-math">∂</div>
+    <div class="floating-math">Δy</div>
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="monster-emoji monster1">👾</div>
+    <div class="monster-emoji monster2">👹</div>
+    <div class="monster-emoji monster3">🎯</div>
+
+    <div class="scroll-container">
+      <div class="main-content">
+        <div class="limit-header">
+          <h1 class="page-title">Turunan</h1>
+          <p class="page-subtitle">Kuasai Konsep Laju Perubahan</p>
+          <p class="limit-description">
+            Turunan adalah konsep fundamental dalam kalkulus yang mengukur laju
+            perubahan suatu fungsi. Turunan digunakan untuk menentukan
+            kemiringan garis singgung, mencari nilai maksimum dan minimum, serta
+            menganalisis perilaku fungsi dalam berbagai aplikasi sains dan
+            rekayasa.
+          </p>
+        </div>
+
+        <!-- Notes/Learning Card - Full Width -->
+        <div class="notes-container">
+          <div class="notes-card">
+            <span class="notes-icon">📚</span>
+            <h2 class="notes-title">Materi Belajar</h2>
+            <p class="notes-description">
+              Catatan lengkap tentang konsep turunan, aturan dasar diferensiasi,
+              aturan rantai, turunan implisit, dan aplikasinya. Pelajari cara
+              menghitung turunan berbagai jenis fungsi dan menerapkannya dalam
+              masalah optimasi dan analisis kurva.
+            </p>
+            <a
+              href="https://www.notion.so/Panduan-Lengkap-Turunan-Catatan-Belajar-2805eff0680980a7af21d241222287ff"
+              class="notes-btn"
+            >
+              Catatan Belajar
+            </a>
+          </div>
+        </div>
+
+        <!-- Test Cards - 2x2 Grid -->
+        <div class="tests-container">
+          <!-- Easy Difficulty Card -->
+          <div class="test-card easy">
+            <span class="test-icon">😊</span>
+            <h2 class="test-title">Soal Mudah</h2>
+            <p class="test-description">
+              Soal turunan tingkat dasar untuk membangun pemahaman awal. Cocok
+              bagi pemula yang baru memulai belajar diferensiasi dan aturan
+              dasar turunan.
+            </p>
+            <a href="/learn/turunan/easy.html" class="test-btn easy">
+              Mulai Mudah
+            </a>
+          </div>
+
+          <!-- Medium Difficulty Card -->
+          <div class="test-card medium">
+            <span class="test-icon">😐</span>
+            <h2 class="test-title">Soal Menengah</h2>
+            <p class="test-description">
+              Soal dengan tingkat kesulitan sedang yang menguji pemahaman aturan
+              rantai, turunan produk, dan turunan hasil bagi fungsi.
+            </p>
+            <a href="/learn/turunan/medium.html" class="test-btn medium">
+              Coba Menengah
+            </a>
+          </div>
+
+          <!-- Hard Difficulty Card -->
+          <div class="test-card hard">
+            <span class="test-icon">😓</span>
+            <h2 class="test-title">Soal Sulit</h2>
+            <p class="test-description">
+              Soal menantang yang membutuhkan penguasaan turunan implisit,
+              turunan tingkat tinggi, dan kombinasi berbagai aturan
+              diferensiasi.
+            </p>
+            <a href="/learn/turunan/hard.html" class="test-btn hard">
+              Tantangan Sulit
+            </a>
+          </div>
+
+          <!-- Advanced Difficulty Card -->
+          <div class="test-card advanced">
+            <span class="test-icon">🔥</span>
+            <h2 class="test-title">Soal Lanjutan</h2>
+            <p class="test-description">
+              Soal tingkat ahli yang mencakup aplikasi turunan dalam optimasi,
+              analisis kurva, dan masalah kompleks yang menggabungkan berbagai
+              teknik diferensiasi.
+            </p>
+            <a href="/learn/turunan/advanced.html" class="test-btn advanced">
+              Lanjutkan
+            </a>
+          </div>
+        </div>
+
+        <a href="/learn.html" class="back-btn">← Back to Learning Topics</a>
+      </div>
+
+      <div class="footer">
+        <p>Presented by <span class="team-name">Kelompok 1</span> 🚀</p>
+      </div>
+    </div>
+
+    <script src="/JS/game/core/underDevelopment.js"></script>
+
+    <script>
+      // Add random floating symbols occasionally
+      setInterval(() => {
+        if (Math.random() < 0.3) {
+          const symbols = ["dy/dx", "f'(x)", "d/dx", "∂", "Δy", "d²y/dx²", "∇"];
+          const symbol = document.createElement("div");
+          symbol.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+          symbol.style.cssText = `
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            top: 100vh;
+            left: ${Math.random() * 80 + 10}%;
+            animation: floatUp 4s linear forwards;
+            z-index: 0;
+          `;
+          document.body.appendChild(symbol);
+
+          setTimeout(() => symbol.remove(), 4000);
+        }
+      }, 2000);
+
+      // Add floatUp animation if not already present
+      if (!document.querySelector("style[data-float-animation]")) {
+        const style = document.createElement("style");
+        style.setAttribute("data-float-animation", "true");
+        style.textContent = `
+          @keyframes floatUp {
+            to {
+              transform: translateY(-120vh) rotate(360deg);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    </script>
+  </body>
+</html>

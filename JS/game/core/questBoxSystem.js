@@ -14,7 +14,7 @@ function generateQuestBoxQuestions() {
   questBoxQuestions = [];
   for (let i = 0; i < 5; i++) {
     const question = getQuestionForQuestBox();
-    // console.log("Generated question", i + 1, ":", question);
+    console.log("Generated question", i + 1, ":", question);
     questBoxQuestions.push({
       question: question.question,
       answer: question.answer,
@@ -93,7 +93,7 @@ function showQuestBoxQuestion() {
     <span style="font-size: 12px; color: #888;">
       Jawab menggunakan integer (bilangan bulat)
     </span><br>
-    <strong style="font-size:13px;">Note: Cukup masukkan koefisien untuk soal integral!</strong>
+    <strong style="font-size:13px;">Note: Cukup masukkan koefisien terdepan untuk soal integral atau turunan!</strong>
   `;
 
   questionText.innerHTML = questBoxCurrentQuestion.question;

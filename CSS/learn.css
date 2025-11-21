@@ -533,3 +533,42 @@ body {
 .back-btn {
   animation: fadeSlideIn 0.8s ease-out 0.5s both;
 }
+
+.topic-card.turunan {
+  border-color: #a29bfe;
+  box-shadow: 0 0 20px rgba(162, 155, 254, 0.3);
+}
+
+.topic-btn.turunan {
+  border-color: #a29bfe;
+  background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+}
+/* ==========================================================================
+   TURUNAN (DERIVATIVE) TOPIC STYLES - Add to CSS/learn.css
+   ========================================================================== */
+
+/* Turunan Topic Card */
+.topic-card.turunan {
+  border-color: #a29bfe;
+  box-shadow: 0 0 20px rgba(162, 155, 254, 0.3);
+}
+
+/* Turunan Topic Button */
+.topic-btn.turunan {
+  border-color: #a29bfe;
+  background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+}
+
+/* Hover effect for turunan button */
+.topic-btn.turunan:hover {
+  box-shadow: 0 5px 15px rgba(162, 155, 254, 0.4);
+}
+.test-card.turunan-easy {
+  border-color: #a29bfe;
+  box-shadow: 0 0 20px rgba(162, 155, 254, 0.3);
+}
+
+.test-btn.turunan-easy {
+  border-color: #a29bfe;
+  background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+}

@@ -13,6 +13,11 @@ import { generateMediumIntegralQuestion } from "./integral/medium.js";
 import { generateHardIntegralQuestion } from "./integral/hard.js";
 import { generateAdvancedIntegralQuestion } from "./integral/advanced.js";
 
+import { generateEasyDerivativeQuestion } from "./turunan/easy.js";
+import { generateMediumDerivativeQuestion } from "./turunan/medium.js";
+import { generateHardDerivativeQuestion } from "./turunan/hard.js";
+import { generateAdvancedDerivativeQuestion } from "./turunan/advanced.js";
+
 let currentQuestion = null;
 let currentAnswer = null;
 let solutionSteps = "";
@@ -434,6 +439,132 @@ function displayNewQuestion() {
       totalQuestions++;
       updateStats();
 
+      break;
+    case "turunan/easy.html":
+      currentQuestion = generateEasyDerivativeQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      // Update tampilan jenis soal
+      questionTypeEl.textContent = currentQuestionType;
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+      solutionDiv.innerHTML = solutionSteps;
+
+      // Render ulang MathJax
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      // Update statistik
+      totalQuestions++;
+      updateStats();
+
+      break;
+    case "turunan/medium.html":
+      currentQuestion = generateMediumDerivativeQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      // Update tampilan jenis soal
+      questionTypeEl.textContent = currentQuestionType;
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+      solutionDiv.innerHTML = solutionSteps;
+
+      // Render ulang MathJax
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      // Update statistik
+      totalQuestions++;
+      updateStats();
+
+      break;
+    case "turunan/hard.html":
+      currentQuestion = generateHardDerivativeQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      questionTypeEl.textContent = currentQuestionType;
+
+      // Color coding based on question type
+      if (currentQuestionType.includes("Implisit")) {
+        questionTypeEl.className = "question-type implicit-derivative";
+      } else if (currentQuestionType.includes("Eksponensial")) {
+        questionTypeEl.className = "question-type exponential-derivative";
+      } else if (currentQuestionType.includes("Logaritma")) {
+        questionTypeEl.className = "question-type logarithmic-derivative";
+      } else if (currentQuestionType.includes("Trigonometri")) {
+        questionTypeEl.className = "question-type advanced-trig-derivative";
+      } else if (
+        currentQuestionType.includes("Kedua") ||
+        currentQuestionType.includes("Ketiga")
+      ) {
+        questionTypeEl.className = "question-type higher-order-derivative";
+      } else {
+        questionTypeEl.className = "question-type";
+      }
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+      solutionDiv.innerHTML = solutionSteps;
+
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      totalQuestions++;
+      updateStats();
+      break;
+
+    case "turunan/advanced.html":
+      currentQuestion = generateAdvancedDerivativeQuestion();
+      questionText.innerHTML = currentQuestion.question;
+      currentQuestionType = currentQuestion.type;
+
+      questionTypeEl.textContent = currentQuestionType;
+
+      // Color coding based on question type
+      if (currentQuestionType.includes("Optimasi")) {
+        questionTypeEl.className = "question-type optimization";
+      } else if (currentQuestionType.includes("Laju Terkait")) {
+        questionTypeEl.className = "question-type related-rates";
+      } else if (currentQuestionType.includes("Analisis Kurva")) {
+        questionTypeEl.className = "question-type curve-analysis";
+      } else if (currentQuestionType.includes("Parametrik")) {
+        questionTypeEl.className = "question-type parametric-derivative";
+      } else if (currentQuestionType.includes("Aproksimasi")) {
+        questionTypeEl.className = "question-type linear-approximation";
+      } else {
+        questionTypeEl.className = "question-type";
+      }
+
+      answerInput.value = "";
+      resultDiv.style.display = "none";
+      solutionDiv.style.display = "none";
+      solutionSteps = currentQuestion.steps;
+      solutionDiv.innerHTML = solutionSteps;
+
+      if (MathJax.typeset) {
+        MathJax.typeset([questionText]);
+        MathJax.typeset([solutionDiv]);
+      }
+
+      totalQuestions++;
+      updateStats();
       break;
     default:
       alert(`there is no ${key}.`);

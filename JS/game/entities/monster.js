@@ -1,5 +1,21 @@
-// Create monsters
 function createMonsters() {
+  let speed;
+  switch (window.difficulty) {
+    case "Easy":
+      speed = 3.2;
+      break;
+    case "Medium":
+      speed = 3.7;
+      break;
+    case "Hard":
+      speed = 4.2;
+    case "Advanced":
+      speed = 4.7;
+      break;
+    default:
+      speed = 3.2;
+      break;
+  }
   for (let i = 0; i < monsterCount; i++) {
     const monster = document.createElement("div");
     monster.classList.add("obstacle");
@@ -27,7 +43,7 @@ function createMonsters() {
       y: y,
       dx: Math.cos(angle) * 2,
       dy: Math.sin(angle) * 2,
-      chaseSpeed: 3.2,
+      chaseSpeed: speed,
       visionRange: 150,
       visionAngle: (60 * Math.PI) / 180,
       isChasing: false,

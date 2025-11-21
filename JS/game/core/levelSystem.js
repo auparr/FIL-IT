@@ -40,6 +40,7 @@ const DIFFICULTY_ORDER = ["easy", "medium", "hard", "advanced"];
 // =========================
 
 function getCurrentDifficultyConfig() {
+  window.difficulty = DIFFICULTY_CONFIG[currentDifficulty].name;
   return DIFFICULTY_CONFIG[currentDifficulty];
 }
 
