@@ -1,7 +1,3 @@
-// =========================
-// Level System Core
-// =========================
-
 let currentDifficulty = "easy";
 let currentLevel = 1;
 let questBoxQuestionsAnswered = 0;
